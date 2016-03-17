@@ -1,0 +1,44 @@
+\NeedsTeXFormat{LaTeX2e}[1994/02/01]
+\documentclass[12pt]{article}
+\usepackage{graphicx,rotating,epsfig}
+\addtolength{\textheight}{2.8cm}\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-1.cm}\addtolength{\voffset}{-1.6cm} 
+\newlength{\digitwidth} \settowidth{\digitwidth}{\rm 0}
+\newcommand{\cinst}[2]{$^{\mathrm{#1)}}$~#2\par}
+\newcommand{\crefi}[1]{$^{\mathrm{#1)}}$}
+\newcommand{\HRule}{\rule{0.4\linewidth}{0.3mm}}
+\newcommand{\mlab}[1]%
+    {\mbox{}\marginpar{\raggedright\hspace{0pt}\footnotesize #1}}
+\newcommand{\pt}{$p_{\mathrm{T}}$}
+\newcommand{\mt}{$m_{\mathrm{T}}$}
+\newcommand{\DDbar}{$D\bar{D}$}
+\newcommand{\ccbar}{$c\bar{c}$}
+\newcommand{\qqbar}{$q\bar{q}$}
+\newcommand{\et}{$E_{\rm T}$}
+\newcommand{\jpsi}{J/$\psi$}
+\newcommand{\psip}{$\psi^\prime$}
+\newcommand{\cost}{$|\cos \theta|$}
+\usepackage{geometry}
+%\geometry{left=2.0cm,right=1.0cm,top=0.8cm,bottom=0.8cm}
+
+\begin{document}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{Fit/parameter/mass/sigma1_2.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/mass/sigmaEffective.pdf}
+\caption{individual(top) and effective(bottom) sigma change as pT for $\psi$}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{Fit/parameter/mass/alphaCB.pdf}
+\caption{$\alpha$ of CB function change as pT for $\psi$}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/mass/fracSigInLSB.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/mass/fracSigInRSB.pdf}
+\caption{signal contamination in LSB(top) and RSB(bottom), change as pT for $\psi$}
+\end{figure}
+\clearpage
+
+\end{document}

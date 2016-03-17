@@ -1,0 +1,52 @@
+\NeedsTeXFormat{LaTeX2e}[1994/02/01]
+\documentclass[12pt]{article}
+\usepackage{graphicx,rotating,epsfig}
+\addtolength{\textheight}{2.8cm}\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-1.cm}\addtolength{\voffset}{-1.6cm} 
+\newlength{\digitwidth} \settowidth{\digitwidth}{\rm 0}
+\newcommand{\cinst}[2]{$^{\mathrm{#1)}}$~#2\par}
+\newcommand{\crefi}[1]{$^{\mathrm{#1)}}$}
+\newcommand{\HRule}{\rule{0.4\linewidth}{0.3mm}}
+\newcommand{\mlab}[1]%
+    {\mbox{}\marginpar{\raggedright\hspace{0pt}\footnotesize #1}}
+\newcommand{\pt}{$p_{\mathrm{T}}$}
+\newcommand{\mt}{$m_{\mathrm{T}}$}
+\newcommand{\DDbar}{$D\bar{D}$}
+\newcommand{\ccbar}{$c\bar{c}$}
+\newcommand{\qqbar}{$q\bar{q}$}
+\newcommand{\et}{$E_{\rm T}$}
+\newcommand{\jpsi}{J/$\psi$}
+\newcommand{\psip}{$\psi^\prime$}
+\newcommand{\cost}{$|\cos \theta|$}
+\usepackage{geometry}
+%\geometry{left=4.5cm,right=3.5cm,top=0.8cm,bottom=0.8cm}
+
+\begin{document}
+
+%%%%%%%%%%%%% 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/bkgTauSSL.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/bkgTauSSR.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/bkgTauDS.pdf}
+\caption{Lifetime fit shape parameters change as \pt\ for all rapidity bins, $\psi$}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/fBkgSSL.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/fBkgSSR.pdf}
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/fBkgDS.pdf}
+\caption{Lifetime fit normalization parameters change as \pt\ for all rapidity bins, $\psi$}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{Fit/parameter/life/frac2ndGauss.pdf}
+\caption{relative fraction of second gaussian in the lifetime resolution function, change as \pt\ for all rapidity bins, $\psi$}
+\end{figure}
+\clearpage
+
+\end{document}

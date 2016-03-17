@@ -1,0 +1,273 @@
+\documentclass[11pt,slidescentered,red,compress,handout,hyperref={bookmarks=true},mathseriftable]{beamer}
+\input{myStyle}
+
+\newcommand{\pT}{p_\mathrm{T}}
+\newcommand{\Jpsi}{\mathrm{J}/\psi}
+\newcommand{\UpsOne}{\Upsilon(1S)}
+\newcommand{\UpsTwo}{\Upsilon(2S)}
+\newcommand{\UpsThree}{\Upsilon(3S)}
+\newcommand{\UpsN}{\Upsilon(nS)}
+\newcommand{\abseta}{\left |  \eta \right |}
+\newcommand{\absy}{\left |  y \right |}
+\newcommand{\costh}{\cos\vartheta}
+\newcommand{\inpb}{\text{pb}^{-1}}
+\newcommand{\infb}{\text{fb}^{-1}}
+\newcommand{\TM}{\mu^{{\scriptscriptstyle TM}}}
+\newcommand{\HLTM}{\mu^{{\scriptscriptstyle HLT}}}
+\newcommand{\pxp}{ p_x^{\mu^{+} } }
+\newcommand{\pyp}{ p_y^{\mu^{+} } }
+\newcommand{\pzp}{ p_z^{\mu^{+} } }
+\newcommand{\pxm}{ p_x^{\mu^{-} } }
+\newcommand{\pym}{ p_y^{\mu^{-} } }
+\newcommand{\pzm}{ p_z^{\mu^{-} } }
+\newcommand{\ppvec}{\vec{p}^{\;\mu^{+} } }
+\newcommand{\pmvec}{\vec{p}^{\;\mu^{-} } }
+\newcommand{\mmumu}{m_{\mu\mu}}
+\newcommand{\ljpsi}{l_{\Jpsi}}
+\newcommand{\lpsi}{\ell_{\psi}}
+\newcommand{\mpsi}{M_{\psi}}
+%lambdas:
+\newcommand{\lamth}{\lambda_\vartheta}
+\newcommand{\lamph}{\lambda_\varphi}
+\newcommand{\lamthph}{\lambda_{\vartheta\varphi}}
+\newcommand{\lamtilde}{\tilde{\lambda}}
+\newcommand{\lam}{\mbox{\boldmath$\lambda$}}
+\newcommand{\lamthCS}{\lambda^{\scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphCS}{\lambda^{\scriptscriptstyle CS}_\varphi}
+\newcommand{\lamthphCS}{\lambda^{\scriptscriptstyle CS}_{\vartheta \varphi}}
+\newcommand{\lamtildeCS}{\tilde{\lambda}^{\scriptscriptstyle CS}}
+\newcommand{\lamthHX}{\lambda^{\scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphHX}{\lambda^{\scriptscriptstyle HX}_\varphi}
+\newcommand{\lamthphHX}{\lambda^{\scriptscriptstyle HX}_{\vartheta \varphi}}
+\newcommand{\lamtildeHX}{\tilde{\lambda}^{\scriptscriptstyle HX}}
+\newcommand{\lamthPX}{\lambda^{\scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphPX}{\lambda^{\scriptscriptstyle PX}_\varphi}
+\newcommand{\lamthphPX}{\lambda^{\scriptscriptstyle PX}_{\vartheta \varphi}}
+\newcommand{\lamtildePX}{\tilde{\lambda}^{\scriptscriptstyle PX}}
+
+\newcommand{\sigsyst}{\sigma_{syst}}
+\newcommand{\sigstat}{\sigma_{stat}}
+\newcommand{\tnp}{T\&P}
+
+% 'SIX' lambda plot positions
+\newcommand{\SIXplotOneY}{12}
+\newcommand{\SIXplotTwoY}{24}
+\newcommand{\SIXplotOneX}{1}
+\newcommand{\SIXplotTwoX}{17}
+\newcommand{\SIXplotThreeX}{33}
+\newcommand{\SIXplotSize}{16}
+
+% Lambda label positions
+\newcommand{\LabelSIXplotOneY}{14}
+\newcommand{\LabelSIXplotTwoY}{26}
+\newcommand{\LabelSIXplotOneX}{6}
+\newcommand{\LabelSIXplotTwoX}{22}
+\newcommand{\LabelSIXplotThreeX}{38}
+\newcommand{\LabelSIXplotSize}{5}
+\newcommand{\LabelSIXplotScriptSize}{\tiny}
+
+% Lambda label positions in Results plots
+\newcommand{\ResultLabelSIXplotOneY}{13.5}
+\newcommand{\ResultLabelSIXplotTwoY}{25.5}
+\newcommand{\ResultLabelSIXplotOneX}{13.5}
+\newcommand{\ResultLabelSIXplotTwoX}{29.5}
+\newcommand{\ResultLabelSIXplotThreeX}{45.5}
+\newcommand{\ResultLabelSIXplotSize}{5}
+\newcommand{\ResultLabelSIXplotScriptSize}{\tiny}
+
+% Figure directories
+\newcommand{\FittingRltsOneS}{../Psi1S/Fit/parameter/evaluateCtau/}
+\newcommand{\FittingRltsTwoS}{../Psi2S/Fit/parameter/evaluateCtau/}
+
+%%%%% Include this definition (Joao) %%%%%%%%%%%%
+\newlength{\eqboxstorage}
+\newcommand{\eqbox}[1]{
+\setlength{\eqboxstorage}{\fboxsep}
+\setlength{\fboxsep}{6pt}
+\boxed{#1}
+\setlength{\fboxsep}{\eqboxstorage}
+}
+
+%%%%%%%%%%%%% 
+%%%Colors%%%%
+%%%%%%%%%%%%%
+%black= body 
+%blue=structure 
+%red=alert 
+%green=example
+
+%%%%%%%%%%%%%%% 
+%%%FontSize%%%%
+%%%%%%%%%%%%%%%
+%\tiny  5pt 
+%\scriptsize 7pt 
+%\footnotesize 8pt 
+%\small  9pt 
+%\normalsize 10pt 
+%\large  12pt 
+%\Large  14.4pt 
+%\LARGE  17.28pt 
+%\huge  20.74pt 
+%\Huge  24.88pt 
+
+\begin{document}
+
+%\begin{frame}[plain]
+%  \titlepage
+%\end{frame}
+%
+%\begin{frame}[t]{\small \bf Outline}{}
+%\tableofcontents
+%\end{frame}
+
+\section{Definitions of PR and NP regions } 
+\begin{frame}[t]{\small \bf Definitions of PR and NP regions }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item I) get $\sigma$ of prompt p.d.f, by parametrizing the trend changes as $p_{T}$
+\scriptsize \item II) define PR, and NP regions as: [-nSigma*$\sigma$, nSigma*$\sigma$], [-nSigma*$\sigma$, +$\infty$], respectively.
+nSigma=2.5 for $\Jpsi$, and nSigma=2.0 for $\psi(2S)$
+\scriptsize \item III) Evaluate Prompt, Non-prompt, and Background fractions in PR and NP
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,13)
+\scriptsize $\sigma$ changes vs. $p_{T}$ for all rapidity bins: \structure{1S (left), 2S (right)}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/rms.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/rms.pdf}
+\end{textblock}
+\end{frame}
+
+%%%%%%%%%%%%%%% 1S
+\begin{frame}[t]{\small \bf fractions in P region, \structure{$\psi$(1S), nSigma = 2.5} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  $|$y$|$ $<$ 0.6(left) and 0.6 $<$ $|$y$|$ $<$ 1.2(right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/fraction_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/fraction_rap2.pdf}
+\end{textblock}
+\end{frame}
+
+%%%%%%%%%%% errors on fraction
+\begin{frame}[t]{\small \bf fractions in P region, \structure{Errors $\psi$(1S), nSigma = 2.5} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  $|$y$|$ $<$ 0.6(left) and 0.6 $<$ $|$y$|$ $<$ 1.2(right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/fractionErr_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/fractionErr_rap2.pdf}
+\end{textblock}
+\end{frame}
+
+%%%%%%%%%%%%%%% 2S
+\begin{frame}[t]{\small \bf fractions in P region, \structure{$\psi$(2S), nSigma = 2.0} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  $|$y$|$ $<$ 0.6(left), 0.6 $<$ $|$y$|$ $<$ 1.2(right), and 1.2 $<$ $|$y$|$ $<$ 1.5(bottom)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fraction_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fraction_rap2.pdf}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fraction_rap3.pdf}
+\end{textblock}
+\end{textblock}
+\end{frame}
+
+%%%%%%%%%%% errors on fraction
+\begin{frame}[t]{\small \bf fractions in P region, \structure{Errors $\psi$(2S), nSigma = 2.0} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item $|$y$|$ $<$ 0.6(left), 0.6 $<$ $|$y$|$ $<$ 1.2(right), and 1.2 $<$ $|$y$|$ $<$ 1.5(bottom)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fractionErr_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fractionErr_rap2.pdf}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/fractionErr_rap3.pdf}
+\end{textblock}
+\end{textblock}
+\end{frame}
+
+
+%%%%%%%%%%% NP region
+%\section{Evaluate $\lpsi$ cut (NP region)} 
+%\begin{frame}[t]{\small \bf Evaluate $\lpsi$ cut (NP region)}{}
+%\begin{textblock}{48}(1,5.25)
+%\begin{itemize}
+%\scriptsize \item I) define NP region as window [nSigma*$\sigma$, +$\infty$]
+%\scriptsize \item II) Evaluate Prompt, Non-prompt, and Background fractions in this NP region
+%\end{itemize}
+%\end{textblock}
+%%\begin{textblock}{48}(1,13)
+%%\scriptsize sigma changes vs. $p_{T}$ for all rapidity bins: \structure{1S (left), 2S (right)}
+%%\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS PR_2.5sigma/rms.pdf}
+%%\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS PR_2sigma/rms.pdf}
+%%\end{textblock}
+%\end{frame}
+
+%%%%%% 1S
+\begin{frame}[t]{\small \bf fractions in NP region, \structure{$\psi$(1S), nSigma = 2.5} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  $|$y$|$ $<$ 0.6(left) and 0.6 $<$ $|$y$|$ $<$ 1.2(right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS NP_2.5sigma/fraction_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS NP_2.5sigma/fraction_rap2.pdf}
+\end{textblock}
+\end{frame}
+
+%%%%%%%%%% error on fraction
+\begin{frame}[t]{\small \bf fractions in NP region, \structure{Errors $\psi$(1S), nSigma = 2.5} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  errors, $|$y$|$ $<$ 0.6(left) and 0.6 $<$ $|$y$|$ $<$ 1.2(right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS NP_2.5sigma/fractionErr_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS NP_2.5sigma/fractionErr_rap2.pdf}
+\end{textblock}
+\end{frame}
+
+%%%%%%% 2S
+\begin{frame}[t]{\small \bf fractions in NP region, \structure{$\psi$(2S), nSigma = 2.0} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  $|$y$|$ $<$ 0.6(left), 0.6 $<$ $|$y$|$ $<$ 1.2(right), and 1.2 $<$ $|$y$|$ $<$ 1.5(bottom)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fraction_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fraction_rap2.pdf}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fraction_rap3.pdf}
+\end{textblock}
+\end{textblock}
+\end{frame}
+
+%%%%% Error
+\begin{frame}[t]{\small \bf fractions in NP region, \structure{Errors $\psi$(2S), nSigma = 2.0} }{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item errors, $|$y$|$ $<$ 0.6(left), 0.6 $<$ $|$y$|$ $<$ 1.2(right), and 1.2 $<$ $|$y$|$ $<$ 1.5(bottom)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fractionErr_rap1.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fractionErr_rap2.pdf}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS NP_2sigma/fractionErr_rap3.pdf}
+\end{textblock}
+\end{textblock}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,13 @@
+universe = vanilla
+Executable = runDataFitsJob.sh
+getenv = True
+requirements = (OpSys == "LINUX")
+should_transfer_files = NO
+Requirements = TARGET.FileSystemDomain == "privnet"
+Output = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/NchBins/macros/polFit/logs/simple_$(cluster)_$(process).stdout
+Error  = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/NchBins/macros/polFit/logs/simple_$(cluster)_$(process).stderr
+Log    = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/NchBins/macros/polFit/logs/simple_$(cluster)_$(process).condor
+
+Arguments = simple_$(cluster) $(process) /data/users/ferraioc/Polarization/JPsi/NchBins/Data /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/NchBins/macros/polFit
+
+queue 1
