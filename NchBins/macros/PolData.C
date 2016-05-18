@@ -138,7 +138,13 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					HLT_Dimuon10_Jpsi_Barrel_v3 == 1 ||  //1.4e33: 167078 - 167913 (prescale of 2)
 					HLT_Dimuon10_Jpsi_Barrel_v5 == 1 || //2E33 (no cowboys)
 					HLT_Dimuon10_Jpsi_Barrel_v6 == 1 || //3E33 (L1_DoubleMu0_HighQ; becomes inactive for Linst >= 5E33)
-					HLT_Dimuon10_Jpsi_Barrel_v9 == 1)  //5E33
+					HLT_Dimuon10_Jpsi_Barrel_v9 == 1 ||
+					HLT_Dimuon8_Jpsi_v3 == 1  ||
+					HLT_Dimuon8_Jpsi_v4 == 1  ||
+					HLT_Dimuon8_Jpsi_v5 == 1  ||
+					HLT_Dimuon10_Jpsi_v3 == 1 ||
+					HLT_Dimuon10_Jpsi_v4 == 1)  
+					//5E33
 				//HLT_Dimuon13_Jpsi_Barrel_v1 == 1 || //3E33 (L1_DoubleMu0_HighQ; becomes inactive for Linst >= 5E33)
 				//HLT_Dimuon13_Jpsi_Barrel_v4 == 1) //5E33
 				trigDecision = 1;
@@ -151,7 +157,13 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					(HLT_Dimuon10_Jpsi_Barrel_v3 == 1 && onia->Pt() < 10) ||
 					(HLT_Dimuon10_Jpsi_Barrel_v5 == 1 && onia->Pt() < 10) ||
 					(HLT_Dimuon10_Jpsi_Barrel_v6 == 1 && onia->Pt() < 10) ||
-					(HLT_Dimuon10_Jpsi_Barrel_v9 == 1 && onia->Pt() < 10))
+					(HLT_Dimuon10_Jpsi_Barrel_v9 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v3 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v4 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v5 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_v3 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_v4 == 1 && onia->Pt() < 10) 
+					)
 				//(HLT_Dimuon13_Jpsi_Barrel_v1 == 1 && onia->Pt() < 13) ||
 				//(HLT_Dimuon13_Jpsi_Barrel_v4 == 1 && onia->Pt() < 13))
 				continue;

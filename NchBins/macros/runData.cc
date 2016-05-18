@@ -76,7 +76,7 @@ int main(int argc, char* argv[]){
   
   // Set defaults
     bool
-        rejectCowboys = true,
+        rejectCowboys = false,
         MC=false,
         RequestTrigger=false,
 				removeEta0p2_0p3=false,

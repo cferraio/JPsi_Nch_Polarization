@@ -161,15 +161,17 @@ void bkgHistos(const std::string infilename, int rapBin, int ptBin, int cpmBin, 
 	RooArgList mvarlist = mresult->floatParsFinal();
 
 	// parameters
-	RooRealVar *CBmass=(RooRealVar*)mvarlist.find("CBmass");
-	RooRealVar *CBsigma1=(RooRealVar*)mvarlist.find("CBsigma");
-	RooRealVar *CBsigma2=(RooRealVar*)mvarlist.find("CBsigma2");
-	RooRealVar *fracCB1=(RooRealVar*)mvarlist.find("fracCB1");
+	RooRealVar *CBmass=(RooRealVar*)mvarlist.find("CBmass_p0");
+	RooRealVar *CBsigma_p0 = ws->var("CBsigma_p0");
+	RooRealVar *CBsigma_p1 = ws->var("CBsigma_p1");
+	RooRealVar *CBsigma_p2 = ws->var("CBsigma_p2");
+	RooRealVar *JpsiRap = ws->var("JpsiRap");
 	double mass = CBmass->getVal();
-	double Sigma1 = CBsigma1->getVal();
-	double Sigma2 = CBsigma2->getVal();
-	double fCB1 = fracCB1->getVal();
-	double sigma = sqrt( pow(Sigma1,2)*fCB1 + pow(Sigma2,2)*(1-fCB1) );
+	double cbsigp0 = CBsigma_p0->getVal();
+	double cbsigp1 = CBsigma_p1->getVal();
+	double cbsigp2 = CBsigma_p2->getVal();
+	double jpsirap = JpsiRap->getVal();
+	double sigma = cbsigp0 + cbsigp1*jpsirap + cbsigp2*pow(jpsirap,2);
 
 	// variables
 	RooRealVar *m = ws->var("JpsiMass");
@@ -197,7 +199,7 @@ void bkgHistos(const std::string infilename, int rapBin, int ptBin, int cpmBin, 
 	ws->loadSnapshot(masssnapshotname.str().c_str());
 
 	TF1* funcBG = (TF1*)bkgMass->asTF(*m, *bkgLambda, *m);
-	TF1* funcSig = (TF1*)signalMass->asTF(*m, RooArgList(*CBalpha, *fracCB1, *CBn, *CBsigma1, *CBsigma2, *CBmass), *m);
+	TF1* funcSig = (TF1*)signalMass->asTF(*m, RooArgList(*CBalpha, *CBn, *CBsigma_p0, *CBsigma_p1, *CBsigma_p2, *CBmass), *m);
 
 	//-------------------------------------------------------------------------------------------------
 	// mass edges for left and right sideband
@@ -241,6 +243,7 @@ void bkgHistos(const std::string infilename, int rapBin, int ptBin, int cpmBin, 
 			Name(dataBin.str().c_str()),
 			Title("Data For Fitting"));
 	int entries = binData->numEntries();
+	
 
 	// load snapshot with all results
 	std::stringstream snapshotname;
@@ -744,7 +747,7 @@ void bkgHistos(const std::string infilename, int rapBin, int ptBin, int cpmBin, 
 		if(i % 100000 == 0) {std::cout << "entry " << i << " out of " << n << std::endl;}
 
 		// ------------------------- TLorentzVecotrs -------------------------
-		if(jpsi->Pt() >= onia::pTRange[rapBin-1][ptBin-1] &&
+		if(cpmval > onia::cpmRange[cpmBin-1] && cpmval < onia::cpmRange[cpmBin] && jpsi->Pt() >= onia::pTRange[rapBin-1][ptBin-1] &&
 				jpsi->Pt() < onia::pTRange[rapBin-1][ptBin] &&
 				TMath::Abs(jpsi->Rapidity()) >= onia::rapForPTRange[rapBin-1] &&
 				TMath::Abs(jpsi->Rapidity()) < onia::rapForPTRange[rapBin]){
@@ -1150,8 +1153,8 @@ void bkgHistos(const std::string infilename, int rapBin, int ptBin, int cpmBin, 
 		long iEntry = intree->LoadTree(i);
 		intree->GetEntry(iEntry);
 		if(i % 100000 == 0) std::cout << "entry " << i << " out of " << n << std::endl;
-
-		if(jpsi->Pt() >= onia::pTRange[rapBin-1][ptBin-1] &&
+		
+		if(cpmval > onia::cpmRange[cpmBin-1] && cpmval < onia::cpmRange[cpmBin] && jpsi->Pt() >= onia::pTRange[rapBin-1][ptBin-1] &&
 				jpsi->Pt() < onia::pTRange[rapBin-1][ptBin] &&
 				TMath::Abs(jpsi->Rapidity()) >= onia::rapForPTRange[rapBin-1] &&
 				TMath::Abs(jpsi->Rapidity()) < onia::rapForPTRange[rapBin]){

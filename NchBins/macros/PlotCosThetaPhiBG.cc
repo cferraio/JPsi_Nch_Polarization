@@ -122,13 +122,13 @@ int main(int argc, char* argv[]){
 
 		fprintf(NumFile, "\n\n\n\n");
 
-		fprintf(NumFile, "\\begin{table}[!H]\n\\centering\n \\caption{Number of prompt signal events, non-prompt fraction and background fraction in the PRSR, as a function of $p_{T}$ and $y$. The fractions are in \\% . } \n");
+		fprintf(NumFile, "\\begin{table}\n\\centering\n \\caption{Number of prompt signal events, non-prompt fraction and background fraction in the PRSR, as a function of $p_{T}$ and $y$. The fractions are in \\% . } \n");
 		fprintf(NumFile, "\\begin{tabular}{|c|ccc|ccc|ccc|}\n\\hline\n");
-		fprintf(NumFile, "$p_{T}$ [GeV] & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $ & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $ & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $  \\\\\n");
+		fprintf(NumFile, "$N_{ch}$  & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $ & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $ & $N_{PR}^{PRSR}$ & $f_{NP}^{PRSR} $ & $f_{BG}^{PRSR} $  \\\\\n");
 
 
 		if(nState==4){
-			sprintf(framerap,"\\hline \\multicolumn{1}{|c|}{} & \\multicolumn{3}{|c|}{$%1.1f < |y| < %1.1f$ } & \\multicolumn{3}{|c|}{$%1.1f < |y| < %1.1f$ } & \\multicolumn{3}{|c|}{$%1.1f < |y| < %1.1f$ } \\\\\n \\hline \n",0.0, 0.6, 0.6, 1.2, 1.2, 1.5);
+			sprintf(framerap,"\\hline \\multicolumn{1}{|c|}{} & \\multicolumn{3}{|c|}{$15 < p_{T} < 25$ GeV} & \\multicolumn{3}{|c|}{$25 < p_{T} < 50$ GeV} & \\multicolumn{3}{|c|}{ } \\\\\n \\hline \n");
 			fprintf(NumFile,framerap);
 			fprintf(NumFile, "\\multicolumn{10}{|c|}{$\\Psi(1S)$} \\\\\n \\hline \n \\rule{0pt}{4mm} \n");
 			int pt=0;
@@ -136,7 +136,7 @@ int main(int argc, char* argv[]){
 			for(int ptBin = 1; ptBin < onia::kNbPTBins[1]+1; ptBin++) {
 			for(int cpmBin = 1; cpmBin < onia::NchBins+1; cpmBin++) {			
 				fprintf(NumFile, "%1.0f--%1.0f   &  $%d  $  & $%1.1f $  &  $%1.1f $ &  $%d $ &  $%1.1f $ &  $%1.1f $ & -- & -- & -- \\\\\n", 
-						onia::pTRange[1][ptBin-1], onia::pTRange[1][ptBin],
+						onia::cpmRange[cpmBin-1], onia::cpmRange[cpmBin],
 						evtPinPRSR[0][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[0][ptBin-1][cpmBin-1], 100*fracBGinPRSR[0][ptBin-1][cpmBin-1],
 						evtPinPRSR[1][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[1][ptBin-1][cpmBin-1], 100*fracBGinPRSR[1][ptBin-1][cpmBin-1]);
 						cpm++;
@@ -253,7 +253,7 @@ void PlotHistos(Int_t iRapBin, Int_t iPTBin, Int_t iCPMBin, Int_t iFrame, Int_t 
 	double lvalue = 0.28, tvalue = 0.92;
 	double left=lvalue, top=tvalue, textSize=0.035;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;

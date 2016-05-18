@@ -31,7 +31,7 @@ void PlotMassLifetime(const std::string &infilename, int rapBin, int ptBin, int 
 		case 2:
 			std::cout << ">>>>Plotting mass" << std::endl;
 			plotMass(ws, rapBin, ptBin, cpmBin, nState);
-			plotMassLog(ws, rapBin, ptBin, cpmBin, nState);
+//			plotMassLog(ws, rapBin, ptBin, cpmBin, nState);
 			break;
 		case 3:
 			std::cout << ">>>>Plotting lifetime sidebands" << std::endl;
@@ -57,6 +57,7 @@ void PlotMassLifetime(const std::string &infilename, int rapBin, int ptBin, int 
 }
 
 //==============================================
+/*
 void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	int  nbins=90; //0.005 bin size
 	TGaxis::SetMaxDigits(3);
@@ -110,7 +111,38 @@ void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 
 	double SigmaWei = sqrt(pow(Sigma,2)*fracCB1+pow(Sigma2,2)*(1-fracCB1));
 	double SigmaWeiErr =  (1./(2*SigmaWei))*
-		sqrt(pow((pow(Sigma,2)-pow(Sigma2,2))*fracCB1Err,2) + pow(2*fracCB1*Sigma*SigmaErr,2) + pow(2*(1-fracCB1)*Sigma2*Sigma2Err,2));
+		sqrt(pow((pow(Sigma,2)-pow(Sigma2,2))*fracCB1Err,2) + pow(2*fracCB1*Sigma*SigmaErr,2) + pow(2*(1-fracCB1)*Sigma2*Sigma2Err,2));		
+
+	
+	double Meanp0 = -1.0, Meanp0Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p0", Meanp0, Meanp0Err);
+	double Meanp1 = -1.0, Meanp1Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p1", Meanp1, Meanp1Err);
+	double Meanp2 = -1.0, Meanp2Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p2", Meanp2, Meanp2Err);
+
+	double Mean=Meanp0;
+
+	double Sigmap0 = -1.0, Sigmap0Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p0", Sigmap0, Sigmap0Err);
+	double Sigmap1 = -1.0, Sigmap1Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p1", Sigmap1, Sigmap1Err);
+	double Sigmap2 = -1.0, Sigmap2Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p2", Sigmap2, Sigmap2Err);
+
+	double Alphap0 = -1.0, Alphap0Err = -1.0;
+	getVarFromWorkspace(ws, "CBalpha_p0", Alphap0, Alphap0Err);
+	double Alphap1 = -1.0, Alphap1Err = -1.0;
+	getVarFromWorkspace(ws, "CBalpha_p1", Alphap1, Alphap1Err);
+
+	double cbN = -1.0, cbNErr = -1.0;
+	getVarFromWorkspace(ws, "CBn", cbN, cbNErr);
+	double lambda = -1.0, lambdaErr = -1.0;
+	getVarFromWorkspace(ws, "bkgLambda", lambda, lambdaErr);
+	double fracCB1 = -1.0, fracCB1Err = -1.0;
+	getVarFromWorkspace(ws, "fracCB1", fracCB1, fracCB1Err);
+	double fracBkg = -1.0, fracBkgErr = -1.0;
+	getVarFromWorkspace(ws, "fracBkg", fracBkg, fracBkgErr);
 
 	RooAbsPdf *massPdf = ws->pdf("massModel");
 	assert ( 0 != massPdf );
@@ -124,6 +156,35 @@ void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	cout<<"sigMinMass: "<<sigMinMass<<endl;
 	cout<<"sbHighMass: "<<sbHighMass<<endl;
 	cout<<"sbLowMass: "<<sbLowMass<<endl;
+	
+	std::stringstream masssnapshotname;
+	masssnapshotname << "m_snapshot_rap" << rapBin << "_pt" << ptBin;
+	ws->loadSnapshot(masssnapshotname.str().c_str());
+
+	RooAbsPdf *massPdf = ws->pdf("massModel");
+	assert ( 0 != massPdf );
+	RooAbsPdf *bkgMassShape = ws->pdf("bkgMassShape");
+	assert ( 0 != bkgMassShape );
+	RooAbsPdf *sigMassShape = ws->pdf("sigMassShape");
+	assert ( 0 != sigMassShape );
+	RooAbsPdf *gaussMassShape = ws->pdf("gaussMassShape");
+	assert ( 0 != gaussMassShape );
+	RooAbsPdf *FullmassPdf = ws->pdf("FullmassPdf");
+	assert ( 0 != FullmassPdf );
+
+	int nEntries = data->numEntries();
+
+	int JpsiFitColor=633;
+
+	cout<<"plot data"<<endl;
+	data->plotOn(massFrame,MarkerSize(onia::markerSize_ML), Name("myHist"));
+	cout<<"plot FullmassPdf"<<endl;
+	FullmassPdf->plotOn(massFrame,
+			Normalization(nEntries,2),
+			LineWidth(2),
+			LineColor(JpsiFitColor), Name("myCurve")
+			);
+
 
 	int nEntries = data->numEntries();
 	JpsiMass->setRange("SigRegion",sigMinMass,sigMaxMass);
@@ -318,7 +379,324 @@ void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	delete legendPink;
 	return;
 }
+*/
 
+void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
+	int  nbins=90; //0.005 bin size
+	TGaxis::SetMaxDigits(3);
+
+	//nbins=32;
+
+//	gSystem->mkdir("Fit/jpsiFit",kTRUE);
+
+	double binWidth=(onia::massMax-onia::massMin)/double(nbins)*1000;
+
+	RooRealVar *JpsiMass = ws->var("JpsiMass");
+	assert( 0 != JpsiMass );
+	RooRealVar *JpsiRap = ws->var("JpsiRap");
+	assert( 0 != JpsiRap );
+
+	RooPlot *massFrame = JpsiMass->frame(Bins(nbins));
+	assert ( 0 != massFrame );
+	massFrame->SetName(Form("mass_plot_rap%d_pt%d_cpm%d",rapBin,ptBin,cpmBin));
+	massFrame->SetTitle("");
+	massFrame->GetYaxis()->SetTitle(Form("Events / %1.0f MeV",binWidth));
+	massFrame->GetYaxis()->SetTitleOffset(1.3);
+
+	RooPlot *massFramePull = JpsiMass->frame(Bins(nbins));
+	assert ( 0 != massFramePull );
+	massFramePull->SetName(Form("pullmass_plot_rap%d_pt%d_cpm%d",rapBin,ptBin,cpmBin));
+	massFramePull->SetTitle("");
+	massFramePull->GetYaxis()->SetTitle("pull");
+	massFramePull->GetXaxis()->SetTitleSize(0.08);
+	massFramePull->GetYaxis()->SetTitleSize(0.08);
+	massFramePull->GetXaxis()->SetLabelSize(0.08);
+	massFramePull->GetYaxis()->SetLabelSize(0.08);
+	massFramePull->GetYaxis()->SetTitleOffset(0.4);
+	massFramePull->GetYaxis()->SetRangeUser(-5.99,5.99);
+
+	RooAbsData *data= ws->data(Form("data_rap%d_pt%d_cpm%d",rapBin,ptBin,cpmBin));
+	assert ( 0 != data );
+	RooFitResult* fitRlt = dynamic_cast<RooFitResult*>(ws->obj(Form("m_fitresult_rap%d_pt%d_cpm%d",rapBin,ptBin,cpmBin)));
+	assert ( 0 != fitRlt);
+
+	double Sigma = -1.0, SigmaErr = -1.0;
+
+	if(ws->var("CBsigma")!=NULL){
+		Sigma=ws->var("CBsigma")->getVal();
+		SigmaErr=ws->var("CBsigma")->getError();
+	}
+	else{
+		Sigma=ws->function("CBsigma")->getVal();
+		SigmaErr=0;
+	}
+
+	double Meanp0 = -1.0, Meanp0Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p0", Meanp0, Meanp0Err);
+	double Meanp1 = -1.0, Meanp1Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p1", Meanp1, Meanp1Err);
+	double Meanp2 = -1.0, Meanp2Err = -1.0;
+	getVarFromWorkspace(ws, "CBmass_p2", Meanp2, Meanp2Err);
+
+	double Mean=Meanp0;
+
+	double Sigmap0 = -1.0, Sigmap0Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p0", Sigmap0, Sigmap0Err);
+	double Sigmap1 = -1.0, Sigmap1Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p1", Sigmap1, Sigmap1Err);
+	double Sigmap2 = -1.0, Sigmap2Err = -1.0;
+	getVarFromWorkspace(ws, "CBsigma_p2", Sigmap2, Sigmap2Err);
+
+	double Alphap0 = -1.0, Alphap0Err = -1.0;
+	getVarFromWorkspace(ws, "CBalpha_p0", Alphap0, Alphap0Err);
+	double Alphap1 = -1.0, Alphap1Err = -1.0;
+	getVarFromWorkspace(ws, "CBalpha_p1", Alphap1, Alphap1Err);
+
+	double cbN = -1.0, cbNErr = -1.0;
+	getVarFromWorkspace(ws, "CBn", cbN, cbNErr);
+	double lambda = -1.0, lambdaErr = -1.0;
+	getVarFromWorkspace(ws, "bkgLambda", lambda, lambdaErr);
+	double fracCB1 = -1.0, fracCB1Err = -1.0;
+	getVarFromWorkspace(ws, "fracCB1", fracCB1, fracCB1Err);
+	double fracBkg = -1.0, fracBkgErr = -1.0;
+	getVarFromWorkspace(ws, "fracBkg", fracBkg, fracBkgErr);
+
+
+	std::stringstream masssnapshotname;
+	masssnapshotname << "m_snapshot_rap" << rapBin << "_pt" << ptBin << "_cpm" << cpmBin;
+	ws->loadSnapshot(masssnapshotname.str().c_str());
+
+	RooAbsPdf *massPdf = ws->pdf("massModel");
+	assert ( 0 != massPdf );
+	RooAbsPdf *bkgMassShape = ws->pdf("bkgMassShape");
+	assert ( 0 != bkgMassShape );
+	RooAbsPdf *sigMassShape = ws->pdf("sigMassShape");
+	assert ( 0 != sigMassShape );
+	RooAbsPdf *gaussMassShape = ws->pdf("gaussMassShape");
+	assert ( 0 != gaussMassShape );
+	RooAbsPdf *FullmassPdf = ws->pdf("FullmassPdf");
+	assert ( 0 != FullmassPdf );
+
+	int nEntries = data->numEntries();
+
+	int JpsiFitColor=633;
+
+	cout<<"plot data"<<endl;
+	data->plotOn(massFrame,MarkerSize(0.8));
+	cout<<"plot FullmassPdf"<<endl;
+	massPdf->plotOn(massFrame,
+			LineWidth(2),
+			ProjWData(*data));
+
+	
+	//------get chi2------------SHOULD be DONE after PLOTTING------
+
+	int parsFit=(fitRlt->floatParsFinal()).getSize(); //this used the full p.d.f.
+	int nBins_Mass=massFrame->GetNbinsX();
+	double chi2Pre_Mass=massFrame->chiSquare(parsFit);  //reduced chi-squared = chi2/ndof
+	int ndof_Mass=nBins_Mass-parsFit;  //num of degree of freedom
+	double chi2_Mass=chi2Pre_Mass*ndof_Mass;
+
+	RooHist* hpull_mass = massFrame->pullHist() ;
+	hpull_mass->SetMarkerSize(0.8);
+	for(int i=0;i<hpull_mass->GetN();i++){
+		hpull_mass->SetPointEYlow(i,0.);
+		hpull_mass->SetPointEYhigh(i,0.);
+	}
+	massFramePull->addPlotable(hpull_mass,"P");
+
+	massPdf->plotOn(massFrame,
+			Components("bkgMassShape"),
+			LineStyle(7),
+			LineColor(kPink+3),
+			LineWidth(2),
+			ProjWData(*data));
+
+	double minY = 0.;
+
+	double maxY = 0.;
+	if(nState == 4) maxY = massFrame->GetMaximum()*0.3;
+	if(nState == 5) maxY = massFrame->GetMaximum()*0.4;
+	//double lineWidth = 2.0;
+	//TLine *lineSBLow = new TLine(sbLowMass, minY, sbLowMass, maxY);
+	//TLine *lineSBHigh = new TLine(sbHighMass, minY, sbHighMass, maxY);
+	//TLine *lineSigLow = new TLine(sigMinMass, minY, sigMinMass, maxY);
+	//TLine *lineSigHigh = new TLine(sigMaxMass, minY, sigMaxMass, maxY);
+	//lineSBLow->SetLineWidth(lineWidth);lineSBHigh->SetLineWidth(lineWidth);
+	//lineSigLow->SetLineWidth(lineWidth);lineSigHigh->SetLineWidth(lineWidth);
+	//lineSBLow->SetLineColor(kBlue);lineSBHigh->SetLineColor(kBlue);
+	//lineSigLow->SetLineColor(kRed);lineSigHigh->SetLineColor(kRed);
+	//lineSBLow->SetLineStyle(7);lineSBHigh->SetLineStyle(7);
+	//lineSigLow->SetLineStyle(5);lineSigHigh->SetLineStyle(5);
+
+	TH1* legendBlue = data->createHistogram("legendBlue",*JpsiMass,Binning(50)) ; legendBlue->SetLineColor(JpsiFitColor) ; legendBlue->SetLineStyle(kSolid) ; legendBlue->SetLineWidth(2) ;
+	TH1* legendBlueDash = data->createHistogram("legendBlueDash",*JpsiMass,Binning(50)) ; legendBlueDash->SetLineColor(kBlue) ; legendBlueDash->SetLineStyle(5) ; legendBlueDash->SetLineWidth(2) ;
+	TH1* legendRed = data->createHistogram("legendRed",*JpsiMass,Binning(50)) ; legendRed->SetLineColor(kRed) ; legendRed->SetLineStyle(2) ; legendRed->SetLineWidth(2) ;
+	TH1* legendBlack = data->createHistogram("legendBlack",*JpsiMass,Binning(50)) ; legendBlack->SetLineColor(kBlack) ; legendBlack->SetLineStyle(kSolid) ; legendBlack->SetLineWidth(2) ;
+	TH1* legendGreen = data->createHistogram("legendGreen",*JpsiMass,Binning(50)) ; legendGreen->SetLineColor(kGreen) ; legendGreen->SetLineStyle(2) ; legendGreen->SetLineWidth(2) ;
+	TH1* legendGreenDash = data->createHistogram("legendGreenDash",*JpsiMass,Binning(50)) ; legendGreenDash->SetLineColor(kGreen) ; legendGreenDash->SetLineStyle(2) ; legendGreenDash->SetLineWidth(2) ;
+	TH1* legendPink = data->createHistogram("legendPink",*JpsiMass,Binning(50)) ; legendPink->SetLineColor(kPink+3) ; legendPink->SetLineStyle(7) ; legendPink->SetLineWidth(2) ;
+
+	TLegend* MassLegend=new TLegend(0.78,0.35,0.905,0.5);
+	MassLegend->SetFillColor(kWhite);
+//	MassLegend->SetTextFont(42);
+	MassLegend->SetTextSize(0.035);
+	MassLegend->SetBorderSize(0.);
+	MassLegend->AddEntry(legendBlue,"sum","l");
+	MassLegend->AddEntry(legendGreen,"J/#psi","l");
+	MassLegend->AddEntry(legendPink,"#mu#mu BG","l");
+
+	double left=0.7, top=0.9, textSize=0.03;
+	TLatex *latex=new TLatex();
+
+	gStyle->SetPadBottomMargin(0.08); //0.12
+	gStyle->SetPadLeftMargin(0.09); //0.12
+	gStyle->SetPadRightMargin(0.035); //0.05
+	gStyle->SetPadTopMargin(0.05); //0.05
+
+	TCanvas *c1;
+	TPad *pad1;
+	TPad *pad2;
+
+		for(int LinLog=0; LinLog<2; LinLog++){
+		cout<<"LinLog "<<LinLog<<endl;
+
+		left=0.65, top=0.9, textSize=0.03;
+//		latex->SetTextFont(42);
+		latex->SetNDC(kTRUE);
+		latex->SetTextSize(textSize);
+		double step=textSize*1.6;
+		c1=new TCanvas("c1","",1000,900);
+
+		c1->cd();
+		pad1 = new TPad("pad1","pad1",0.,0.,1.,0.3);
+		pad1->SetGridy();
+		pad1->SetBottomMargin(0.2);
+		pad1->Draw();
+		c1->cd();
+		pad2 = new TPad("pad2","pad2",0.,0.3,1.,1.);
+		pad2->Draw();
+
+		if(LinLog==1) massFrame->SetMinimum(massFrame->GetMaximum()*4e-3);
+		if(LinLog==1) massFrame->SetMaximum(massFrame->GetMaximum()*3.);
+
+		pad2->cd(0);
+		if(LinLog==0) pad2->SetLogy(false);
+		if(LinLog==1) pad2->SetLogy(true);
+
+		massFrame->Draw(); MassLegend->Draw();
+		//lineSBLow->Draw("same"); lineSBHigh->Draw("same"); lineSigLow->Draw("same"); lineSigHigh->Draw("same");
+		top=0.885; textSize=0.030; latex->SetTextSize(textSize);
+		left=0.74;
+
+		latex->SetTextColor(kRed);
+		latex->DrawLatex(left,top,"J/#psi");
+		latex->SetTextColor(kBlack);
+
+		top-=step;
+		textSize=0.03; latex->SetTextSize(textSize);
+
+
+		if(rapBin==0) latex->DrawLatex(left,top,Form("%.1f < |y| < %.1f",onia::rapForPTRange[rapBin],onia::rapForPTRange[2]));
+		else if(rapBin==1) latex->DrawLatex(left,top,Form("|y| < %.1f",onia::rapForPTRange[rapBin]));
+		else latex->DrawLatex(left,top,Form("%.1f < |y| < %.1f",onia::rapForPTRange[rapBin-1],onia::rapForPTRange[rapBin]));
+		top-=step;
+		if(ptBin==0)
+		latex->DrawLatex(left,top,Form("%.1f < p_{T} < %.1f GeV",onia::pTRange[rapBin][ptBin],onia::pTRange[rapBin][11]));
+		else
+		latex->DrawLatex(left,top,Form("%.1f < p_{T} < %.1f GeV",onia::pTRange[rapBin][ptBin-1],onia::pTRange[rapBin][ptBin]));
+		if(cpmBin==0)
+		latex->DrawLatex(left,top-step,Form("%.1f < N_{ch} < %.1f",onia::cpmRange[cpmBin],onia::cpmRange[onia::NchBins-1]));
+		else
+		latex->DrawLatex(left,top-step,Form("%.1f < N_{ch} < %.1f",onia::cpmRange[cpmBin-1],onia::cpmRange[cpmBin]));
+
+		//left=0.675;
+		top-=step;
+		top-=step;
+		if(ws->var("CBn")->isConstant()){
+			latex->DrawLatex(left,top,Form("n^{CB}_{#psi}  =  %.1f",cbN));
+			top-=step;
+		}
+
+//		latex->DrawLatex(left,top,Form("effective #sigma =  %.3f MeV",ws->var("var_massres")->getVal()*1000));
+//		top-=step;
+		latex->DrawLatex(left,top,Form("#frac{B}{B+S} (#pm3#sigma)  =  %.3f",ws->var("FracBkg")->getVal()));
+
+
+		left=0.15; top=0.885; textSize=0.03;
+		latex->SetTextSize(textSize);
+//		latex->DrawLatex(left,top,Form("#chi^{2}/ndf = %.1f / %d", chi2_Mass, ndof_Mass));
+		top-=step;
+		if(!ws->var("CBmass_p0")->isConstant()){
+			latex->DrawLatex(left,top,Form("#mu_{#psi}   =  %.3f #pm %.3f MeV",Meanp0*1000, Meanp0Err*1000));
+			top-=step;
+		}
+		if(!ws->var("CBmass_p1")->isConstant()){
+			latex->DrawLatex(left,top,Form("#mu_{p1}   =  %.3f #pm %.3f MeV",Meanp1*1000, Meanp1Err*1000));
+			top-=step;
+		}
+		if(!ws->var("CBmass_p2")->isConstant()){
+			latex->DrawLatex(left,top,Form("#mu_{p2}   =  %.3f #pm %.3f MeV",Meanp2*1000, Meanp2Err*1000));
+			top-=step;
+		}
+
+		if(!ws->var("CBsigma_p0")->isConstant()){
+			latex->DrawLatex(left,top,Form("#sigma^{p0}_{#psi}  =  %.3f #pm %.3f MeV",Sigmap0*1000, Sigmap0Err*1000));
+			top-=step;
+		}
+		if(!ws->var("CBsigma_p1")->isConstant()){
+			latex->DrawLatex(left,top,Form("#sigma^{p1}_{#psi}  =  %.3f #pm %.3f MeV",Sigmap1*1000, Sigmap1Err*1000));
+			top-=step;
+		}
+		if(!ws->var("CBsigma_p2")->isConstant()){
+			latex->DrawLatex(left,top,Form("#sigma^{p2}_{#psi}  =  %.3f #pm %.3f MeV",Sigmap2*1000, Sigmap2Err*1000));
+			top-=step;
+		}
+
+		if(!ws->var("CBalpha_p0")->isConstant()){
+			latex->DrawLatex(left,top,Form("#alpha^{CB}_{#psi}  =  %.3f #pm %.3f",Alphap0, Alphap0Err));
+			top-=step;
+		}
+		if(!ws->var("CBn")->isConstant()){
+			latex->DrawLatex(left,top,Form("n^{CB}_{#psi}  =  %.3f #pm %.3f",cbN, cbNErr));
+			top-=step;
+		}
+		if(!ws->var("CBalpha_p1")->isConstant()){
+			latex->DrawLatex(left,top,Form("#alpha_{p1}  =  %.3f #pm %.3f",Alphap1, Alphap1Err));
+			top-=step;
+		}
+		if(!ws->var("bkgLambda")->isConstant()){
+			latex->DrawLatex(left,top,Form("#lambda_{BG} =  %.3f #pm %.3f GeV^{-1}",-1.*lambda, lambdaErr)); // change to has positive value
+			top-=step;
+		}
+		if(!ws->var("fracBkg")->isConstant()){
+			latex->DrawLatex(left,top,Form("f^{#psi}_{#mu#muBG}  =  %.3f #pm %.3f",fracBkg, fracBkgErr));
+			top-=step;
+		}
+
+
+		pad1->cd(0); pad1->SetLogy(0);
+//		massFramePull->Draw();
+
+		std::stringstream saveMass;
+		if(LinLog==0) saveMass << "Fit/mass_lin_rap" << rapBin << "_pt" << ptBin << "_cpm" << cpmBin << ".pdf";
+		if(LinLog==1) saveMass << "Fit/mass_log_rap" << rapBin << "_pt" << ptBin << "_cpm" << cpmBin << ".pdf";
+
+		c1->SaveAs(saveMass.str().c_str());
+
+	}
+
+	delete c1;
+	delete legendBlue;
+	delete legendBlueDash;
+	delete legendRed;
+	delete legendBlack;
+	delete legendGreen;
+	delete legendGreenDash;
+	delete legendPink;
+
+	return;
+}
 //==============================================
 void plotMassLog(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	int  nbins=90; //0.005 bin size
@@ -513,7 +891,7 @@ void plotMassLog(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState
 
 	TLegend* MassLegend=new TLegend(0.7,0.8,0.93,0.93);
 	MassLegend->SetFillColor(kWhite);
-	MassLegend->SetTextFont(42);
+//	MassLegend->SetTextFont(42);
 	MassLegend->SetTextSize(0.035);
 	MassLegend->SetBorderSize(0.);
 	MassLegend->AddEntry(legendBlue,"sum","l");
@@ -523,7 +901,7 @@ void plotMassLog(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState
 
 	double left=0.15, top=0.90, textSize=0.025;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
@@ -903,7 +1281,7 @@ void plotLifeBg(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState)
 
 	TLegend* LifetimeLegendBkgSBL=new TLegend(0.35,0.7,0.5,0.93);
 	LifetimeLegendBkgSBL->SetFillColor(kWhite);
-	LifetimeLegendBkgSBL->SetTextFont(42);
+//	LifetimeLegendBkgSBL->SetTextFont(42);
 	LifetimeLegendBkgSBL->SetTextSize(0.035);
 	LifetimeLegendBkgSBL->SetBorderSize(0.);
 	LifetimeLegendBkgSBL->AddEntry(legendBlue,"sum","l");
@@ -914,7 +1292,7 @@ void plotLifeBg(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState)
 
 	TLegend* LifetimeLegendBkgSBR=new TLegend(0.35,0.7,0.5,0.93);
 	LifetimeLegendBkgSBR->SetFillColor(kWhite);
-	LifetimeLegendBkgSBR->SetTextFont(42);
+//	LifetimeLegendBkgSBR->SetTextFont(42);
 	LifetimeLegendBkgSBR->SetTextSize(0.035);
 	LifetimeLegendBkgSBR->SetBorderSize(0.);
 	LifetimeLegendBkgSBR->AddEntry(legendBlue,"sum","l");
@@ -925,7 +1303,7 @@ void plotLifeBg(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState)
 
 	double left=0.7, top=0.9, textSize=0.025;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
@@ -1228,7 +1606,7 @@ void plotLifeSig(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState
 
 	TLegend* LifetimeLegendSig=new TLegend(0.31,0.8,0.43,0.96);
 	LifetimeLegendSig->SetFillColor(kWhite);
-	LifetimeLegendSig->SetTextFont(42);
+//	LifetimeLegendSig->SetTextFont(42);
 	LifetimeLegendSig->SetTextSize(0.035);
 	LifetimeLegendSig->SetBorderSize(0.);
 	LifetimeLegendSig->AddEntry(legendBlue,"sum","l");
@@ -1238,7 +1616,7 @@ void plotLifeSig(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState
 
 	double left=0.5, top=0.9, textSize=0.025;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
@@ -1460,7 +1838,7 @@ void plotLifeSig_linear(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int
 
 	TLegend* LifetimeLegendSig=new TLegend(0.12,0.8,0.25,0.93);
 	LifetimeLegendSig->SetFillColor(kWhite);
-	LifetimeLegendSig->SetTextFont(42);
+//	LifetimeLegendSig->SetTextFont(42);
 	LifetimeLegendSig->SetTextSize(0.035);
 	LifetimeLegendSig->SetBorderSize(0.);
 	LifetimeLegendSig->AddEntry(legendBlue,"sum","l");
@@ -1470,7 +1848,7 @@ void plotLifeSig_linear(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int
 
 	double left=0.75, top=0.9, textSize=0.032;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
@@ -1842,7 +2220,7 @@ void plotLifeBgIndividual(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, i
 
 	TLegend* LifetimeLegendBkgSBL=new TLegend(0.35,0.7,0.5,0.93);
 	LifetimeLegendBkgSBL->SetFillColor(kWhite);
-	LifetimeLegendBkgSBL->SetTextFont(42);
+//	LifetimeLegendBkgSBL->SetTextFont(42);
 	LifetimeLegendBkgSBL->SetTextSize(0.035);
 	LifetimeLegendBkgSBL->SetBorderSize(0.);
 	LifetimeLegendBkgSBL->AddEntry(legendBlue,"sum","l");
@@ -1853,7 +2231,7 @@ void plotLifeBgIndividual(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, i
 
 	TLegend* LifetimeLegendBkgSBR=new TLegend(0.35,0.7,0.5,0.93);
 	LifetimeLegendBkgSBR->SetFillColor(kWhite);
-	LifetimeLegendBkgSBR->SetTextFont(42);
+//	LifetimeLegendBkgSBR->SetTextFont(42);
 	LifetimeLegendBkgSBR->SetTextSize(0.035);
 	LifetimeLegendBkgSBR->SetBorderSize(0.);
 	LifetimeLegendBkgSBR->AddEntry(legendBlue,"sum","l");
@@ -1864,7 +2242,7 @@ void plotLifeBgIndividual(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, i
 
 	double left=0.7, top=0.9, textSize=0.025;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
@@ -2199,7 +2577,7 @@ void plotLifeSigIndividual(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, 
 
 	TLegend* LifetimeLegendSig=new TLegend(0.31,0.8,0.43,0.96);
 	LifetimeLegendSig->SetFillColor(kWhite);
-	LifetimeLegendSig->SetTextFont(42);
+//	LifetimeLegendSig->SetTextFont(42);
 	LifetimeLegendSig->SetTextSize(0.035);
 	LifetimeLegendSig->SetBorderSize(0.);
 	LifetimeLegendSig->AddEntry(legendBlue,"sum","l");
@@ -2209,7 +2587,7 @@ void plotLifeSigIndividual(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, 
 
 	double left=0.5, top=0.9, textSize=0.025;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;

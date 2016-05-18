@@ -2,27 +2,27 @@
 
 export VO_CMS_SW_DIR=/sharesoft/cmssw #comment out for non-condor
 . $VO_CMS_SW_DIR/cmsset_default.sh #comment out for non-condor
-cd /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/NchBins/macros/polFit #comment out for non-condor
+cd /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/macros/polFit #comment out for non-condor
 eval `scramv1 runtime -sh` #comment out for non-condor
 
 
 source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
 source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
-#### following will be changed by "launchFit.sh" ####
+#### following will be changed by "runFitsCondor.sh" ####
 # HOMEDIR
-# NState 
 # RapBinMin
 # RapBinMax
 # PtBinMin
 # PtBinMax
-# NSkipGen
+# cpmBinMin
+# cpmBinMax
 ######################################### 
 
 storagedir=$3
-HOMEDIR=$4
-setptbin=$5
-setcpmbin=$6
-setbgframe=$7
+homedir=$4
+setptbin=$6
+setcpmbin=$7
+
 
 echo "storage dir: $storagedir"
 echo "home dir: $homedir"
@@ -43,15 +43,22 @@ datadir_Start=${basedir}/macros/DataFiles
 ########## INPUTS ##########
 
 #Batch submission system: 0/1
-useBatch=1
+useBatch=0
 
-fracL=50 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
-nSigma=3.00 #needed in 2 decimal accuracy (x.yz)
+#fracL=50 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
+#nSigma=3.00 #needed in 2 decimal accuracy (x.yz)
 
 for nState in 4;do
 
-JobID=FirstNchRun1S #Please define nSigma and fracL yourself in the JobID, if needed
-#JobID=JOBID
+StatVarTotBGfraction=0     #apply statistical fluctuations on f_background
+StatVarTotBGmodel=0        #apply statistical fluctuations on Bg model
+StatVarRho=0               #apply statistical fluctuations on rho factor
+
+#####################
+#####################
+JobID=18May16_MassUpdateFixedErrBars
+#####################
+#####################
 
 rapBinMin=1
 rapBinMax=1
@@ -68,20 +75,25 @@ UseMCeff=false
 nDileptonEff=1
 UseMCDileptoneff=true
 
-nRhoFactor=1
-#nRhoFactor=325
+#nRhoFactor=1
+#nRhoFactor=325 ## old 
+#nRhoFactor=326 ## newest
+nRhoFactor=329 ## from ilse 17 sep 2015
 
 useAmapApproach=false
 nAmap=1                    #frame/state/sigma/ID ( ID= 2 digits )
-nDenominatorAmap=1		    	#the number here corresponds to the same notation as nEff
+nDenominatorAmap=1		     #the number here corresponds to the same notation as nEff
 
-#nSample=50000
 nSample=50000
 
 nFits=50
-nSkipGen=NSkipGen
+nSkipGen=0
 
-DataID=_FirstFullNch1S
+#####################
+#####################
+DataID=_ctauScen0_FracLSB-1_2011MassUpdate
+#####################
+#####################
 
 MPValgo=3 		#1...mean,2...gauss,3...gauss-loop with chi2<2
 
@@ -93,7 +105,6 @@ datadir=${datadir_Start}/SetOfCuts${FidCuts}${DataID}/Psi$[nState-3]S/tmpFiles
 TreeID=Psi$[nState-3]S
 
 cd ${homedir}
-
 
 polScenSig=3
 polScenBkg=3

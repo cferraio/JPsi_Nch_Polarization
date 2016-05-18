@@ -38,6 +38,11 @@ public :
    int HLT_Dimuon0_Jpsi_v5;
    int HLT_Dimuon0_Jpsi_v6;
    int HLT_Dimuon0_Jpsi_v9;
+   int HLT_Dimuon8_Jpsi_v3;
+   int HLT_Dimuon8_Jpsi_v4;
+   int HLT_Dimuon8_Jpsi_v5;
+   int HLT_Dimuon10_Jpsi_v3;
+   int HLT_Dimuon10_Jpsi_v4;
    int HLT_Dimuon10_Jpsi_Barrel_v1;
    int HLT_Dimuon10_Jpsi_Barrel_v2;
    int HLT_Dimuon10_Jpsi_Barrel_v3;
@@ -46,6 +51,7 @@ public :
    int HLT_Dimuon10_Jpsi_Barrel_v9;
    int HLT_Dimuon13_Jpsi_Barrel_v1;
    int HLT_Dimuon13_Jpsi_Barrel_v4;
+   
    
    //PsiPrime
    int HLT_Dimuon6p5_Barrel_PsiPrime_v1;
@@ -171,6 +177,13 @@ void PolData::Init(TTree *tree)
    fChain->SetBranchAddress("JpsiDphiM2", &JpsiDphiM2);
    fChain->SetBranchAddress("JpsiDrM2", &JpsiDrM2);
  
+   fChain->SetBranchAddress("HLT_Dimuon8_Jpsi_v3", &HLT_Dimuon8_Jpsi_v3);
+   fChain->SetBranchAddress("HLT_Dimuon8_Jpsi_v4", &HLT_Dimuon8_Jpsi_v4);
+   fChain->SetBranchAddress("HLT_Dimuon8_Jpsi_v5", &HLT_Dimuon8_Jpsi_v5);
+   fChain->SetBranchAddress("HLT_Dimuon10_Jpsi_v3", &HLT_Dimuon10_Jpsi_v3);
+   fChain->SetBranchAddress("HLT_Dimuon10_Jpsi_v4", &HLT_Dimuon10_Jpsi_v4);
+   
+   
    fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v1", &HLT_Dimuon0_Jpsi_v1);
    fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v2", &HLT_Dimuon0_Jpsi_v2);
    fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v3", &HLT_Dimuon0_Jpsi_v3);

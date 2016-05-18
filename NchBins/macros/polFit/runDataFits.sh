@@ -29,13 +29,13 @@ StatVarRho=0               #apply statistical fluctuations on rho factor
 
 #####################
 #####################
-JobID=Details1S
+JobID=18May16_MassUpdateFixedErrBars
 #####################
 #####################
 
 rapBinMin=1
 rapBinMax=1
-ptBinMin=1
+ptBinMin=2
 ptBinMax=2
 cpmBinMin=1
 cpmBinMax=10
@@ -64,7 +64,7 @@ nSkipGen=0
 
 #####################
 #####################
-DataID=_ctauScen0_FracLSB-1_Details1S
+DataID=_ctauScen0_FracLSB-1_2011MassUpdate
 #####################
 #####################
 

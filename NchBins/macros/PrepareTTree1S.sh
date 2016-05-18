@@ -5,7 +5,7 @@ source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/ro
 
 ####to 2D histos in createWorkspace.C only work with the following, use ONLY to make those plots, then go back to the above ROOT version for everything else
 #source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.30.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
-#source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.30.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
+
 
 #homedir=HOMEDIR
 #cd ${homedir}
@@ -20,14 +20,13 @@ for nState in 4;do    #1,2,3,Upsi(1S,2S,3S); 4,Jpsi 5,PsiPrime
 for FidCuts in 11;do #defines the set of cuts to be used, see macros/polFit/effsAndCuts.h
 cd $Cdir
 
-
 rapMin=1     #takes bins, not actual values
 rapMax=1     #if you only want to process 1 y bin, rapMax = rapMin
 ptMin=1      #takes bins, not acutal values
-ptMax=2      #if you only want to process 1 pt bin, ptMax = ptMin
-cpmMin=1
-cpmMax=2
-Plotting=1   #plotting macro: 1 = plot all, 2 = plot mass, 3 = plot lifetime sidebands, 4 = plot lifetime singal region, 
+ptMax=1      #if you only want to process 1 pt bin, ptMax = ptMin
+cpmMin=10
+cpmMax=10
+Plotting=2   #plotting macro: 1 = plot all, 2 = plot mass, 3 = plot lifetime sidebands, 4 = plot lifetime singal region, 
 	           # 5 = sidebands, separate pull and distribution, 6 = signal region, separate pull and distribution
 
 rejectCowboys=true
@@ -37,7 +36,7 @@ correctCtau=false   #correct pseudo-proper lifetime to l_new = l * MpsiPDG / Mps
 drawRapPt2D=false  #draw Rap-Pt 2D map of Psi (change root settings above)
 drawPtCPM2D=false  #draw Pt-CPM 2D map of Psi (change root settings above)
 
-doCtauUncer=true
+doCtauUncer=false
 PolLSB=false       #measure polarization of the left sideband
 PolRSB=false       #measure polarization of the right sideband
 PolNP=false        #measure polarization of the non prompt events
@@ -46,26 +45,27 @@ folding=true       #folding is applied to all background histograms
 normApproach=false #normalization 
 ctauScen=0         #0:default(1s:2.5,2s:2.0), 1:(1s:3.5,2s:3.0), 2:(1s:1.5,2s:1.0), 3:100mm 1S and 2S, 
 FracLSB=-1         #-1:defalut, 0, 100
-scaleFracBg=false
+scaleFracBg=false ##what is this for?
 fitMassPR=false
-fitMassNP=true
+fitMassNP=false 
 
-DataID=Psi$[nState-3]S_ctauScen0_FracLSB-1_16Mar2013
+DataID=Psi$[nState-3]S_ctauScen0_FracLSB-1
 polDataPath=${basedir}/Psi/Data/${DataID}
 
+
 #Define JobID
-JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_Details1S
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_NP
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_0fracBg
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_1sigMass
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_correctCtau_11April2013
+JobIDName=2011MassUpdate #2012datarun #change job id name here, automatically updates below
+JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_${JobIDName} #updates automatically
 
 # input files
 # In case of more input Files: define inputTreeX and adapt the line starting with inputTrees, at the moment up to 4 files implemented
 if [ ${nState} -eq 4 ] 
 then
 inputTree1=/data/users/ferraioc/TTree_Onia2MuMu_v30_PromptRecoAB_10May2012_Jpsi.root
+#inputTree1=/data/users/ferraioc/Polarization/r2012A_DoubMuPk_jpsi_v6.root
+#inputTree2=/data/users/ferraioc/Polarization/r2012B_MuPk_jpsi_v6.root
+#inputTree3=/data/users/ferraioc/Polarization/r2012C_MuPk_jpsi_v6.root
+#inputTree4=/data/users/ferraioc/Polarization/r2012D_MuPk_jpsi_v6.root
 if [ ${MC} = 'true' ]
 then
 inputTree1=/scratch/ikratsch/Polarization/Jpsi/InputFiles/TTree_Psi1S_Gun_Pt9p5_70p5_19Dec2012.root
@@ -87,13 +87,13 @@ fi
 #IMPORTANT: for MC set execute_runWorkspace, execute_MassFit and execute_runLifetimeFit to 0
 execute_runData=0			           #independent of rapMin, rapMax, ptMin, ptMax
 execute_runWorkspace=0			     #independent of rapMin, rapMax, ptMin, ptMax
-execute_runMassFit=1			       #can be executed for different pt and y bins
+execute_runMassFit=0			       #can be executed for different pt and y bins
 execute_runLifetimeFit=0        #can be executed for different pt and y bins
 execute_runPlotMassLifetime=0    #can be executed for different pt and y bins
 execut_PlotFitPar=0              #independent of rapMin, rapMax, ptMin, ptMax
 execute_runBkgHistos=0           #can be executed for different pt and y bins
 execute_PlotCosThetaPhiBG=0 		 #This step only has to be executed once for each set of cuts (indep. of FracLSB and nSigma)
-execute_PlotCosThetaPhiDistribution=0 #This step only has to be executed once for each set of cuts (indep. of FracLSB and nSigma)
+execute_PlotCosThetaPhiDistribution=1 #This step only has to be executed once for each set of cuts (indep. of FracLSB and nSigma)
 
 #################################
 

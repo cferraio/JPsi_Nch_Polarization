@@ -214,7 +214,7 @@ void PlotHistos(int iRapBin, int iPTBin, int iCPMBin, int iFrame,int nState, Cha
 	double lvalue = 0.22, tvalue = 0.92;
 	double left=lvalue, top=tvalue, textSize=0.035;
 	TLatex *latex=new TLatex();
-	latex->SetTextFont(42);
+//	latex->SetTextFont(42);
 	latex->SetNDC(kTRUE);
 	latex->SetTextSize(textSize);
 	double step=textSize*1.3;
