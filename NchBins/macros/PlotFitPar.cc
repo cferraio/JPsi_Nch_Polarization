@@ -1588,6 +1588,10 @@ void PlotLifePar(int  nState) {
 				fracBkgSSDR_SBR[0][rapBin-1][ptBin-1][cpmBin-1] = fBkgSSDR_SBR;
 				fracBkgSSDRErr_SBL[0][rapBin-1][ptBin-1][cpmBin-1] = fBkgSSDRErr_SBL;
 				fracBkgSSDRErr_SBR[0][rapBin-1][ptBin-1][cpmBin-1] = fBkgSSDRErr_SBR;
+				cout<<"fracBkgSSDR L is: "<<fracBkgSSDR_SBL[0][rapBin-1][ptBin-1][cpmBin-1] <<"for rap pt cpm "<<rapBin<<ptBin<<cpmBin<<endl;
+				cout<<"fracBkgSSDRerr L is: "<<fracBkgSSDR_SBR[0][rapBin-1][ptBin-1][cpmBin-1] <<"for rap pt cpm "<<rapBin<<ptBin<<cpmBin<<endl;
+				cout<<"fracBkgSSDR R is: "<<fracBkgSSDRErr_SBL[0][rapBin-1][ptBin-1][cpmBin-1] <<"for rap pt cpm "<<rapBin<<ptBin<<cpmBin<<endl;
+				cout<<"fracBkgSSDRerr R is: "<<fracBkgSSDRErr_SBR[0][rapBin-1][ptBin-1][cpmBin-1] <<"for rap pt cpm "<<rapBin<<ptBin<<cpmBin<<endl;
 
 				fracBkgDSD_SBL[0][rapBin-1][ptBin-1][cpmBin-1] = fBkgDSD_SBL;
 				fracBkgDSD_SBR[0][rapBin-1][ptBin-1][cpmBin-1] = fBkgDSD_SBR;

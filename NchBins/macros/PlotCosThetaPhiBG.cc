@@ -18,6 +18,11 @@ TH1F *events_SR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 TH1F *events_PRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 TH1F *mean_pT[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 TH1F *mean_y[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+TH1F *mean_cpm[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+TH2F *nbin_costhCS[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+TH2F *nbin_costhPHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+TH2F *nbin_costhHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+//TH2F *nbin_phi[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 
 int evtPinPRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
 		evtNPinPRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
@@ -25,7 +30,11 @@ int evtPinPRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
 double fracBGinPRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
 			 fracNPinPRSR[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 double MeanPt[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
-			 MeanRap[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+			 MeanRap[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],
+			 MeanCpm[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+int nbincosthCS[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],nbinphiCS[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+int nbincosthHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],nbinphiHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
+int nbincosthPHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins],nbinphiPHX[onia::kNbRapForPTBins][onia::kNbPTMaxBins][onia::NchBins];
 
 void LoadHistos(Int_t iRapBin, Int_t iPTBin, Int_t iCPMBin, Int_t nState);
 void PlotHistos(Int_t iRapBin, Int_t iPTBin, Int_t iCPMBin, Int_t iFrame, Int_t iWindow);
@@ -133,16 +142,13 @@ int main(int argc, char* argv[]){
 			fprintf(NumFile, "\\multicolumn{10}{|c|}{$\\Psi(1S)$} \\\\\n \\hline \n \\rule{0pt}{4mm} \n");
 			int pt=0;
 			int cpm=0;
-			for(int ptBin = 1; ptBin < onia::kNbPTBins[1]+1; ptBin++) {
 			for(int cpmBin = 1; cpmBin < onia::NchBins+1; cpmBin++) {			
 				fprintf(NumFile, "%1.0f--%1.0f   &  $%d  $  & $%1.1f $  &  $%1.1f $ &  $%d $ &  $%1.1f $ &  $%1.1f $ & -- & -- & -- \\\\\n", 
 						onia::cpmRange[cpmBin-1], onia::cpmRange[cpmBin],
-						evtPinPRSR[0][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[0][ptBin-1][cpmBin-1], 100*fracBGinPRSR[0][ptBin-1][cpmBin-1],
-						evtPinPRSR[1][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[1][ptBin-1][cpmBin-1], 100*fracBGinPRSR[1][ptBin-1][cpmBin-1]);
+						evtPinPRSR[0][0][cpmBin-1], 100.*fracNPinPRSR[0][0][cpmBin-1], 100*fracBGinPRSR[0][0][cpmBin-1],
+						evtPinPRSR[0][1][cpmBin-1], 100.*fracNPinPRSR[0][1][cpmBin-1], 100*fracBGinPRSR[0][1][cpmBin-1]);
 						cpm++;
 						}
-				pt++;
-			}
 		}
 
 		if(nState==5){
@@ -152,18 +158,17 @@ int main(int argc, char* argv[]){
 
 			int pt=0;
 			int cpm=0;
-			for(int ptBin = 1; ptBin < onia::kNbPTBins[1]+1; ptBin++) {
 			for(int cpmBin = 1; cpmBin < onia::NchBins+1; cpmBin++) {
 				fprintf(NumFile, "%1.0f--%1.0f   &  $%d  $  & $%1.1f $  &  $%1.1f $ &  $%d $ &  $%1.1f $ &  $%1.1f $ &  $%d $ &  $%1.1f $ &  $%1.1f $ \\\\\n", 
-						onia::pTRange[1][ptBin-1], onia::pTRange[1][ptBin],
-						evtPinPRSR[0][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[0][ptBin-1][cpmBin-1], 100*fracBGinPRSR[0][ptBin-1][cpmBin-1],
-						evtPinPRSR[1][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[1][ptBin-1][cpmBin-1], 100*fracBGinPRSR[1][ptBin-1][cpmBin-1], 
-						evtPinPRSR[2][ptBin-1][cpmBin-1], 100.*fracNPinPRSR[2][ptBin-1][cpmBin-1], 100*fracBGinPRSR[2][ptBin-1][cpmBin-1] );
+						onia::cpmRange[cpmBin-1], onia::cpmRange[cpmBin],
+						evtPinPRSR[0][0][cpmBin-1], 100.*fracNPinPRSR[0][0][cpmBin-1], 100*fracBGinPRSR[0][0][cpmBin-1],
+						evtPinPRSR[1][0][cpmBin-1], 100.*fracNPinPRSR[1][0][cpmBin-1], 100*fracBGinPRSR[1][0][cpmBin-1], 
+						evtPinPRSR[2][0][cpmBin-1], 100.*fracNPinPRSR[2][0][cpmBin-1], 100*fracBGinPRSR[2][0][cpmBin-1] );
 				cpm++;
-				}
-				pt++;
 			}
 		}
+		
+
 
 		fprintf(NumFile, "\\hline\n");
 		fprintf(NumFile, "\\end{tabular}\n");
@@ -175,7 +180,7 @@ int main(int argc, char* argv[]){
 
 		fclose(NumFile);
 
-		//// estimated mean pT and y 
+		//// estimated mean Nch, pT, and y 
 		sprintf(NumFileName,"meanPt_Psi%dS.tex",nState-3);
 		NumFile = fopen(NumFileName,"w");
 		fprintf(NumFile, "\n");
@@ -185,27 +190,24 @@ int main(int argc, char* argv[]){
 
 		fprintf(NumFile, "\n\n\n\n");
 
-		fprintf(NumFile, "\\begin{table}[!H]\n\\centering\n \\caption{Estimated mean $p_{T}$ and $|y|$, for each $\\psi(nS)$ kinematic bin} \n");
-		fprintf(NumFile, "\\begin{tabular}{|c|cc|cc|cc|}\n\\hline\n");
-		fprintf(NumFile, "$p_{T}$ [GeV] & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ \\\\\n");
+		fprintf(NumFile, "\\begin{table}\n\\centering\n \\caption{Estimated mean $p_{T}$ and $|y|$, for each $\\psi(nS)$ kinematic bin} \n");
+		fprintf(NumFile, "\\begin{tabular}{|c|ccc|ccc|ccc|}\n\\hline\n");
+		fprintf(NumFile, "$N_{ch}$ & $\\hat{N_{ch}}$ & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ & $\\hat{N_{ch}}$ & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ & $\\hat{N_{ch}}$ & $\\hat{p_{T}}$ [GeV] & $\\hat{|y|}$ \\\\\n");
 
 		if(nState==4){
-			sprintf(framerap,"\\hline \\multicolumn{1}{|c|}{} & \\multicolumn{2}{|c|}{$%1.1f < |y| < %1.1f$ } & \\multicolumn{2}{|c|}{$%1.1f < |y| < %1.1f$ } & \\multicolumn{2}{|c|}{$%1.1f < |y| < %1.1f$ } \\\\\n \\hline \n",0.0, 0.6, 0.6, 1.2, 1.2, 1.5);
+			sprintf(framerap,"\\hline \\multicolumn{1}{|c|}{} & \\multicolumn{3}{|c|}{$%d < p_T < %d$ } & \\multicolumn{3}{|c|}{$%d < p_T < %d$ } & \\multicolumn{3}{|c|}{$%d < p_T < %d$ } \\\\\n \\hline \n",14, 25, 25, 50, 0, 0);
 			fprintf(NumFile,framerap);
-			fprintf(NumFile, "\\multicolumn{7}{|c|}{$\\Psi(1S)$} \\\\\n \\hline \n \\rule{0pt}{4mm} \n");
+			fprintf(NumFile, "\\multicolumn{10}{|c|}{$\\Psi(1S)$} \\\\\n \\hline \n \\rule{0pt}{4mm} \n");
 			int pt=0;
 			int cpm=0;
-			for(int ptBin = 1; ptBin < onia::kNbPTBins[1]+1; ptBin++) {
 			for(int cpmBin = 1; cpmBin < onia::NchBins+1; cpmBin++) {
 
-				fprintf(NumFile, "%1.0f--%1.0f & $%1.3f$ & $%1.3f$ & $%1.3f$ & $%1.3f$ & -- & -- \\\\\n", 
-						onia::pTRange[1][ptBin-1], onia::pTRange[1][ptBin],
-						MeanPt[0][ptBin-1][cpmBin-1], MeanRap[0][ptBin-1][cpmBin-1],
-						MeanPt[1][ptBin-1][cpmBin-1], MeanRap[1][ptBin-1][cpmBin-1]);
+				fprintf(NumFile, "%1.0f--%1.0f & $%1.3f$ & $%1.3f$ & $%1.3f$ & $%1.3f$ & $%1.3f$ & $%1.3f$ & -- & -- & -- \\\\\n", 
+						onia::cpmRange[cpmBin-1], onia::cpmRange[cpmBin],
+						MeanCpm[0][0][cpmBin-1],MeanPt[0][0][cpmBin-1], MeanRap[0][0][cpmBin-1],
+						MeanCpm[0][1][cpmBin-1],MeanPt[0][1][cpmBin-1], MeanRap[0][1][cpmBin-1]);
 				cpm++;
 				}
-				pt++;
-			}
 		}
 
 		if(nState==5){
@@ -241,7 +243,210 @@ int main(int argc, char* argv[]){
 
 
 	}
+	
+			if(nState==4){
+		   
+		   cout<<endl;
+	  	   cout<<endl;
+		   cout<<"double ptCentre[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<MeanPt[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"double cpmCentre[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){     
+				 cout<<MeanCpm[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"double meanRap[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<MeanRap[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 
+		 cout<<"double fracBackground[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<fracBGinPRSR[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"double numEvents[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<evtPinPRSR[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 
+		 cout<<"//CS double binCosth[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbincosthCS[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 		 
+		 cout<<"//CS double binPhi[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbinphiCS[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"//HX double binCosth[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbincosthHX[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"//HX double binPhi[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbinphiHX[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"//PHX double binPhi[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbinphiPHX[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+		 cout<<"//PHX double binCosth[nRapBins][nPtBins]={{";
+	   
+		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
+			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
+			 for(int iPT = 0; iPT <= max_pt; iPT++){
+			 Int_t max_cpm = onia::NchBins-1;
+			 for(int icpm = 0; icpm <= max_cpm; icpm++){      
+				 cout<<nbincosthPHX[iRap][iPT][icpm];
+				 if(icpm<max_cpm) {cout<<", "; }
+				 else if(icpm==max_cpm && iPT < onia::kNbPTBins[iRap]-1) {cout<<"},{"; }
+				 else {cout<<"}};"; }
+			 }
+			 }
+		   }
+		 cout<<endl;
+		 cout<<endl;
+		 
+	  
+//	  int nx = hTBG_cosThetaPhi[iFrame]->GetXaxis()->GetNbins();
+//		int ny = hTBG_cosThetaPhi[iFrame]->GetYaxis()->GetNbins();
+		
+		
+  		}
 
+
+	
 	return 1;
 }
 
@@ -362,8 +567,22 @@ void LoadHistos(Int_t iRapBin, Int_t iPTBin, Int_t iCPMBin, Int_t nState){
 
 	sprintf(name, "mean_pT"); mean_pT[iRapBin][iPTBin][iCPMBin] = (TH1F*) fIn->Get(name);
 	sprintf(name, "mean_y");  mean_y [iRapBin][iPTBin][iCPMBin] = (TH1F*) fIn->Get(name);
+	sprintf(name, "mean_cpm");  mean_cpm [iRapBin][iPTBin][iCPMBin] = (TH1F*) fIn->Get(name);
 	MeanPt [iRapBin][iPTBin][iCPMBin] = mean_pT[iRapBin][iPTBin][iCPMBin]->GetBinContent(1);
 	MeanRap[iRapBin][iPTBin][iCPMBin] = mean_y [iRapBin][iPTBin][iCPMBin]->GetBinContent(1);
+	MeanCpm[iRapBin][iPTBin][iCPMBin] = mean_cpm[iRapBin][iPTBin][iCPMBin]->GetBinContent(1);
+	
+	sprintf(name, "background_costhphiCS"); nbin_costhCS[iRapBin][iPTBin][iCPMBin] = (TH2F*) fIn->Get(name);
+	nbincosthCS[iRapBin][iPTBin][iCPMBin]=nbin_costhCS[iRapBin][iPTBin][iCPMBin]->GetXaxis()->GetNbins();
+	nbinphiCS[iRapBin][iPTBin][iCPMBin]=nbin_costhCS[iRapBin][iPTBin][iCPMBin]->GetYaxis()->GetNbins();
+	
+	sprintf(name, "background_costhphiHX"); nbin_costhHX[iRapBin][iPTBin][iCPMBin] = (TH2F*) fIn->Get(name);
+	nbincosthHX[iRapBin][iPTBin][iCPMBin]=nbin_costhHX[iRapBin][iPTBin][iCPMBin]->GetXaxis()->GetNbins();
+	nbinphiHX[iRapBin][iPTBin][iCPMBin]=nbin_costhHX[iRapBin][iPTBin][iCPMBin]->GetYaxis()->GetNbins();
+	
+	sprintf(name, "background_costhphiPHX"); nbin_costhPHX[iRapBin][iPTBin][iCPMBin] = (TH2F*) fIn->Get(name);
+	nbincosthPHX[iRapBin][iPTBin][iCPMBin]=nbin_costhPHX[iRapBin][iPTBin][iCPMBin]->GetXaxis()->GetNbins();
+	nbinphiPHX[iRapBin][iPTBin][iCPMBin]=nbin_costhPHX[iRapBin][iPTBin][iCPMBin]->GetYaxis()->GetNbins();
 
 	sprintf(name, "events_SR");
 	events_SR[iRapBin][iPTBin][iCPMBin] = (TH1F*) fIn->Get(name);

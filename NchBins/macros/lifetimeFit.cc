@@ -307,11 +307,38 @@ void doFit(RooWorkspace *ws, int nState, double FracBkg, double fracBkgInSBL, do
 			ws->var("fBkgDSD_SBR")->setMax(.215);
 		}
 		
-		if(ptBin == 2 && cpmBin == 9){
+		if(ptBin == 2 && (cpmBin == 1 || cpmBin == 2)){
 			ws->var("fBkgSSDR_SBL")->setVal(.785);
 			ws->var("fBkgSSDR_SBR")->setVal(.785);
-			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
-			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
+//			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
+//			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
+			ws->var("fBkgDSD_SBL")->setMax(.215);
+			ws->var("fBkgDSD_SBR")->setMax(.215);
+		}
+		
+		if(ptBin == 2 && cpmBin == 9 ){
+			ws->var("fBkgSSDR_SBL")->setVal(.77);
+			ws->var("fBkgSSDR_SBR")->setVal(.77);
+//			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
+//			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
+			ws->var("fBkgDSD_SBL")->setMax(.215);
+			ws->var("fBkgDSD_SBR")->setMax(.215);
+		}
+		
+		if(ptBin == 2 && cpmBin == 10 ){
+			ws->var("fBkgSSDR_SBL")->setVal(.77);
+			ws->var("fBkgSSDR_SBR")->setVal(.77);
+//			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
+//			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
+			ws->var("fBkgDSD_SBL")->setMax(.215);
+			ws->var("fBkgDSD_SBR")->setMax(.215);
+		}
+		
+		if(ptBin == 2 && cpmBin == 4 ){
+			ws->var("fBkgSSDR_SBL")->setVal(.77);
+			ws->var("fBkgSSDR_SBR")->setVal(.77);
+//			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
+//			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
 			ws->var("fBkgDSD_SBL")->setMax(.215);
 			ws->var("fBkgDSD_SBR")->setMax(.215);
 		}
@@ -351,6 +378,7 @@ void doFit(RooWorkspace *ws, int nState, double FracBkg, double fracBkgInSBL, do
 			ws->var("ctResolution2")->setVal(1.1);
 		else if(rapBin == 2)
 			ws->var("ctResolution2")->setVal(1.5);
+			
 		ws->var("ctResolution2")->setConstant(kTRUE);
 		ws->var("fracGauss2")->setVal(0.2);
 		ws->var("fracGauss2")->setMin(0.04);

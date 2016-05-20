@@ -21,7 +21,7 @@ void PlotMassLifetime(const std::string &infilename, int rapBin, int ptBin, int 
 		case 1:
 			std::cout << ">>>>Plotting mass" << std::endl;
 			plotMass(ws, rapBin, ptBin, cpmBin, nState);
-			plotMassLog(ws, rapBin, ptBin, cpmBin, nState);
+//			plotMassLog(ws, rapBin, ptBin, cpmBin, nState);
 			std::cout << ">>>>Plotting lifetime sidebands" << std::endl;
 			plotLifeBg(ws, rapBin, ptBin, cpmBin, nState);
 			std::cout << ">>>>Plotting lifetime signal region" << std::endl;
@@ -676,7 +676,7 @@ void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 
 
 		pad1->cd(0); pad1->SetLogy(0);
-//		massFramePull->Draw();
+		massFramePull->Draw();
 
 		std::stringstream saveMass;
 		if(LinLog==0) saveMass << "Fit/mass_lin_rap" << rapBin << "_pt" << ptBin << "_cpm" << cpmBin << ".pdf";
@@ -698,6 +698,8 @@ void plotMass(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	return;
 }
 //==============================================
+/*
+not updated for rapidity dependent sigma, implemented log plot withing plotMass function instead
 void plotMassLog(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	int  nbins=90; //0.005 bin size
 	TGaxis::SetMaxDigits(3);
@@ -955,7 +957,7 @@ void plotMassLog(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState
 	delete legendPink;
 	return;
 }
-
+*/
 //==============================================
 void plotLifeBg(RooWorkspace *ws, int rapBin, int ptBin, int cpmBin, int nState){
 	//int nbins=140; //bin size 0.025 mm
