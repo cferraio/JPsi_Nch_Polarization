@@ -326,10 +326,10 @@ void doFit(RooWorkspace *ws, int nState, double FracBkg, double fracBkgInSBL, do
 		}
 		
 		if(ptBin == 2 && cpmBin == 10 ){
-			ws->var("fBkgSSDR_SBL")->setVal(.77);
-			ws->var("fBkgSSDR_SBR")->setVal(.77);
-//			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
-//			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
+			ws->var("fBkgSSDR_SBL")->setVal(.785);
+			ws->var("fBkgSSDR_SBR")->setVal(.785);
+			ws->var("fBkgSSDR_SBL")->setConstant(kTRUE);
+			ws->var("fBkgSSDR_SBR")->setConstant(kTRUE);
 			ws->var("fBkgDSD_SBL")->setMax(.215);
 			ws->var("fBkgDSD_SBR")->setMax(.215);
 		}

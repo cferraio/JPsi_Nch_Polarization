@@ -20,8 +20,9 @@ source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/ro
 
 storagedir=$3
 homedir=$4
-setptbin=$6
-setcpmbin=$7
+setptbin=$7
+setcpmbin=$8
+settotalfits=$5
 
 
 echo "storage dir: $storagedir"
@@ -43,9 +44,9 @@ datadir_Start=${basedir}/macros/DataFiles
 ########## INPUTS ##########
 
 #Batch submission system: 0/1
-useBatch=0
+useBatch=1
 
-#fracL=50 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
+#fracL=25 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
 #nSigma=3.00 #needed in 2 decimal accuracy (x.yz)
 
 for nState in 4;do
@@ -56,7 +57,7 @@ StatVarRho=0               #apply statistical fluctuations on rho factor
 
 #####################
 #####################
-JobID=18May16_MassUpdateFixedErrBars
+JobID=19May16_MassUpdateFixedErrBars
 #####################
 #####################
 
@@ -86,8 +87,8 @@ nDenominatorAmap=1		     #the number here corresponds to the same notation as nE
 
 nSample=50000
 
-nFits=50
-nSkipGen=0
+nFits=1
+nSkipGen=$settotalfits
 
 #####################
 #####################
@@ -150,7 +151,7 @@ while [ $cpm_ -le ${cpmBinMax} ]
 do
 
 #touch polGenRecFitPlot.cc
-#make
+make
 
 nGen_=${nSkipGen}
 nGen_=$[nGen_+1]

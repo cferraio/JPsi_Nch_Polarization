@@ -6,17 +6,20 @@ nState=4
 NSigma=3.00 #needed in 2 decimal accuracy (x.yz)
 
 #JobID=Psi$[nState-3]S_${NSigma}Sigma_11Dec2012
-JobID=Psi$[nState-3]S_${NSigma}Sigma_11Dec2012_noRhoFactor
+#JobID=Psi$[nState-3]S_${NSigma}Sigma_11Dec2012_noRhoFactor
+JobID=19May16_MassUpdateFixedErrBars
 
-nGenerations=10
+nGenerations=50
 MergeFiles=1
 
 if [ $nState -eq 4 ] 
 then
 rapBinMin=1
-rapBinMax=2
-ptBinMin=1
-ptBinMax=12
+rapBinMax=1
+ptBinMin=2
+ptBinMax=2
+cpmBinMin=10
+cpmBinMax=10
 fi
 
 if [ $nState -eq 5 ] 
@@ -39,8 +42,8 @@ cd ..
 cd ..
 basedir=$PWD
 cd macros/polFit
-#storagedir=`more storagedir`/Data #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=$basedir/Psi/Data
+storagedir=`more storagedir` #please define the directory storagedir in the file macros/polFit/storagedir
+#storagedir=$basedir/Psi/Data
 
 mkdir ${storagedir}
 mkdir ${storagedir}/${JobID}
@@ -54,6 +57,9 @@ do
 pT_=${ptBinMin}
 while [ $pT_ -le ${ptBinMax} ]
 do
+cpm_=${cpmBinMin}
+while [ $cpm_ -le ${cpmBinMax} ]
+do
 
 nGen_=${nSkipGen}
 nGen_=$[nGen_+1]
@@ -61,10 +67,10 @@ while [ $nGen_ -le ${nGenerations} ]
 do
 
 
-resultfilename=resultsMerged_Psi$[nState-3]S_rap${rap_}_pT${pT_}.root
+resultfilename=resultsMerged_Psi$[nState-3]S_rap${rap_}_pT${pT_}_cpm${cpm_}.root
 
 
-nFitResultName=results_Fit${nGen_}_Psi$[nState-3]S_rap${rap_}_pT${pT_}.root
+nFitResultName=results_Fit${nGen_}_Psi$[nState-3]S_rap${rap_}_pT${pT_}_cpm${cpm_}.root
 echo ${nFitResultName}
 
 if [ $MergeFiles -eq 1 ]
@@ -89,7 +95,7 @@ nGen_=$[nGen_+1]
 done
 
 
-FinalDestinationName=results_Psi$[nState-3]S_rap${rap_}_pT${pT_}.root
+FinalDestinationName=results_Psi$[nState-3]S_rap${rap_}_pT${pT_}_cpm${cpm_}.root
 
 if [ $MergeFiles -eq 1 ]
 then
@@ -97,6 +103,8 @@ mv ${FinalDestinationName} tmp_${FinalDestinationName}
 mv ${resultfilename} ${FinalDestinationName}
 fi
 
+cpm_=$[cpm_+1]
+done
 pT_=$[pT_+1]
 done
 rap_=$[rap_+1]

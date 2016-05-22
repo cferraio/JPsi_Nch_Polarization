@@ -18,8 +18,8 @@ datadir_Start=${basedir}/macros/DataFiles
 #Batch submission system: 0/1
 useBatch=0
 
-#fracL=50 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
-#nSigma=3.00 #needed in 2 decimal accuracy (x.yz)
+fracL=75 #in percent #MC closure: 25 for data sigmas, 50 for MC sigmas
+nSigma=3.00 #needed in 2 decimal accuracy (x.yz)
 
 for nState in 4;do
 
@@ -29,7 +29,7 @@ StatVarRho=0               #apply statistical fluctuations on rho factor
 
 #####################
 #####################
-JobID=18May16_MassUpdateFixedErrBars
+JobID=18May16_MassUpdateFixedErrBars_HighFracL
 #####################
 #####################
 
@@ -37,7 +37,7 @@ rapBinMin=1
 rapBinMax=1
 ptBinMin=2
 ptBinMax=2
-cpmBinMin=1
+cpmBinMin=10
 cpmBinMax=10
 
 FidCuts=11
