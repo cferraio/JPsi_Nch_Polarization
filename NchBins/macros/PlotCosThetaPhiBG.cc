@@ -248,7 +248,7 @@ int main(int argc, char* argv[]){
 		   
 		   cout<<endl;
 	  	   cout<<endl;
-		   cout<<"double ptCentre[nRapBins][nPtBins]={{";
+		   cout<<"double ptCentre[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -265,7 +265,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"double cpmCentre[nRapBins][nPtBins]={{";
+		 cout<<"double cpmCentre[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -282,7 +282,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"double meanRap[nRapBins][nPtBins]={{";
+		 cout<<"double meanRap[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -300,7 +300,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 
 		 
-		 cout<<"double fracBackground[nRapBins][nPtBins]={{";
+		 cout<<"double fracBackground[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -317,7 +317,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"double numEvents[nRapBins][nPtBins]={{";
+		 cout<<"int numEvents[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -335,7 +335,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 
 		 
-		 cout<<"//CS double binCosth[nRapBins][nPtBins]={{";
+		 cout<<"//CS int binCosth[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -353,7 +353,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 
 		 		 
-		 cout<<"//CS double binPhi[nRapBins][nPtBins]={{";
+		 cout<<"//CS int binPhi[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -370,7 +370,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"//HX double binCosth[nRapBins][nPtBins]={{";
+		 cout<<"//HX int binCosth[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -387,7 +387,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"//HX double binPhi[nRapBins][nPtBins]={{";
+		 cout<<"//HX int binPhi[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -404,7 +404,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"//PHX double binPhi[nRapBins][nPtBins]={{";
+		 cout<<"//PHX int binPhi[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;
@@ -421,7 +421,7 @@ int main(int argc, char* argv[]){
 		 cout<<endl;
 		 cout<<endl;
 		 
-		 cout<<"//PHX double binCosth[nRapBins][nPtBins]={{";
+		 cout<<"//PHX int binCosth[nRapBins][nPtBins][ncpmBins]={{";
 	   
 		   for(int iRap = 0; iRap < onia::kNbRapForPTBins; iRap++){
 			 Int_t max_pt = onia::kNbPTBins[iRap]-1;

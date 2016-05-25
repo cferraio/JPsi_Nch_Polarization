@@ -4,8 +4,8 @@ LIBS=$(shell root-config --libs)
 %.o : %.cc
 	$(CXX) -c $<
 
-#all: polRapPtPlot polGenRecFitPlot EvaluateSyst PlotFinalResults MattsResults AverageSystematics ChangeTGraph AlterPPD
-all: polRapPtPlot polGenRecFitPlot PlotFinalResults
+all: polRapPtPlot polGenRecFitPlot EvaluateSyst PlotFinalResults MattsResults AverageSystematics ChangeTGraph AlterPPD
+#all: polRapPtPlot polGenRecFitPlot PlotFinalResults
 
 polRapPtPlot: polRapPtPlot.cc
 	$(CXX) $^ -o $@ $(LIBS) -lFoam -lMinuit

@@ -1,5 +1,6 @@
 #!/bin/sh
-source /afs/ihep.ac.cn/users/z/zhangll/workspace/rootset.sh 30
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
 
 homedir=$PWD
 cd ..
@@ -7,7 +8,7 @@ cd ..
 basedir=$PWD
 cd macros/polFit
 #storagedir=`more storagedir`/ToyMC #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=${basedir}/Psi/ToyMC
+storagedir=/data/users/ferraioc/Polarization/JPsi/NchBins/ToyMC
 
 ########## INPUTS ##########
 
@@ -20,7 +21,7 @@ cp ../../interface/effsAndCuts_Psi$[nState-3]S.h  effsAndCuts.h
 touch polRapPtPlot.cc
 make
 
-for JobID in ToyMC_Psi$[nState-3]S_13Dec2012_400K; do
+for JobID in FrameworkI_19May2016; do
 #for JobID in ToyMC_Psi$[nState-3]S_13Dec2012; do
 
 echo ${JobID}
@@ -29,7 +30,9 @@ echo ${JobID}
 if [ $nState -eq 4 ]
 then
 ptBinMin=1
-ptBinMax=12
+ptBinMax=2
+cpmBinMin=1
+cpmBinMax=10
 fi
 if [ $nState -eq 5 ]
 then
@@ -43,7 +46,7 @@ for polScenSig in 3;do
 frameBkg=1
 for polScenBkg in 3;do
 
-nGenerations=15
+nGenerations=50
 
 MPValgo=3 		#1...mean,2...gauss,3...gauss-loop with chi2<2
 additionalName=MPV${MPValgo}
@@ -75,7 +78,7 @@ mkdir ${ScenDir}
 
 cp ${basedir}/macros/polFit/polRapPtPlot .
 
-./polRapPtPlot ${ptBinMin}ptBinMin ${ptBinMax}ptBinMax ${rapBinMin}rapBinMin ${rapBinMax}rapBinMax ${frameSig}frameSig ${polScenSig}polScen ${MPValgo}MPValgo ${nGenerations}nGenerations ${ScenDir}=dirstruct ${nState}nState
+./polRapPtPlot ${cpmBinMin}cpmBinMin ${cpmBinMax}cpmBinMax ${ptBinMin}ptBinMin ${ptBinMax}ptBinMax ${rapBinMin}rapBinMin ${rapBinMax}rapBinMax ${frameSig}frameSig ${polScenSig}polScen ${MPValgo}MPValgo ${nGenerations}nGenerations ${ScenDir}=dirstruct ${nState}nState
 
 mv ${ScenDir}/TGraphResults_${TreeID}_temp.root ${ScenDir}/TGraphResults_${TreeID}.root 
 
@@ -98,10 +101,15 @@ do
 pT_=${ptBinMin}
 while [ $pT_ -le ${ptBinMax} ]
 do
+cpm_=${cpmBinMin}
+while [ $cpm_ -le ${cpmBinMax} ]
+do
 
-pdflatex "\newcommand\rappt{rap${rap_}pt${pT_}}\input{ToyResults_${ScenDir}.tex}"
-mv ToyResults_${ScenDir}.pdf ${basedir}/macros/polFit/FiguresToyMC/${JobID}/${ScenDir}/ToyResults_${ScenDir}_rap${rap_}pt${pT_}_${additionalName}.pdf
+pdflatex "\newcommand\rapptcpm{rap${rap_}pt${pT_}cpm${cpm_}}\input{ToyResults_${ScenDir}.tex}"
+mv ToyResults_${ScenDir}.pdf ${basedir}/macros/polFit/FiguresToyMC/${JobID}/${ScenDir}/ToyResults_${ScenDir}_rap${rap_}pt${pT_}_cpm${cpm_}_${additionalName}.pdf
 
+cpm_=$[cpm_+1]
+done
 pT_=$[pT_+1]
 done
 rap_=$[rap_+1]

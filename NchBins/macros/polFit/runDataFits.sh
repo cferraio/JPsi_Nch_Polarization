@@ -10,7 +10,7 @@ cd ..
 basedir=$PWD
 cd macros/polFit
 #storagedir=`more storagedir`/Data #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=/data/users/ferraioc/Polarization/JPsi/NchBins
+storagedir=/data/users/ferraioc/Polarization/JPsi/NchBins/Data
 datadir_Start=${basedir}/macros/DataFiles
 
 ########## INPUTS ##########

@@ -29,6 +29,7 @@ echo "storage dir: $storagedir"
 echo "home dir: $homedir"
 echo "ptbin: $setptbin"
 echo "cpmbin: $setcpmbin"
+echo "fit: $settotalfits"
 
 
 #homedir=HOMEDIR
@@ -38,7 +39,7 @@ cd ..
 basedir=$PWD
 cd macros/polFit
 #storagedir=`more storagedir`/Data #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=/data/users/ferraioc/Polarization/JPsi/NchBins
+storagedir=/data/users/ferraioc/Polarization/JPsi/NchBins/Data
 datadir_Start=${basedir}/macros/DataFiles
 
 ########## INPUTS ##########
@@ -57,7 +58,7 @@ StatVarRho=0               #apply statistical fluctuations on rho factor
 
 #####################
 #####################
-JobID=19May16_MassUpdateFixedErrBars
+JobID=19May16_MassUpdateFixedErrBars_FracL25
 #####################
 #####################
 
@@ -85,14 +86,14 @@ useAmapApproach=false
 nAmap=1                    #frame/state/sigma/ID ( ID= 2 digits )
 nDenominatorAmap=1		     #the number here corresponds to the same notation as nEff
 
-nSample=50000
+nSample=25000
 
 nFits=1
 nSkipGen=$settotalfits
 
 #####################
 #####################
-DataID=_ctauScen0_FracLSB-1_2011MassUpdate
+DataID=_ctauScen0_FracLSB25_2011MassUpdate
 #####################
 #####################
 
@@ -150,7 +151,7 @@ cpm_=${cpmBinMin}
 while [ $cpm_ -le ${cpmBinMax} ]
 do
 
-#touch polGenRecFitPlot.cc
+touch polGenRecFitPlot.cc
 make
 
 nGen_=${nSkipGen}

@@ -54,7 +54,9 @@ int main(int argc, char* argv[]) {
 	 	JobID1,
 	 	JobID2,
 	 	SystDir;
-	int ptBinMin = 999,
+	int cpmBinMin = 999,
+		cpmBinMax = 999,
+		ptBinMin = 999,
 		 	ptBinMax = 999,
 		 	rapBinMin = 999,
 		 	rapBinMax = 999,
@@ -70,6 +72,8 @@ int main(int argc, char* argv[]) {
 	for (int i=1; i < argc; i++)
 	{
 		std::string arg = argv[i];
+		fromSplit("cpmBinMin", arg, cpmBinMin);
+		fromSplit("cpmBinMax", arg, cpmBinMax);
 		fromSplit("ptBinMin", arg, ptBinMin);
 		fromSplit("ptBinMax", arg, ptBinMax);
 		fromSplit("rapBinMin", arg, rapBinMin);
@@ -124,29 +128,30 @@ int main(int argc, char* argv[]) {
 	for(int iLam = 1; iLam < 19; iLam++){
 
 		for(int rapBin = rapBinMin; rapBin < rapBinMax+1; rapBin++){
+		  for(int ptBin = ptBinMin; ptBin < ptBinMax+1; ptBin++){
 
 			// get graphs from file
 			std::stringstream graphName;
-			if(iLam==1)  graphName << "lth_CS_rap" << rapBin;
-			if(iLam==2)  graphName << "lph_CS_rap" << rapBin;
-			if(iLam==3)  graphName << "ltp_CS_rap" << rapBin;
-			if(iLam==4)  graphName << "lthstar_CS_rap" << rapBin;
-			if(iLam==5)  graphName << "lphstar_CS_rap" << rapBin;
-			if(iLam==6)  graphName << "ltilde_CS_rap" << rapBin;
+			if(iLam==1)  graphName << "lth_CS_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==2)  graphName << "lph_CS_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==3)  graphName << "ltp_CS_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==4)  graphName << "lthstar_CS_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==5)  graphName << "lphstar_CS_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==6)  graphName << "ltilde_CS_rap" << rapBin <<"_pt"<<ptBin;
 
-			if(iLam==7)  graphName << "lth_HX_rap" << rapBin;
-			if(iLam==8)  graphName << "lph_HX_rap" << rapBin;
-			if(iLam==9)  graphName << "ltp_HX_rap" << rapBin;
-			if(iLam==10) graphName << "lthstar_HX_rap" << rapBin;
-			if(iLam==11) graphName << "lphstar_HX_rap" << rapBin;
-			if(iLam==12) graphName << "ltilde_HX_rap" << rapBin;
+			if(iLam==7)  graphName << "lth_HX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==8)  graphName << "lph_HX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==9)  graphName << "ltp_HX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==10) graphName << "lthstar_HX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==11) graphName << "lphstar_HX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==12) graphName << "ltilde_HX_rap" << rapBin <<"_pt"<<ptBin;
 
-			if(iLam==13) graphName << "lth_PX_rap" << rapBin;
-			if(iLam==14) graphName << "lph_PX_rap" << rapBin;
-			if(iLam==15) graphName << "ltp_PX_rap" << rapBin;
-			if(iLam==16) graphName << "lthstar_PX_rap" << rapBin;
-			if(iLam==17) graphName << "lphstar_PX_rap" << rapBin;
-			if(iLam==18) graphName << "ltilde_PX_rap" << rapBin;
+			if(iLam==13) graphName << "lth_PX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==14) graphName << "lph_PX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==15) graphName << "ltp_PX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==16) graphName << "lthstar_PX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==17) graphName << "lphstar_PX_rap" << rapBin <<"_pt"<<ptBin;
+			if(iLam==18) graphName << "ltilde_PX_rap" << rapBin <<"_pt"<<ptBin;
 
 			std::cout << graphName.str().c_str() << std::endl;
 
@@ -154,12 +159,10 @@ int main(int argc, char* argv[]) {
 			if(iLam > 0 && iLam < 7) nFrame = 1;
 			if(iLam > 6 && iLam < 13) nFrame = 2;
 			if(iLam > 12 && iLam < 19) nFrame = 3;
-
 			TGraphAsymmErrors* graph1 = (TGraphAsymmErrors*) infile1->Get(graphName.str().c_str());
 			TGraphAsymmErrors* graph2 = (TGraphAsymmErrors*) infile2->Get(graphName.str().c_str());
-
 			// define arrays for storing values from TGraphs
-			int nBinspT = ptBinMax - ptBinMin + 1;
+/*			int nBinspT = ptBinMax - ptBinMin + 1;
 			double ptCentre_[nBinspT],
 						 ptCentreErr_low[nBinspT],
 						 ptCentreErr_high[nBinspT],
@@ -176,27 +179,58 @@ int main(int argc, char* argv[]) {
 						 lmeanErr1_high[nBinspT],
 						 lmeanErr2_low[nBinspT],
 						 lmeanErr2_high[nBinspT],
-						 value[nBinspT-1],
-						 valueErr_low[nBinspT-1],
-						 valueErr_high[nBinspT-1],
-						 ptCentreVal_[nBinspT-1];
+	*/			
 
-			int pt = 0;
+	int nBinscpm=cpmBinMax-cpmBinMin+1;
+	double		 value[nBinscpm-1],
+						 valueErr_low[nBinscpm-1],
+						 valueErr_high[nBinscpm-1],
+						 cpmCentreVal_[nBinscpm-1];
+						 
+			
+			double cpmCentre_[nBinscpm];
+			double cpmCentreErr_low[nBinscpm];
+			double cpmCentreErr_high[nBinscpm];
+			double lmean[nBinscpm];
 
-			for(int ptBin = ptBinMin; ptBin < ptBinMax+1; ptBin++) {
+			double cpmCentre1_[nBinscpm];
+			double cpmCentreErr1_low[nBinscpm];
+			double cpmCentreErr1_high[nBinscpm];
+			double cpmCentre2_[nBinscpm];
+			double cpmCentreErr2_low[nBinscpm];
+			double cpmCentreErr2_high[nBinscpm];
 
-				graph1->GetPoint(pt,ptCentre1_[pt],lmean1[pt]);
-				ptCentreErr1_high[pt]=graph1->GetErrorXhigh(pt);
-				ptCentreErr1_low[pt]=graph1->GetErrorXlow(pt);
-				graph2->GetPoint(pt,ptCentre2_[pt],lmean2[pt]);
-				ptCentreErr2_high[pt]=graph2->GetErrorXhigh(pt);
-				ptCentreErr2_low[pt]=graph2->GetErrorXlow(pt);
+			double cpmCentre3_[nBinscpm];
+			double lmean3[nBinscpm];
 
-				if(lmean1[pt]>998) lmean1[pt]=9999;
+			double lmean1[nBinscpm];
+			double lmean2[nBinscpm];
 
-				ptCentre_[pt]=(ptCentre1_[pt]+ptCentre2_[pt])/2.;
-				ptCentreErr_low[pt]=(ptCentreErr1_low[pt]+ptCentreErr2_low[pt])/2.;
-				ptCentreErr_high[pt]=(ptCentreErr1_high[pt]+ptCentreErr2_high[pt])/2.;
+			double lmeanErr1_low[nBinscpm];
+			double lmeanErr1_high[nBinscpm];
+			double lmeanErr2_low[nBinscpm];
+			double lmeanErr2_high[nBinscpm];
+
+			double lmeanErr_change_low[nBinscpm];
+			double lmeanErr_change_high[nBinscpm];
+			double lmeanErr_change[nBinscpm];
+
+			int cpm = 0;
+
+			for(int cpmBin = cpmBinMin; cpmBin < cpmBinMax+1; cpmBin++) {
+
+				graph1->GetPoint(cpm,cpmCentre1_[cpm],lmean1[cpm]);
+				cpmCentreErr1_high[cpm]=graph1->GetErrorXhigh(cpm);
+				cpmCentreErr1_low[cpm]=graph1->GetErrorXlow(cpm);
+				graph2->GetPoint(cpm,cpmCentre2_[cpm],lmean2[cpm]);
+				cpmCentreErr2_high[cpm]=graph2->GetErrorXhigh(cpm);
+				cpmCentreErr2_low[cpm]=graph2->GetErrorXlow(cpm);
+
+			if(lmean1[cpm]>998) lmean1[cpm]=9999;
+
+				cpmCentre_[cpm]=(cpmCentre1_[cpm]+cpmCentre1_[cpm])/2.;
+				cpmCentreErr_low[cpm]=(cpmCentreErr1_low[cpm]+cpmCentreErr2_low[cpm])/2.;
+				cpmCentreErr_high[cpm]=(cpmCentreErr1_high[cpm]+cpmCentreErr2_high[cpm])/2.;
 				//cout<<"ptCentre1_: "<<ptCentre1_[pt]<<endl;
 				//cout<<"ptCentre2_: "<<ptCentre2_[pt]<<endl;
 				//cout<<"ptCentreErr1_low: "<<ptCentreErr1_low[pt]<<endl;
@@ -204,79 +238,80 @@ int main(int argc, char* argv[]) {
 				//cout<<"ptCentreErr1_high: "<<ptCentreErr1_high[pt]<<endl;
 				//cout<<"ptCentreErr2_high: "<<ptCentreErr2_high[pt]<<endl;
 
-				lmeanErr1_high[pt]=graph1->GetErrorYhigh(pt);
-				lmeanErr1_low[pt]=graph1->GetErrorYlow(pt);
-				lmeanErr2_high[pt]=graph2->GetErrorYhigh(pt);
-				lmeanErr2_low[pt]=graph2->GetErrorYlow(pt);
+				lmeanErr1_high[cpm]=graph1->GetErrorYhigh(cpm);
+				lmeanErr1_low[cpm]=graph1->GetErrorYlow(cpm);
+				lmeanErr2_high[cpm]=graph2->GetErrorYhigh(cpm);
+				lmeanErr2_low[cpm]=graph2->GetErrorYlow(cpm);
+
 
 				// default setting: build difference
-				lmean[pt]=lmean1[pt]-lmean2[pt];
+				lmean[cpm]=lmean1[cpm]-lmean2[cpm];
 				//lmean[pt]=fabs(lmean1[pt]-lmean2[pt])/2.;
 				//lmean[pt]=fabs(lmean1[pt]-lmean2[pt])/TMath::Sqrt(12);
 				//lmean[pt]=fabs(lmean1[pt]-lmean2[pt]);
 				//lmean[pt] = lmean[pt] * lmean[pt] ;
 
 				//lmean[pt] = lambdaLowPt[iLam-1] ;
-				if(pt>8){
-					if(lambdaHighest[iLam-1] < lmean[pt]) lambdaHighest[iLam-1] = lmean[pt];
+	//			if(pt>8){
+		//			if(lambdaHighest[iLam-1] < lmean[pt]) lambdaHighest[iLam-1] = lmean[pt];
 					//lmean[pt] = lambdaHighestVal[iLam-1];
-				}
+			//	}
 
 				//lmean[pt] = lmean[pt] * lmean[pt] ;
 
 				if(TU){
-					double error1 = (lmeanErr1_low[pt] + lmeanErr1_high[pt])/2;
-					double error2 = (lmeanErr2_low[pt] + lmeanErr2_high[pt])/2;
-					if(error1 < error2) lmean[pt] = 0;
-					else lmean[pt] = TMath::Sqrt(TMath::Power(error1,2) - TMath::Power(error2,2));
+					double error1 = (lmeanErr1_low[cpm] + lmeanErr1_high[cpm])/2;
+					double error2 = (lmeanErr2_low[cpm] + lmeanErr2_high[cpm])/2;
+					if(error1 < error2) lmean[cpm] = 0;
+					else lmean[cpm] = TMath::Sqrt(TMath::Power(error1,2) - TMath::Power(error2,2));
 				}
-				if(sqrt12) lmean[pt]=lmean[pt]/TMath::Sqrt(12.);
-				if(removeFirstPoint && pt > 0){
-					value[pt-1] = lmean1[pt];
-					valueErr_low[pt-1] = ptCentreErr1_low[pt];
-					valueErr_high[pt-1] = ptCentreErr1_high[pt];
-					ptCentreVal_[pt-1] = ptCentre1_[pt];
+				if(sqrt12) lmean[cpm]=lmean[cpm]/TMath::Sqrt(12.);
+				if(removeFirstPoint && cpm > 0){
+					value[cpm-1] = lmean1[cpm];
+					valueErr_low[cpm-1] = cpmCentreErr1_low[cpm];
+					valueErr_high[cpm-1] = cpmCentreErr1_high[cpm];
+					cpmCentreVal_[cpm-1] = cpmCentre1_[cpm];
 
-					std::cout << pt << " set to " << pt-1 << ": pt = " << ptCentreVal_[pt-1] << " lambda = " << value[pt-1] << std::endl;
+					std::cout << cpm << " set to " << cpm-1 << ": cpm = " << cpmCentreVal_[cpm-1] << " lambda = " << value[cpm-1] << std::endl;
 				}
-				std::cout << pt << ": pT = " << ptCentre_[pt] << ", lambda = " << lmean[pt] << std::endl;
+				std::cout << cpm << ": cpm = " << cpmCentre_[cpm] << ", lambda = " << lmean[cpm] << std::endl;
 
 				double SigComp=1;
 
-				double lmeanBuff=lmean[pt];
+				double lmeanBuff=lmean[cpm];
 				if(statErrConsideration){
 					cout << "StatErrCheck" << endl;
 					bool getSqrt=true;
-					if(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr2_low[pt]*lmeanErr2_low[pt]-SigComp*SigComp*lmeanErr1_high[pt]*lmeanErr1_high[pt]<0 && lmeanBuff < 0) {lmean[pt]=0;getSqrt=false;}
-					if(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr1_low[pt]*lmeanErr1_low[pt]-SigComp*SigComp*lmeanErr2_high[pt]*lmeanErr2_high[pt]<0 && lmeanBuff > 0) {lmean[pt]=0;getSqrt=false;}
-					if(lmeanBuff==0) {lmean[pt]=0;getSqrt=false;}
-					if(lmeanBuff < 0 && getSqrt) lmean[pt]=-TMath::Sqrt(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr2_low[pt]*lmeanErr2_low[pt]-SigComp*SigComp*lmeanErr1_high[pt]*lmeanErr1_high[pt]);
-					if(lmeanBuff > 0 && getSqrt) lmean[pt]=TMath::Sqrt(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr1_low[pt]*lmeanErr1_low[pt]-SigComp*SigComp*lmeanErr2_high[pt]*lmeanErr2_high[pt]);
+					if(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr2_low[cpm]*lmeanErr2_low[cpm]-SigComp*SigComp*lmeanErr1_high[cpm]*lmeanErr1_high[cpm]<0 && lmeanBuff < 0) {lmean[cpm]=0;getSqrt=false;}
+					if(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr1_low[cpm]*lmeanErr1_low[cpm]-SigComp*SigComp*lmeanErr2_high[cpm]*lmeanErr2_high[cpm]<0 && lmeanBuff > 0) {lmean[cpm]=0;getSqrt=false;}
+					if(lmeanBuff==0) {lmean[cpm]=0;getSqrt=false;}
+					if(lmeanBuff < 0 && getSqrt) lmean[cpm]=-TMath::Sqrt(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr2_low[cpm]*lmeanErr2_low[cpm]-SigComp*SigComp*lmeanErr1_high[cpm]*lmeanErr1_high[cpm]);
+					if(lmeanBuff > 0 && getSqrt) lmean[cpm]=TMath::Sqrt(lmeanBuff*lmeanBuff-SigComp*SigComp*lmeanErr1_low[cpm]*lmeanErr1_low[cpm]-SigComp*SigComp*lmeanErr2_high[cpm]*lmeanErr2_high[cpm]);
 				}
 
 				//if(lmeanBuff < 0) lmean[pt]=lmeanBuff/TMath::Sqrt(lmeanErr2_low[pt]*lmeanErr2_low[pt]+lmeanErr1_high[pt]*lmeanErr1_high[pt]); //ifPull
 				//else lmean[pt]=lmeanBuff/TMath::Sqrt(lmeanErr1_low[pt]*lmeanErr1_low[pt]+lmeanErr2_high[pt]*lmeanErr2_high[pt]); //ifPull
 
-				pt++;
+				cpm++;
 			}// ptBin
 
 			TGraphAsymmErrors *graphSyst;
 			// centrals plus systematics
 			if(centralsPlusSyst) {
-				graphSyst = new TGraphAsymmErrors(nBinspT,ptCentre2_,lmean2,ptCentreErr2_low,ptCentreErr2_high,lmean1,lmean1);// ifCentralsWithTotalSyst
+				graphSyst = new TGraphAsymmErrors(nBinscpm,cpmCentre2_,lmean2,cpmCentreErr2_low,cpmCentreErr2_high,lmean1,lmean1);// ifCentralsWithTotalSyst
 				//std::cout << "centralsPlusSyst option" << std::endl;
 			}
 			// if 'take central value from JobID2, take error from JobID1'
 			else if(differentErrors){
-				graphSyst = new TGraphAsymmErrors(nBinspT,ptCentre_,lmean2,ptCentreErr_low,ptCentreErr_high,lmeanErr1_low,lmeanErr1_high);
+				graphSyst = new TGraphAsymmErrors(nBinscpm,cpmCentre_,lmean2,cpmCentreErr_low,cpmCentreErr_high,lmeanErr1_low,lmeanErr1_high);
 				//std::cout << "differentErrors option" << std::endl;
 			}
 			else if(removeFirstPoint){
-				graphSyst = new TGraphAsymmErrors(nBinspT-1,ptCentreVal_,value,valueErr_low,valueErr_high,0,0);
+				graphSyst = new TGraphAsymmErrors(nBinscpm-1,cpmCentreVal_,value,valueErr_low,valueErr_high,0,0);
 			}
 			// default setting: difference
 			else{
-				graphSyst = new TGraphAsymmErrors(nBinspT,ptCentre_,lmean,ptCentreErr_low,ptCentreErr_high,0,0);
+				graphSyst = new TGraphAsymmErrors(nBinscpm,cpmCentre_,lmean,cpmCentreErr_low,cpmCentreErr_high,0,0);
 				//std::cout << "Default settings" << std::endl;
 			}
 
@@ -290,12 +325,13 @@ int main(int argc, char* argv[]) {
 			graphSyst->Draw("P");
 			graphSyst->Write();
 
+		}//ipt
 		}// iRap
 	} // iLam
 
-	for(int iLam=1; iLam<19; iLam++){
-		cout<<"lambdaHighest["<<iLam<<"]: "<<lambdaHighest[iLam-1]<<endl;
-	}
+//	for(int iLam=1; iLam<19; iLam++){
+//		cout<<"lambdaHighest["<<iLam<<"]: "<<lambdaHighest[iLam-1]<<endl;
+//	}
 	outfile->Write();
 	std::cout << "new TGraphResults written" << std::endl;
 	outfile->Close();

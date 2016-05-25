@@ -7,18 +7,18 @@ NSigma=3.00 #needed in 2 decimal accuracy (x.yz)
 
 #JobID=Psi$[nState-3]S_${NSigma}Sigma_11Dec2012
 #JobID=Psi$[nState-3]S_${NSigma}Sigma_11Dec2012_noRhoFactor
-JobID=19May16_MassUpdateFixedErrBars
+JobID=19May16_MassUpdateFixedErrBars_FracL25
 
-nGenerations=50
+nGenerations=25
 MergeFiles=1
 
 if [ $nState -eq 4 ] 
 then
 rapBinMin=1
 rapBinMax=1
-ptBinMin=2
+ptBinMin=1
 ptBinMax=2
-cpmBinMin=10
+cpmBinMin=1
 cpmBinMax=10
 fi
 
@@ -28,6 +28,8 @@ rapBinMin=1
 rapBinMax=3
 ptBinMin=2
 ptBinMax=6
+cpmBinMin=2
+cpmBinMax=6
 fi
 
 nSkipGen=0
@@ -93,7 +95,6 @@ fi
 
 nGen_=$[nGen_+1]
 done
-
 
 FinalDestinationName=results_Psi$[nState-3]S_rap${rap_}_pT${pT_}_cpm${cpm_}.root
 

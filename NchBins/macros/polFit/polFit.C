@@ -492,11 +492,11 @@ void polFit(int n_sampledPoints=1,
 		}
 	}
 
-	if(nDenominatorAmap!=105 && nDenominatorAmap!=106 && nDenominatorAmap!=1)
+	if(nDenominatorAmap!=105 && nDenominatorAmap!=106 && nDenominatorAmap!=113 && nDenominatorAmap!=1)
 		hEvalEff_nDenominatorAmap = (TH2D*)hEvalEff1D_nDenominatorAmap->Clone("hEvalEff_nDenominatorAmap");
 
 
-	if(nDenominatorAmap==105 || nDenominatorAmap==106){
+	if(nDenominatorAmap==105 || nDenominatorAmap==106 || nDenominatorAmap==113){
 		sprintf(EffType,"totEff_MCTRUTH_pT_eta");
 		TEfficiency* TEff2=(TEfficiency*) fInEff_nDenominatorAmap->Get(EffType);
 		TH1* hEffTOT=(TH1*)TEff2->GetTotalHistogram();

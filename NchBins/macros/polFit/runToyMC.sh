@@ -1,10 +1,15 @@
 #!/bin/sh
 
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
+
 ########## INPUTS ##########
 
 nState=4
+cp ../../interface/ToyMC_Psi$[nState-3]S.h ToyMC.h
 
-JobID=ToyMC_Psi$[nState-3]S_13Dec2012
+#JobID=ToyMC_Psi$[nState-3]S_13Dec2012
+JobID=tests
 
 #nGenerations=50
 nGenerations=1
@@ -13,21 +18,23 @@ rapBinMin=1
 rapBinMax=1
 ptBinMin=1
 ptBinMax=1
+cpmBinMin=1
+cpmBinMax=1
 
 polScenSig=3
 polScenBkg=3
 frameSig=1
 frameBkg=1
 
-nEff=105 #MC-truth
-UseMCeff=true
+nEff=1060 #MC-truth
+UseMCeff=false
 nDileptonEff=1
-UseMCDileptoneff=true
+UseMCDileptoneff=false
 nRhoFactor=1
 
 useAmapApproach=false       #if false, the next two lines do not matter
 nAmap=32104                 #frame/state/sigma/ID ( ID= 2 digits )
-nDenominatorAmap=105 		    #the number here corresponds to the same notation as nEff
+nDenominatorAmap=113 		    #the number here corresponds to the same notation as nEff
  
 FidCuts=11
 
@@ -35,14 +42,14 @@ nSample=10000
 nSkipGen=0
 
 #GENERATION SETTINGS
-ConstEvents=50000
+ConstEvents=20000
 UseConstEv=false #if false, the number of events is taken from ToyMC.h
 
 UseDifferingEff=false #if false, the next five lines do not matter
 nEffRec=1060 #1101
 UseMCReceff=false
 nDileptonEffRec=1
-UseMCDileptonReceff=true
+UseMCDileptonReceff=false
 nRecRhoFactor=1
 
 gen=true
@@ -64,8 +71,8 @@ cd ..
 cd ..
 basedir=$PWD
 cd macros/polFit
-#storagedir=`more storagedir`/ToyMC #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=${basedir}/Psi/ToyMC
+storagedir=`more storagedir`/ToyMC #please define the directory storagedir in the file macros/polFit/storagedir
+#storagedir=${basedir}/Psi/ToyMC
 
 ScenDir=Sig_frame${frameSig}scen${polScenSig}_Bkg_frame${frameBkg}scen${polScenBkg}
 
@@ -97,6 +104,9 @@ do
 pT_=${ptBinMin}
 while [ $pT_ -le ${ptBinMax} ]
 do
+cpm_=${cpmBinMin}
+while [ $cpm_ -le ${cpmBinMax} ]
+do
 
 nGen_=${nSkipGen}
 nGen_=$[nGen_+1]
@@ -112,11 +122,13 @@ plot=true
 fi
 
 
-cp polGenRecFitPlot polGenRecFitPlot_rap${rap_}_pt${pT_}_Gen${nGen_}
-./polGenRecFitPlot_rap${rap_}_pt${pT_}_Gen${nGen_} ${nGen_}ThisGen ${JobID}=JobID ${storagedir}=storagedir ${basedir}=basedir ${nGenerations}nGenerations ${polScenSig}polScenSig ${frameSig}frameSig ${polScenBkg}polScenBkg ${frameBkg}frameBkg ${rap_}rapBinMin ${rap_}rapBinMax ${pT_}ptBinMin ${pT_}ptBinMax ${nEff}nEff ${nDileptonEff}nDiEff ${nEffRec}nRecEff ${nDileptonEffRec}nRecDiEff ${FidCuts}FidCuts ${nSample}nSample ${ConstEvents}ConstEvents ${nSkipGen}nSkipGen UseConstEv=${UseConstEv} gen=${gen} rec=${rec} fit=${fit} plot=${plot} UseDifferingEff=${UseDifferingEff} UseMCeff=${UseMCeff} UseMCReceff=${UseMCReceff} UseMCDileptoneff=${UseMCDileptoneff} UseMCDileptonReceff=${UseMCDileptonReceff}  ${nRhoFactor}nRhoFactor ${nRecRhoFactor}nRecRhoFactor ${MPValgo}MPValgo ${nSigma}nSigma ${nState}nState NewAccCalc=${NewAccCalc} deletePseudoData=${deletePseudoData} useAmapApproach=${useAmapApproach} ${nAmap}nAmap ${nDenominatorAmap}nDenominatorAmap
-rm polGenRecFitPlot_rap${rap_}_pt${pT_}_Gen${nGen_}
+cp polGenRecFitPlot polGenRecFitPlot_rap${rap_}_pt${pT_}_cpm${cpm_}_Gen${nGen_}
+./polGenRecFitPlot_rap${rap_}_pt${pT_}_cpm${cpm_}_Gen${nGen_} ${nGen_}ThisGen ${JobID}=JobID ${storagedir}=storagedir ${basedir}=basedir ${nGenerations}nGenerations ${polScenSig}polScenSig ${frameSig}frameSig ${polScenBkg}polScenBkg ${frameBkg}frameBkg ${rap_}rapBinMin ${rap_}rapBinMax ${pT_}ptBinMin ${pT_}ptBinMax ${cpm_}cpmBinMin ${cpm_}cpmBinMax ${nEff}nEff ${nDileptonEff}nDiEff ${nEffRec}nRecEff ${nDileptonEffRec}nRecDiEff ${FidCuts}FidCuts ${nSample}nSample ${ConstEvents}ConstEvents ${nSkipGen}nSkipGen UseConstEv=${UseConstEv} gen=${gen} rec=${rec} fit=${fit} plot=${plot} UseDifferingEff=${UseDifferingEff} UseMCeff=${UseMCeff} UseMCReceff=${UseMCReceff} UseMCDileptoneff=${UseMCDileptoneff} UseMCDileptonReceff=${UseMCDileptonReceff}  ${nRhoFactor}nRhoFactor ${nRecRhoFactor}nRecRhoFactor ${MPValgo}MPValgo ${nSigma}nSigma ${nState}nState NewAccCalc=${NewAccCalc} deletePseudoData=${deletePseudoData} useAmapApproach=${useAmapApproach} ${nAmap}nAmap ${nDenominatorAmap}nDenominatorAmap
+rm polGenRecFitPlot_rap${rap_}_pt${pT_}_cpm${cpm_}_Gen${nGen_}
 
 nGen_=$[nGen_+1]
+done
+cpm_=$[cpm_+1]
 done
 pT_=$[pT_+1]
 done

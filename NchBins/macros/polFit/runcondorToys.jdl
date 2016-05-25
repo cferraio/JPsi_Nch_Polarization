@@ -1,5 +1,5 @@
 universe = vanilla
-Executable = runDataFitsJob.sh
+Executable = runToyMCJob.sh
 getenv = True
 requirements = (OpSys == "LINUX")
 should_transfer_files = NO
@@ -8,5 +8,4 @@ Output = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/ma
 Error  = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/macros/polFit/logs/simple_$(cluster)_$(process).stderr
 Log    = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/macros/polFit/logs/simple_$(cluster)_$(process).condor
 
-Arguments = simple_$(cluster) $(process) /data/users/ferraioc/Polarization/JPsi/NchBins /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/macros/polFit 22 condor-simple.py 1 4
-Queue 1
+Arguments = simple_$(cluster) $(process) /data/users/ferraioc/Polarization/JPsi/NchBins /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchBins/macros/polFit 

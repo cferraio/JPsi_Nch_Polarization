@@ -345,12 +345,12 @@ int main(int argc, char** argv) {
 	/// Extract number of signal and background events to be generated, as well as f_BG to be generated to result in desired effective f_BG:
 
 	int nTargetEvents;
-	nTargetEvents = ToyMC::numEvents[iRap-1][iPt-1];
+	nTargetEvents = ToyMC::numEvents[iRap-1][iPt-1][icpm-1];
 
 	if(gen){
 
 		int numEvCheck = 500000;
-		f_BG = ToyMC::fracBackground[iRap-1][iPt-1];
+		f_BG = ToyMC::fracBackground[iRap-1][iPt-1][icpm-1];
 		sprintf(tmpfilename,"%s/data.root",rapptstruct);
 		TFile* dataFile = new TFile(tmpfilename, "READ");
 		cout<<"f_BG: "<<f_BG<<endl;
@@ -358,7 +358,7 @@ int main(int argc, char** argv) {
 		if(dataFile->Get("isBGdistribution")==NULL){
 			OutputDirectory=rapptstruct;
 			polGen(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,numEvCheck,f_BG,lambda_theta_sig_,lambda_phi_sig_,lambda_thetaphi_sig_,lambda_theta_bkg_,lambda_phi_bkg_,lambda_thetaphi_bkg_,frameSig,frameBkg,-999,nState,OutputDirectory);
-			if(rec)polRec(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,nRecEff,nRecDileptonEff,nRecRhoFactor,FidCuts,OutputDirectory, true, effDir, MCReceff, MCDileptonReceff, iRap, iPt, useAmapApproach, nAmap, nDenominatorAmap);
+			if(rec)polRec(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,nRecEff,nRecDileptonEff,nRecRhoFactor,FidCuts,OutputDirectory, true, effDir, MCReceff, MCDileptonReceff, iRap, iPt, icpm, useAmapApproach, nAmap, nDenominatorAmap);
 			sprintf(tmpfilename,"%s/genData.root",rapptstruct);			gSystem->Unlink(tmpfilename);
 			sprintf(tmpfilename,"%s/GenResults.root",rapptstruct);		gSystem->Unlink(tmpfilename);
 		}
@@ -398,7 +398,7 @@ int main(int argc, char** argv) {
 	cout<<"basestruct: "<<basestruct<<endl;
 
 	if(gen)polGen(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,n_events,f_BG,lambda_theta_sig_,lambda_phi_sig_,lambda_thetaphi_sig_,lambda_theta_bkg_,lambda_phi_bkg_,lambda_thetaphi_bkg_,frameSig,frameBkg,iGen,nState,OutputDirectory);
-	if(rec)polRec(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,nRecEff,nRecDileptonEff,nRecRhoFactor,FidCuts,OutputDirectory, false, effDir, MCReceff, MCDileptonReceff, iRap, iPt, useAmapApproach, nAmap, nDenominatorAmap, StatVarTotBGfraction, StatVarRho);
+	if(rec)polRec(raplow,raphigh,ptlow,pthigh,mass_signal_peak,mass_signal_sigma,n_sigmas_signal,nRecEff,nRecDileptonEff,nRecRhoFactor,FidCuts,OutputDirectory, false, effDir, MCReceff, MCDileptonReceff, iRap, iPt, icpm, useAmapApproach, nAmap, nDenominatorAmap, StatVarTotBGfraction, StatVarRho);
 	if(fit)polFit(nSample,FidCuts, nEff, nDileptonEff, nRhoFactor, OutputDirectory, realdatadir, TreeBinID, TreeBinID_dataFile, RealData, effDir, MCeff, MCDileptoneff, iRap, iPt, NewAccCalc, MPValgo, useAmapApproach, nAmap, nDenominatorAmap, StatVarTotBGfraction, StatVarTotBGmodel, StatVarRho, cutDeltaREllDpt);
 	if(plot)polPlot(OutputDirectory, TreeBinID, RealData, MPValgo, scalePlots, nTotalFits, nState, ptlow, pthigh, raplow, raphigh);
 

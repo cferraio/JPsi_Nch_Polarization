@@ -3,12 +3,12 @@
 
 #pt=1
 #cpm=1
-CONDOR_JOB="runfitscondor.jdl"
+CONDOR_JOB="runtoyscondor.jdl"
 n=0
-nfits=25
+ngen=50
 
-#lessthen=$nfits-1
-while [[ $n -le $nfits-1 ]]
+lessthen=$ngen-1
+while [[ $n -le $ngen-1 ]]
 do
 #for pt in 2
 for pt in 1 2
@@ -17,8 +17,9 @@ do
 #	for cpm in 10	
 	do
 		sleep 1
-		cp runcondorFits.jdl $CONDOR_JOB
-		echo "$n condor-simple.py $pt $cpm" >> $CONDOR_JOB
+		cp runcondorToys.jdl $CONDOR_JOB
+		echo "$pt $cpm $n" >> $CONDOR_JOB
+#		echo "$pt $cpm" >> $CONDOR_JOB
 		echo "Queue 1" >> $CONDOR_JOB	
 		condor_submit $CONDOR_JOB
 done

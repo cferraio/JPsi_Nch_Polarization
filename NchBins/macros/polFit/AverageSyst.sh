@@ -1,13 +1,15 @@
 #!/bin/sh
-source /afs/ihep.ac.cn/users/z/zhangll/fs/rootset.sh
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
+
 
 homedir=$PWD
 cd ..
 cd ..
 basedir=$PWD
 cd macros/polFit
-#storagedir=`more storagedir`/Data #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=${basedir}/Psi/Data
+storagedir=`more storagedir` #please define the directory storagedir in the file macros/polFit/storagedir
+#storagedir=${basedir}/Psi/Data
 
 ########## INPUTS ##########
 

@@ -46,6 +46,7 @@ void polRec(double rapdilepton_min = 1,
 		bool MCDileptoneff=false,
 		int rapBin=999,
 		int pTbin=999,
+		int cpmbin=999,
 		bool useAmapApproach=false,
 		int nAmap=999,
 		int nDenominatorAmap=999,
@@ -218,7 +219,7 @@ void polRec(double rapdilepton_min = 1,
 
 	TEfficiency* TEff;
 	TH2D* hEvalEff;
-	if(nEff==105 || nEff==106){
+	if(nEff==105 || nEff==106 || nEff==113){
 		sprintf(EffType,"totEff_MCTRUTH_pT_eta");
 		TEff=(TEfficiency*) fInEff->Get(EffType);
 		TH1* hEffTOT=(TH1*)TEff->GetTotalHistogram();
@@ -227,7 +228,7 @@ void polRec(double rapdilepton_min = 1,
 		hEvalEff=(TH2D*)hEffPASS->Clone("hEffPASS");
 	}
 
-	if(nEff!=105 && nEff!=106 && nEff!=1 && nEff!=1)
+	if(nEff!=105 && nEff!=106 && nEff!=113 && nEff!=1 && nEff!=1)
 		hEvalEff = (TH2D*)hEvalEff1D->Clone("hEvalEff");
 	if(nEff > 10000) hEvalEff = (TH2D*)hEvalEff2D->Clone("hEvalEff");
 
@@ -292,11 +293,11 @@ void polRec(double rapdilepton_min = 1,
 		}
 	}
 
-	if(nDenominatorAmap!=105 && nDenominatorAmap!=106 && nDenominatorAmap!=1)
+	if(nDenominatorAmap!=105 && nDenominatorAmap!=113 && nDenominatorAmap!=106 && nDenominatorAmap!=1)
 		hEvalEff_nDenominatorAmap = (TH2D*)hEvalEff1D_nDenominatorAmap->Clone("hEvalEff_nDenominatorAmap");
 
 
-	if(nDenominatorAmap==105 || nDenominatorAmap==106){
+	if(nDenominatorAmap==105 || nDenominatorAmap==106 || nDenominatorAmap==113){
 		sprintf(EffType,"totEff_MCTRUTH_pT_eta");
 		TEfficiency* TEff2=(TEfficiency*) fInEff_nDenominatorAmap->Get(EffType);
 		TH1* hEffTOT=(TH1*)TEff2->GetTotalHistogram();
@@ -355,8 +356,8 @@ void polRec(double rapdilepton_min = 1,
 	//const int nbinth   = 15;
 	//const int nbinph   = 15;
 	//// binning of costh and phi same as data Bg histogram
-	const int nbinth   = ToyMC::binCosth[rapBin-1][pTbin-1];
-	const int nbinph   = ToyMC::binPhi[rapBin-1][pTbin-1];
+	const int nbinth   = ToyMC::binCosth[rapBin-1][pTbin-1][cpmbin-1];
+	const int nbinph   = ToyMC::binPhi[rapBin-1][pTbin-1][cpmbin-1];
 	const int nbinpT   =  7;
 	const int nbinrap  =  2;
 	const int nbinmass =  7;

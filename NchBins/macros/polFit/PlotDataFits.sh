@@ -28,14 +28,14 @@ make
 
 #for JobID in Psi$[nState-3]S_${NSigma}Sigma_11Dec2012; do
 #for JobID in Psi$[nState-3]S_${NSigma}Sigma_11Dec2012_noRhoFactor; do
-for JobID in 18May16_MassUpdateFixedErrBars_HighFracL; do
+for JobID in 19May16_MassUpdateFixedErrBars_FracL75; do
 
-DataID=_ctauScen0_FracLSB-1_2011MassUpdate
+DataID=_ctauScen0_FracLSB75_2011MassUpdate
 
 FidCuts=11
 if [ $nState -eq 4 ]
 then
-ptBinMin=2
+ptBinMin=1
 ptBinMax=2
 cpmBinMin=1
 cpmBinMax=10
