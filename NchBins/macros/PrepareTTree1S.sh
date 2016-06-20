@@ -23,10 +23,10 @@ cd $Cdir
 rapMin=1     #takes bins, not actual values
 rapMax=1     #if you only want to process 1 y bin, rapMax = rapMin
 ptMin=1      #takes bins, not acutal values
-ptMax=1      #if you only want to process 1 pt bin, ptMax = ptMin
-cpmMin=10
+ptMax=2      #if you only want to process 1 pt bin, ptMax = ptMin
+cpmMin=1 
 cpmMax=10
-Plotting=2   #plotting macro: 1 = plot all, 2 = plot mass, 3 = plot lifetime sidebands, 4 = plot lifetime singal region, 
+Plotting=3   #plotting macro: 1 = plot all, 2 = plot mass, 3 = plot lifetime sidebands, 4 = plot lifetime singal region, 
 	           # 5 = sidebands, separate pull and distribution, 6 = signal region, separate pull and distribution
 
 rejectCowboys=true
@@ -44,12 +44,12 @@ forceBinning=true  #set binning of Psi1S consistently to non prompt binning and 
 folding=true       #folding is applied to all background histograms
 normApproach=false #normalization 
 ctauScen=0         #0:default(1s:2.5,2s:2.0), 1:(1s:3.5,2s:3.0), 2:(1s:1.5,2s:1.0), 3:100mm 1S and 2S, 
-FracLSB=-1         #-1:defalut, 0, 100
+FracLSB=25         #-1:defalut, 0, 100
 scaleFracBg=false ##what is this for?
 fitMassPR=false
 fitMassNP=false 
 
-DataID=Psi$[nState-3]S_ctauScen0_FracLSB-1
+DataID=Psi$[nState-3]S_ctauScen0_FracLSB25
 polDataPath=${basedir}/Psi/Data/${DataID}
 
 
@@ -89,7 +89,7 @@ execute_runData=0			           #independent of rapMin, rapMax, ptMin, ptMax
 execute_runWorkspace=0			     #independent of rapMin, rapMax, ptMin, ptMax
 execute_runMassFit=0			       #can be executed for different pt and y bins
 execute_runLifetimeFit=0        #can be executed for different pt and y bins
-execute_runPlotMassLifetime=0    #can be executed for different pt and y bins
+execute_runPlotMassLifetime=1    #can be executed for different pt and y bins
 execut_PlotFitPar=0              #independent of rapMin, rapMax, ptMin, ptMax
 execute_runBkgHistos=0           #can be executed for different pt and y bins
 execute_PlotCosThetaPhiBG=0 		 #This step only has to be executed once for each set of cuts (indep. of FracLSB and nSigma)

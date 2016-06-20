@@ -30,6 +30,8 @@ int main(int argc, char** argv) {
 
 	int ptBinMin=1;
 	int ptBinMax=1;
+	int cpmBinMin=1;
+	int cpmBinMax=1;
 	int nState=1;
 	int nSystematics=1;
 
@@ -51,6 +53,8 @@ int main(int argc, char** argv) {
 
 		if(std::string(argv[i]).find("ptBinMin") != std::string::npos) {char* ptBinMinchar = argv[i]; char* ptBinMinchar2 = strtok (ptBinMinchar, "p"); ptBinMin = atof(ptBinMinchar2); cout<<"ptBinMin = "<<ptBinMin<<endl;}
 		if(std::string(argv[i]).find("ptBinMax") != std::string::npos) {char* ptBinMaxchar = argv[i]; char* ptBinMaxchar2 = strtok (ptBinMaxchar, "p"); ptBinMax = atof(ptBinMaxchar2); cout<<"ptBinMax = "<<ptBinMax<<endl;}
+		if(std::string(argv[i]).find("cpmBinMin") != std::string::npos) {char* cpmBinMinchar = argv[i]; char* cpmBinMinchar2 = strtok (cpmBinMinchar, "p"); cpmBinMin = atof(cpmBinMinchar2); cout<<"cpmBinMin = "<<cpmBinMin<<endl;}
+		if(std::string(argv[i]).find("cpmBinMax") != std::string::npos) {char* cpmBinMaxchar = argv[i]; char* cpmBinMaxchar2 = strtok (cpmBinMaxchar, "p"); cpmBinMax = atof(cpmBinMaxchar2); cout<<"cpmBinMax = "<<cpmBinMax<<endl;}
 		if(std::string(argv[i]).find("nState") != std::string::npos) {char* nStatechar = argv[i]; char* nStatechar2 = strtok (nStatechar, "p"); nState = atof(nStatechar2); cout<<"nState = "<<nState<<endl;}
 		if(std::string(argv[i]).find("nSystematics") != std::string::npos) {char* nSystematicschar = argv[i]; char* nSystematicschar2 = strtok (nSystematicschar, "p"); nSystematics = atof(nSystematicschar2); cout<<"nSystematics = "<<nSystematics<<endl;}
 
@@ -82,39 +86,41 @@ int main(int argc, char** argv) {
 
 	char GraphName[200];
 
-	int nRapBins = 2;
+	int nRapBins = 1;
+	int nPtBins = 2;
 	if(nState==5) nRapBins =  3;
 	cout<<"nRapBins: "<<nRapBins<<endl;
 
 	for(int iLam = 1; iLam<19; iLam++){
 
 		for(int rapBin = 1; rapBin <= nRapBins; rapBin++){
+		  for(int ptBin = 1; ptBin <= nPtBins; ptBin++){
 
 			sprintf(filename,"%s/macros/polFit/Systematics/%s/AverageSyst/TGraphResults_Psi%dS.root",basedir,SystID,nState-3);
 			//ifChange  sprintf(filename,"%s/macros/polFit/Systematics/%s/%s_10B/TGraphResults_%dSUps.root",basedir,SystID,JobID1,nState);
 			TFile *outfile = new TFile(filename,"UPDATE");
 
 
-			if(iLam==1)  sprintf(GraphName,"lth_CS_rap%d",rapBin);
-			if(iLam==2)  sprintf(GraphName,"lph_CS_rap%d",rapBin);
-			if(iLam==3)  sprintf(GraphName,"ltp_CS_rap%d",rapBin);
-			if(iLam==4)  sprintf(GraphName,"lthstar_CS_rap%d",rapBin);
-			if(iLam==5)  sprintf(GraphName,"lphstar_CS_rap%d",rapBin);
-			if(iLam==6)  sprintf(GraphName,"ltilde_CS_rap%d",rapBin);
+			if(iLam==1)  sprintf(GraphName,"lth_CS_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==2)  sprintf(GraphName,"lph_CS_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==3)  sprintf(GraphName,"ltp_CS_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==4)  sprintf(GraphName,"lthstar_CS_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==5)  sprintf(GraphName,"lphstar_CS_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==6)  sprintf(GraphName,"ltilde_CS_rap%d_pt%d",rapBin,ptBin);
 
-			if(iLam==7)  sprintf(GraphName,"lth_HX_rap%d",rapBin);
-			if(iLam==8)  sprintf(GraphName,"lph_HX_rap%d",rapBin);
-			if(iLam==9)  sprintf(GraphName,"ltp_HX_rap%d",rapBin);
-			if(iLam==10) sprintf(GraphName,"lthstar_HX_rap%d",rapBin);
-			if(iLam==11) sprintf(GraphName,"lphstar_HX_rap%d",rapBin);
-			if(iLam==12) sprintf(GraphName,"ltilde_HX_rap%d",rapBin);
+			if(iLam==7)  sprintf(GraphName,"lth_HX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==8)  sprintf(GraphName,"lph_HX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==9)  sprintf(GraphName,"ltp_HX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==10) sprintf(GraphName,"lthstar_HX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==11) sprintf(GraphName,"lphstar_HX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==12) sprintf(GraphName,"ltilde_HX_rap%d_pt%d",rapBin,ptBin);
 
-			if(iLam==13) sprintf(GraphName,"lth_PX_rap%d",rapBin);
-			if(iLam==14) sprintf(GraphName,"lph_PX_rap%d",rapBin);
-			if(iLam==15) sprintf(GraphName,"ltp_PX_rap%d",rapBin);
-			if(iLam==16) sprintf(GraphName,"lthstar_PX_rap%d",rapBin);
-			if(iLam==17) sprintf(GraphName,"lphstar_PX_rap%d",rapBin);
-			if(iLam==18) sprintf(GraphName,"ltilde_PX_rap%d",rapBin);
+			if(iLam==13) sprintf(GraphName,"lth_PX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==14) sprintf(GraphName,"lph_PX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==15) sprintf(GraphName,"ltp_PX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==16) sprintf(GraphName,"lthstar_PX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==17) sprintf(GraphName,"lphstar_PX_rap%d_pt%d",rapBin,ptBin);
+			if(iLam==18) sprintf(GraphName,"ltilde_PX_rap%d_pt%d",rapBin,ptBin);
 			cout<<"GraphName: "<<GraphName<<endl;
 
 			TGraphAsymmErrors* graph1 = (TGraphAsymmErrors*) infile1->Get(GraphName);
@@ -127,33 +133,33 @@ int main(int argc, char** argv) {
 			TGraphAsymmErrors* graph8 = (TGraphAsymmErrors*) infile8->Get(GraphName);
 			TGraphAsymmErrors* graph9 = (TGraphAsymmErrors*) infile9->Get(GraphName);
 
-			int nBinspT=ptBinMax-ptBinMin+1;
-			double ptCentre_[nBinspT];
-			double ptCentreErr_low[nBinspT];
-			double ptCentreErr_high[nBinspT];
-			double lmean[nBinspT];
-			double errlmean[nBinspT];
+			int nBinscpm=cpmBinMax-cpmBinMin+1;
+			double cpmCentre_[nBinscpm];
+			double cpmCentreErr_low[nBinscpm];
+			double cpmCentreErr_high[nBinscpm];
+			double lmean[nBinscpm];
+			double errlmean[nBinscpm];
 
 			double fit_lmean[nSystematics];
 			double fit_errlmean[nSystematics];
 			double fit_X[nSystematics];
 
-			double ptCentre__[nSystematics][nBinspT];
-			double ptCentreErr_low_[nSystematics][nBinspT];
-			double ptCentreErr_high_[nSystematics][nBinspT];
+			double cpmCentre__[nSystematics][nBinscpm];
+			double cpmCentreErr_low_[nSystematics][nBinscpm];
+			double cpmCentreErr_high_[nSystematics][nBinscpm];
 
-			double lmean_[nSystematics][nBinspT];
+			double lmean_[nSystematics][nBinscpm];
 
 
 			TGraphAsymmErrors* graph_;
 
-			int pt=0;
-			for(int ptBin = ptBinMin; ptBin < ptBinMax+1; ptBin++) {
+			int cpm=0;
+			for(int cpmBin = cpmBinMin; cpmBin < cpmBinMax+1; cpmBin++) {
 
 				double lmean_Buffer=0;
-				double ptCentre_Buffer=0;
-				double ptCentreErr_low_Buffer=0;
-				double ptCentreErr_high_Buffer=0;
+				double cpmCentre_Buffer=0;
+				double cpmCentreErr_low_Buffer=0;
+				double cpmCentreErr_high_Buffer=0;
 
 				for(int iSyst=0;iSyst<nSystematics;iSyst++){
 
@@ -167,66 +173,66 @@ int main(int argc, char** argv) {
 					if(iSyst==7)graph_=graph8;
 					if(iSyst==8)graph_=graph9;
 
-					graph_->GetPoint(pt,ptCentre__[iSyst][pt],lmean_[iSyst][pt]);
-					ptCentreErr_high_[iSyst][pt]=graph_->GetErrorXhigh(pt);
-					ptCentreErr_low_[iSyst][pt]=graph_->GetErrorXlow(pt);
+					graph_->GetPoint(cpm,cpmCentre__[iSyst][cpm],lmean_[iSyst][cpm]);
+					cpmCentreErr_high_[iSyst][cpm]=graph_->GetErrorXhigh(cpm);
+					cpmCentreErr_low_[iSyst][cpm]=graph_->GetErrorXlow(cpm);
 
-					fit_errlmean[iSyst]=graph_->GetErrorYhigh(pt);
-					fit_lmean[iSyst]=lmean_[iSyst][pt];
+					fit_errlmean[iSyst]=graph_->GetErrorYhigh(cpm);
+					fit_lmean[iSyst]=lmean_[iSyst][cpm];
 					fit_X[iSyst]=0.;
 
 				}
 
-				double pTcentreReal=0;
-				double pTcentreReallow=0;
-				double pTcentreRealhigh=0;
+				double cpmcentreReal=0;
+				double cpmcentreReallow=0;
+				double cpmcentreRealhigh=0;
 
 				double lmeanHighest = 0.;
 				for(int iSyst=0;iSyst<nSystematics;iSyst++){
-					//lmean_Buffer=lmean_Buffer+TMath::Abs(lmean_[iSyst][pt]); //ifMean
-					//lmean_Buffer=lmean_Buffer+lmean_[iSyst][pt]; //ifChange
-					//lmean_[iSyst][pt] = lmean_[iSyst][pt] / 2. ;  //fracBg0_TO_default_half
-					lmean_Buffer=lmean_Buffer+lmean_[iSyst][pt]*lmean_[iSyst][pt]; //ifSquare
-					//if(ptBin<10 && iSyst==0) lmean_Buffer = lmean_Buffer + lmean_[iSyst][pt]*lmean_[iSyst][pt];
-					//if(ptBin>=10 && iSyst==1)  lmean_Buffer = lmean_Buffer + lmean_[iSyst][pt]*lmean_[iSyst][pt];
+					lmean_Buffer=lmean_Buffer+TMath::Abs(lmean_[iSyst][cpm]); //ifMean
+					//lmean_Buffer=lmean_Buffer+lmean_[iSyst][cpm]; //ifChange
+					//lmean_[iSyst][cpm] = lmean_[iSyst][cpm] / 2. ;  //fracBg0_TO_default_half
+					//lmean_Buffer=lmean_Buffer+lmean_[iSyst][cpm]*lmean_[iSyst][cpm]; //ifSquare
+					//if(cpmBin<10 && iSyst==0) lmean_Buffer = lmean_Buffer + lmean_[iSyst][cpm]*lmean_[iSyst][cpm];
+					//if(cpmBin>=10 && iSyst==1)  lmean_Buffer = lmean_Buffer + lmean_[iSyst][cpm]*lmean_[iSyst][cpm];
 
-					cout<<"lmean["<<iSyst<<"]["<<pt<<"]: "<<lmean_[iSyst][pt]<<endl;
-					//if(lmean_[iSyst][pt]*lmean_[iSyst][pt]>lmeanHighest){
-					//	lmeanHighest = lmean_[iSyst][pt]*lmean_[iSyst][pt] ;
+					cout<<"lmean["<<iSyst<<"]["<<cpm<<"]: "<<lmean_[iSyst][cpm]<<endl;
+					//if(lmean_[iSyst][cpm]*lmean_[iSyst][cpm]>lmeanHighest){
+					//	lmeanHighest = lmean_[iSyst][cpm]*lmean_[iSyst][cpm] ;
 					//	lmean_Buffer = lmeanHighest ;
 					//	cout<<"lmeanHighest: "<<sqrt(lmeanHighest)<<endl;
 					//}
 
-					ptCentre_Buffer=ptCentre_Buffer+ptCentre__[iSyst][pt];
-					ptCentreErr_low_Buffer=ptCentreErr_low_Buffer+ptCentreErr_low_[iSyst][pt];
-					ptCentreErr_high_Buffer=ptCentreErr_high_Buffer+ptCentreErr_high_[iSyst][pt];
+					cpmCentre_Buffer=cpmCentre_Buffer+cpmCentre__[iSyst][cpm];
+					cpmCentreErr_low_Buffer=cpmCentreErr_low_Buffer+cpmCentreErr_low_[iSyst][cpm];
+					cpmCentreErr_high_Buffer=cpmCentreErr_high_Buffer+cpmCentreErr_high_[iSyst][cpm];
 
 					if(iSyst==0) {//delete loop
-						pTcentreReal=ptCentre__[iSyst][pt];
-						pTcentreReallow=ptCentreErr_low_[iSyst][pt];
-						pTcentreRealhigh=ptCentreErr_high_[iSyst][pt];
+						cpmcentreReal=cpmCentre__[iSyst][cpm];
+						cpmcentreReallow=cpmCentreErr_low_[iSyst][cpm];
+						cpmcentreRealhigh=cpmCentreErr_high_[iSyst][cpm];
 					}
 
 				}
 
-				ptCentre_[pt]=ptCentre_Buffer/nSystematics;
-				ptCentreErr_low[pt]=ptCentreErr_low_Buffer/nSystematics;
-				ptCentreErr_high[pt]=ptCentreErr_high_Buffer/nSystematics;
+				cpmCentre_[cpm]=cpmCentre_Buffer/nSystematics;
+				cpmCentreErr_low[cpm]=cpmCentreErr_low_Buffer/nSystematics;
+				cpmCentreErr_high[cpm]=cpmCentreErr_high_Buffer/nSystematics;
 
-				ptCentre_[pt]=pTcentreReal;//delete
-				ptCentreErr_low[pt]=pTcentreReallow;//delete
-				ptCentreErr_high[pt]=pTcentreRealhigh;//delete
+				cpmCentre_[cpm]=cpmcentreReal;//delete
+				cpmCentreErr_low[cpm]=cpmcentreReallow;//delete
+				cpmCentreErr_high[cpm]=cpmcentreRealhigh;//delete
 
-				//lmean[pt]=lmean_Buffer/nSystematics; //ifMean
-				//if(pt>3) {lmean[pt]=0; std::cout << "point 4 set to 0" << std::endl;} // ifrho
-				lmean[pt]=TMath::Sqrt(lmean_Buffer); //ifSquare
-				//lmean[pt]=lmean_Buffer; 
+				lmean[cpm]=lmean_Buffer/nSystematics; //ifMean
+				//if(cpm>3) {lmean[cpm]=0; std::cout << "point 4 set to 0" << std::endl;} // ifrho
+				//lmean[cpm]=TMath::Sqrt(lmean_Buffer); //ifSquare
+				//lmean[cpm]=lmean_Buffer; 
 
-				std::cout << pt << ": pT = " << ptCentre_[pt] << ", lambda = " << lmean[pt] << std::endl;
+				std::cout << cpm << ": cpm = " << cpmCentre_[cpm] << ", lambda = " << lmean[cpm] << std::endl;
 
 				// IF FIT THE NSYSTEMATIC VALUES INSTEAD OF USING THE MEAN:::
 
-				//if(pt==9) {
+				//if(cpm==9) {
 				//      fit_X[2]=-999.;
 				//}
 
@@ -234,12 +240,12 @@ int main(int argc, char** argv) {
 				//TF1* fConst = new TF1("fConst","pol0",-1,1);
 				//fitGraph->Fit("fConst","EFNR");
 				//
-				//lmean[pt]=fConst->GetParameter(0);
-				//errlmean[pt]=fConst->GetParError(0);
+				//lmean[cpm]=fConst->GetParameter(0);
+				//errlmean[cpm]=fConst->GetParError(0);
 
 				// END Fit
 
-				pt++;
+				cpm++;
 			}
 
 			//////////////// Change TGraphs
@@ -275,8 +281,8 @@ int main(int argc, char** argv) {
 			*/
 			//////////////// END Change TGraphs
 
-			TGraphAsymmErrors *graphSyst = new TGraphAsymmErrors(nBinspT,ptCentre_,lmean,ptCentreErr_low,ptCentreErr_high,0,0);//Original
-			//TGraphAsymmErrors *graphSyst = new TGraphAsymmErrors(nBinspT,ptCentre_,lmean,ptCentreErr_low,ptCentreErr_high,errlmean,errlmean);//If Fit the nSyst values with constant
+			TGraphAsymmErrors *graphSyst = new TGraphAsymmErrors(nBinscpm,cpmCentre_,lmean,cpmCentreErr_low,cpmCentreErr_high,0,0);//Original
+			//TGraphAsymmErrors *graphSyst = new TGraphAsymmErrors(nBinscpm,cpmCentre_,lmean,cpmCentreErr_low,cpmCentreErr_high,errlmean,errlmean);//If Fit the nSyst values with constant
 			graphSyst->SetMarkerColor(ToyMC::MarkerColor[rapBin]);
 			graphSyst->SetLineColor(ToyMC::MarkerColor[rapBin]);
 			//graphSyst->SetMarkerStyle(ToyMC::MarkerStyle[rapBin]);
@@ -293,6 +299,7 @@ int main(int argc, char** argv) {
 			outfile = NULL;
 
 
+		  }
 		}
 
 

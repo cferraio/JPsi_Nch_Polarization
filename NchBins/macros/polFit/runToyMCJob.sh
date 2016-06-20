@@ -29,12 +29,13 @@ homedir=$4
 setptbin=$5
 setcpmbin=$6
 setgen=$7
-
+sigpol=$8
 
 echo "storage dir: $storagedir"
 echo "home dir: $homedir"
 echo "ptbin: $setptbin"
 echo "cpmbin: $setcpmbin"
+echo "sigpol: $sigpol"
 
 
 nState=4
@@ -42,7 +43,7 @@ nState=4
 
 #JobID=ToyMC_Psi$[nState-3]S_Eff_pTshift_minus_8Jan2013
 #JobID=ToyMC_Psi$[nState-3]S_13Dec2012_100K
-JobID=FrameworkIII_19May2016
+JobID=FrameworkII_19May2016
 #JobID=ToyMC_Psi$[nState-3]S_13Dec2012
 
 nGenerations=1
@@ -54,9 +55,9 @@ ptBinMax=$setptbin
 cpmBinMin=$setcpmbin
 cpmBinMax=$setcpmbin
 
-polScenSig=3
-polScenBkg=4
-frameSig=1 #1=CS, 2=HX, 3=PX
+polScenSig=$sigpol
+polScenBkg=3
+frameSig=3 #1=CS, 2=HX, 3=PX
 frameBkg=1
 
 nEff=1060 #MC-truth
@@ -98,7 +99,7 @@ NewAccCalc=false
 
 ########################################
 
-homedir=HOMEDIR
+#homedir=homedir
 cd ${homedir}
 cd ..
 cd ..

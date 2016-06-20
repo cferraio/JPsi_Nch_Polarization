@@ -1,0 +1,175 @@
+\NeedsTeXFormat{LaTeX2e}[1994/02/01]
+\documentclass[12pt]{article}
+\usepackage{graphicx,rotating,epsfig}
+\addtolength{\textheight}{2.8cm}\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-1.cm}\addtolength{\voffset}{-1.6cm} 
+\newlength{\digitwidth} \settowidth{\digitwidth}{\rm 0}
+\newcommand{\cinst}[2]{$^{\mathrm{#1)}}$~#2\par}
+\newcommand{\crefi}[1]{$^{\mathrm{#1)}}$}
+\newcommand{\HRule}{\rule{0.4\linewidth}{0.3mm}}
+\newcommand{\mlab}[1]%
+    {\mbox{}\marginpar{\raggedright\hspace{0pt}\footnotesize #1}}
+\newcommand{\pt}{$p_{\mathrm{T}}$}
+\newcommand{\mt}{$m_{\mathrm{T}}$}
+\newcommand{\DDbar}{$D\bar{D}$}
+\newcommand{\ccbar}{$c\bar{c}$}
+\newcommand{\qqbar}{$q\bar{q}$}
+\newcommand{\et}{$E_{\rm T}$}
+\newcommand{\jpsi}{J/$\psi$}
+\newcommand{\psip}{$\psi^\prime$}
+\newcommand{\cost}{$|\cos \theta|$}
+\usepackage{epsfig}
+\newcommand{\pT}{p_\mathrm{T}}
+\newcommand{\Jpsi}{\mathrm{J}/\psi}
+\newcommand{\abseta}{\left |  \eta \right |}
+\newcommand{\absy}{\left |  y \right |}
+\newcommand{\costh}{\cos\vartheta}
+\newcommand{\inpb}{pb^{-1}}
+\newcommand{\infb}{fb^{-1}}
+\newcommand{\TM}{\mu^{{\scriptscriptstyle TM}}}
+\newcommand{\HLTM}{\mu^{{\scriptscriptstyle HLT}}}
+
+\newcommand{\pxp}{ p_x^{\mu^{+} } }
+\newcommand{\pyp}{ p_y^{\mu^{+} } }
+\newcommand{\pzp}{ p_z^{\mu^{+} } }
+\newcommand{\pxm}{ p_x^{\mu^{-} } }
+\newcommand{\pym}{ p_y^{\mu^{-} } }
+\newcommand{\pzm}{ p_z^{\mu^{-} } }
+\newcommand{\ppvec}{\vec{p}^{\;\mu^{+} } }
+\newcommand{\pmvec}{\vec{p}^{\;\mu^{-} } }
+\newcommand{\mmumu}{m_{\mu\mu}}
+\newcommand{\ljpsi}{l_{\Jpsi}}
+%lambdas:
+\newcommand{\lamth}{\lambda_\vartheta}
+\newcommand{\lamph}{\lambda_\varphi}
+\newcommand{\lamthph}{\lambda_{\vartheta\varphi}}
+\newcommand{\lamtilde}{\tilde{\lambda}}
+\newcommand{\lamthstar}{\lambda*_\vartheta}
+\newcommand{\lamphstar}{\lambda*_\varphi}
+
+
+
+\newcommand{\lamthCS}{\lambda^{\scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphCS}{\lambda^{\scriptscriptstyle CS}_\varphi}
+\newcommand{\lamthphCS}{\lambda^{\scriptscriptstyle CS}_{\vartheta \varphi}}
+\newcommand{\lamtildeCS}{\tilde{\lambda}^{\scriptscriptstyle CS}}
+\newcommand{\lamthstarCS}{\lambda^{* \scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphstarCS}{\lambda^{* \scriptscriptstyle CS}_\varphi}
+
+\newcommand{\lamthHX}{\lambda^{\scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphHX}{\lambda^{\scriptscriptstyle HX}_\varphi}
+\newcommand{\lamthphHX}{\lambda^{\scriptscriptstyle HX}_{\vartheta \varphi}}
+\newcommand{\lamtildeHX}{\tilde{\lambda}^{\scriptscriptstyle HX}}
+\newcommand{\lamthstarHX}{\lambda^{* \scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphstarHX}{\lambda^{* \scriptscriptstyle HX}_\varphi}
+
+\newcommand{\lamthPX}{\lambda^{\scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphPX}{\lambda^{\scriptscriptstyle PX}_\varphi}
+\newcommand{\lamthphPX}{\lambda^{\scriptscriptstyle PX}_{\vartheta \varphi}}
+\newcommand{\lamtildePX}{\tilde{\lambda}^{\scriptscriptstyle PX}}
+\newcommand{\lamthstarPX}{\lambda^{* \scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphstarPX}{\lambda^{* \scriptscriptstyle PX}_\varphi}
+
+
+\setlength{\textheight}{720pt}
+\setlength{\textwidth}{510pt}
+\setlength{\hoffset}{-50pt}
+\setlength{\voffset}{-120pt}
+
+
+
+
+\begin{document}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%% PARAMETER PX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lth_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lth_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lth_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lph_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lph_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_lph_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltp_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltp_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltp_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltilde_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltilde_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_PX_ltilde_rap3.pdf}
+\caption{$\pT$ dependence of $\lamthPX$
+(1$^{st}$ row), $\lamphPX$ (2$^{nd}$ row), $\lamthphPX$ (3$^{rd}$ row) and 
+$\lamtildePX$ (4$^{th}$ row) in rapidity regions $\absy<0.6$ (left),  
+$0.6<\absy<1.2$ (middle), and $1.2<\absy<1.5$ (right)}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+
+
+
+%%%%%%%%%%%%%%%%%%% PARAMETER HX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lth_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lth_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lth_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lph_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lph_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_lph_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltp_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltp_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltp_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltilde_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltilde_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_HX_ltilde_rap3.pdf}
+\caption{$\pT$ dependence of $\lamthHX$
+(1$^{st}$ row), $\lamphHX$ (2$^{nd}$ row), $\lamthphHX$ (3$^{rd}$ row) and 
+$\lamtildeHX$ (4$^{th}$ row) in rapidity regions $\absy<0.6$ (left),  
+$0.6<\absy<1.2$ (middle), and $1.2<\absy<1.5$ (right)}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+
+
+%%%%%%%%%%%%%%%%%%% PARAMETER CS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lth_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lth_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lth_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lph_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lph_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_lph_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltp_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltp_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltp_rap3.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltilde_rap1.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltilde_rap2.pdf}
+\includegraphics[width=0.32\textwidth]{Figures/Systematics_CS_ltilde_rap3.pdf}
+\caption{$\pT$ dependence of $\lamthCS$
+(1$^{st}$ row), $\lamphCS$ (2$^{nd}$ row), $\lamthphCS$ (3$^{rd}$ row) and 
+$\lamtildeCS$ (4$^{th}$ row) in rapidity regions $\absy<0.6$ (left), 
+$0.6<\absy<1.2$ (middle), and $1.2<\absy<1.5$ (right)}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+
+
+
+\end{document}

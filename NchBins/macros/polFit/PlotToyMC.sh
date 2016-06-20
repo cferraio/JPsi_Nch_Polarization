@@ -21,7 +21,7 @@ cp ../../interface/effsAndCuts_Psi$[nState-3]S.h  effsAndCuts.h
 touch polRapPtPlot.cc
 make
 
-for JobID in FrameworkI_19May2016; do
+for JobID in FrameworkIII_19May2016; do
 #for JobID in ToyMC_Psi$[nState-3]S_13Dec2012; do
 
 echo ${JobID}
@@ -44,7 +44,7 @@ frameSig=1
 for polScenSig in 3;do
 
 frameBkg=1
-for polScenBkg in 3;do
+for polScenBkg in 4;do
 
 nGenerations=50
 

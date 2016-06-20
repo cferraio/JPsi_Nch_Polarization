@@ -1,0 +1,80 @@
+\mode<presentation>{
+	\usetheme{Madrid}  % Madrid, Antibes, Frankfurt, Montpellier
+	\useinnertheme{circles}
+	%\usecolortheme{beaver}
+	\usefonttheme[onlymath]{serif}
+	\setbeamercovered{transparent}
+	%\setbeamertemplate{footline}[frame number]{}
+}
+
+\usepackage{tikz}
+%\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{subfigure}
+\usepackage{psfrag}
+\usepackage{multimedia}
+\usepackage{pgfpages}
+%\usepackage{hepnicenames}
+\usepackage[overlay,absolute]{textpos}
+%\usepackage[overlay,showboxes,absolute]{textpos}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{graphics}
+%\TPGrid{100}{100}
+\setlength{\TPHorizModule}{0.1in}
+\setlength{\TPVertModule}{0.1in}
+\setbeamercolor{postit}{fg=black,bg=yellow}
+\beamertemplatenavigationsymbolsempty
+%Purdue Yellow
+%albatross | beaver | beetle |
+%	crane | default | dolphin |
+%	dove | fly | lily | orchid |
+%	rose |seagull | seahorse |
+%	sidebartab | structure |
+%	whale | wolverine
+%\usecolortheme[RGB={255,203,100}]{crane}
+%\usetheme{AnnArbor}
+\usecolortheme{seahorse}
+\useinnertheme{circles}
+%\useoutertheme{tree}
+%CMS Blue
+%\usecolortheme[RGB={141,192,255}]{crane}
+%\usecolortheme{crane}
+\usefonttheme{professionalfonts}
+%\useinnertheme{rounded}
+\setbeamertemplate{frametitle}[default][center]
+\addtobeamertemplate{frametitle}{}{
+%  \begin{textblock}{5}(0,0)
+ %   \includegraphics[scale=0.068]{CMSlogo}
+ % \end{textblock}
+%  \begin{textblock}{5}(41.2,0.6)
+%    \includegraphics[scale=0.05]{HEPHY_Logo}
+%  \end{textblock}
+}
+\setbeamertemplate{sidebar right}{}
+\setbeamercolor*{author in head/foot}{parent=palette quaternary}
+\setbeamercolor*{title in head/foot}{parent=palette secondary}
+\setbeamercolor*{date in head/foot}{parent=palette primary}
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+		\hbox{%
+			\begin{beamercolorbox}[wd=.55\paperwidth,ht=2.25ex,dp=1ex,left]{author in head/foot}%
+				\usebeamerfont{author in head/foot}~\insertsection
+			\end{beamercolorbox}%
+			\begin{beamercolorbox}[wd=.30\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}%
+				\usebeamerfont{title in head/foot}~\hfill polarization \hfill
+				%\usebeamerfont{title in head/foot}~\hfill Linlin Zhang\hfill
+			\end{beamercolorbox}%
+			\begin{beamercolorbox}[wd=.15\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+				\usebeamerfont{date in head/foot}~
+		 	   \insertframenumber{} / \inserttotalframenumber{}\hspace*{2ex}
+			\end{beamercolorbox} }%
+	\vskip0pt%
+}
+
+%\institute{\includegraphics[scale=0.09]{Figures/CMSlogo}
+	\institute{\includegraphics[scale=0.09]{Figures/pkulogo}
+		%\includegraphics[scale=0.065]{Figures/HEPHY_Logo}
+	}

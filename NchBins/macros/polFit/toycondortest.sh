@@ -5,9 +5,17 @@ ptBinMax=2
 cpmBinMin=1
 cpmBinMax=10
 x=0
-JobID=FrameworkIII_19May2016/Sig_frame1scen3_Bkg_frame1scen4
+JobID=FrameworkII_19May2016/Sig_frame3scen1_Bkg_frame1scen3/
+#Sig_frame3scen2_Bkg_frame1scen3
+#Sig_frame3scen4_Bkg_frame1scen3/ 
+#Sig_frame3scen5_Bkg_frame1scen3/ 
 
 rm blah.log
+
+for polsig in 1 2 4 5
+do
+
+JobID=FrameworkII_19May2016/Sig_frame3scen${polsig}_Bkg_frame1scen3/
 
 gen_=${genMin}
 while [ $gen_ -le ${genMax} ]
@@ -27,13 +35,13 @@ then
    echo ""
 else
    echo "File $FILE does not exist" >> toycondortest.log
-   echo "$pT_ $cpm_ ${gen_}"
+   echo "$pT_ $cpm_ ${gen_} $polsig"
    cp runcondorToys.jdl runtoyscondor.jdl
    redo=$[gen_-1]
-   echo "$redo condor-simple.py $pT_ $cpm_" >> runtoyscondor.jdl
+   echo "$pT_ $cpm_ $redo $polsig" >> runtoyscondor.jdl
    echo "Queue 1" >> runtoyscondor.jdl
-#   sleep 1
-#   condor_submit runtoyscondor.jdl
+   sleep 1
+   condor_submit runtoyscondor.jdl
    x=$[x+1]
 fi
 
@@ -44,4 +52,6 @@ done
 pT_=$[pT_+1]
 done
 gen_=$[gen_+1]
+done
+
 done

@@ -1,0 +1,186 @@
+\NeedsTeXFormat{LaTeX2e}[1994/02/01]
+\documentclass[12pt]{article}
+\usepackage{graphicx,rotating,epsfig}
+\addtolength{\textheight}{2.8cm}\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-1.cm}\addtolength{\voffset}{-1.6cm} 
+\newlength{\digitwidth} \settowidth{\digitwidth}{\rm 0}
+\newcommand{\cinst}[2]{$^{\mathrm{#1)}}$~#2\par}
+\newcommand{\crefi}[1]{$^{\mathrm{#1)}}$}
+\newcommand{\HRule}{\rule{0.4\linewidth}{0.3mm}}
+\newcommand{\mlab}[1]%
+    {\mbox{}\marginpar{\raggedright\hspace{0pt}\footnotesize #1}}
+\newcommand{\pt}{$p_{\mathrm{T}}$}
+\newcommand{\mt}{$m_{\mathrm{T}}$}
+\newcommand{\DDbar}{$D\bar{D}$}
+\newcommand{\ccbar}{$c\bar{c}$}
+\newcommand{\qqbar}{$q\bar{q}$}
+\newcommand{\et}{$E_{\rm T}$}
+\newcommand{\jpsi}{J/$\psi$}
+\newcommand{\psip}{$\psi^\prime$}
+\newcommand{\cost}{$|\cos \theta|$}
+
+\begin{document}
+
+%%%%%%%%%%%%%%% CS Frame %%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT1.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT2.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT3.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT4.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT5.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT6.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the CS frame, in different \pt\ bins, at mid-rapidity.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT7.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT8.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT9.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT10.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT11.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap1_pT12.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the CS frame, in different \pt\ bins, at mid-rapidity.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT1.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT2.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT3.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT4.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT5.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT6.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the CS frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT7.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT8.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT9.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT10.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT11.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_CS_rap2_pT12.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the CS frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+%\end{figure}
+%\clearpage
+%
+%%%%%%%%%%%%%%% HX Frame %%%%%%%%%%%%%%%%%%%%%%
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT1.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT2.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT3.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT4.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT5.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT6.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the HX frame, in different \pt\ bins, at mid-rapidity.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT7.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT8.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT9.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT10.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT11.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap1_pT12.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the HX frame, in different \pt\ bins, at mid-rapidity.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT1.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT2.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT3.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT4.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT5.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT6.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the HX frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+%\end{figure}
+%\clearpage
+%
+%\begin{figure}[htbp]
+%\centering
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT7.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT8.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT9.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT10.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT11.pdf}
+%\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_HX_rap2_pT12.pdf}
+%\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+%	in the HX frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+%\end{figure}
+%\clearpage
+%
+%%%%%%%%%%%%%% PHX Frame %%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT1.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT2.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT3.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT4.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT5.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT6.pdf}
+\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+	in the PHX frame, in different \pt\ bins, at mid-rapidity.}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT7.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT8.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT9.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT10.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT11.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap1_pT12.pdf}
+\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+	in the PHX frame, in different \pt\ bins, at mid-rapidity.}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT1.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT2.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT3.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT4.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT5.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT6.pdf}
+\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+	in the PHX frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT7.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT8.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT9.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT10.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT11.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/cosThetaPhiNPBG_PHX_rap2_pT12.pdf}
+\caption{$\cos\vartheta,\,\phi$ distribution of the NP in signal mass windows, 
+	in the PHX frame, in different \pt\ bins, for $0.6 < |y| < 1.2$.}
+\end{figure}
+\clearpage
+
+\end{document}

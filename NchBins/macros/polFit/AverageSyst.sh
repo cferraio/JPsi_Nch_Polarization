@@ -13,20 +13,20 @@ storagedir=`more storagedir` #please define the directory storagedir in the file
 
 ########## INPUTS ##########
 
-for nState in 4 5;do
+for nState in 4;do
 
 cp ../../interface/rootIncludes.inc               rootIncludes.inc
 cp ../../interface/commonVar_Psi$[nState-3]S.h    commonVar.h
 cp ../../interface/ToyMC_Psi$[nState-3]S.h        ToyMC.h
 
-SystID=Framework
+SystID=FrameworkII_19May2016
 
-nSystematics=3
+nSystematics=4
 
-JobID1=FrameworkI
-JobID2=FrameworkII
-JobID3=FrameworkIII
-JobID4=
+JobID1=Sig_frame3scen1_Bkg_frame1scen3
+JobID2=Sig_frame3scen2_Bkg_frame1scen3
+JobID3=Sig_frame3scen4_Bkg_frame1scen3
+JobID4=Sig_frame3scen5_Bkg_frame1scen3
 JobID5=
 JobID6=
 JobID7=
@@ -51,7 +51,9 @@ JobID9=
 if [ $nState -eq 4 ]
 then
 ptBinMin=1
-ptBinMax=12
+ptBinMax=2
+cpmBinMin=1
+cpmBinMax=10
 fi 
 if [ $nState -eq 5 ]
 then
@@ -73,7 +75,7 @@ SystDir=Systematics/${SystID}/AverageSyst
 
 mkdir ${SystDir}
 
-./AverageSystematics ${JobID1}=JobID1 ${JobID2}=JobID2 ${JobID3}=JobID3 ${JobID4}=JobID4 ${JobID5}=JobID5 ${JobID6}=JobID6 ${JobID7}=JobID7 ${JobID8}=JobID8 ${JobID9}=JobID9 ${SystID}=SystID ${storagedir}=storagedir ${basedir}=basedir ${ptBinMin}ptBinMin ${ptBinMax}ptBinMax ${nState}nState ${nSystematics}nSystematics
+./AverageSystematics ${JobID1}=JobID1 ${JobID2}=JobID2 ${JobID3}=JobID3 ${JobID4}=JobID4 ${JobID5}=JobID5 ${JobID6}=JobID6 ${JobID7}=JobID7 ${JobID8}=JobID8 ${JobID9}=JobID9 ${SystID}=SystID ${storagedir}=storagedir ${basedir}=basedir ${ptBinMin}ptBinMin ${ptBinMax}ptBinMax ${cpmBinMin}cpmBinMin ${cpmBinMax}cpmBinMax ${nState}nState ${nSystematics}nSystematics
 
 rm AverageSystematics
 done

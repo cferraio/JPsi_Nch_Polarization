@@ -21,7 +21,7 @@ ptBinMax=1
 cpmBinMin=1
 cpmBinMax=1
 
-polScenSig=3
+polScenSig=1
 polScenBkg=3
 frameSig=1
 frameBkg=1
@@ -42,8 +42,8 @@ nSample=10000
 nSkipGen=0
 
 #GENERATION SETTINGS
-ConstEvents=20000
-UseConstEv=false #if false, the number of events is taken from ToyMC.h
+ConstEvents=200000
+UseConstEv=true #if false, the number of events is taken from ToyMC.h
 
 UseDifferingEff=false #if false, the next five lines do not matter
 nEffRec=1060 #1101

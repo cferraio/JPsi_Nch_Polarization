@@ -10,6 +10,8 @@ ngen=50
 lessthen=$ngen-1
 while [[ $n -le $ngen-1 ]]
 do
+for polsig in 1 2 4 5
+do
 #for pt in 2
 for pt in 1 2
 do
@@ -18,11 +20,11 @@ do
 	do
 		sleep 1
 		cp runcondorToys.jdl $CONDOR_JOB
-		echo "$pt $cpm $n" >> $CONDOR_JOB
-#		echo "$pt $cpm" >> $CONDOR_JOB
+		echo "$pt $cpm $n $polsig" >> $CONDOR_JOB 
 		echo "Queue 1" >> $CONDOR_JOB	
 		condor_submit $CONDOR_JOB
 done
 done
+done 
 n=$(( n+1 ))
 done

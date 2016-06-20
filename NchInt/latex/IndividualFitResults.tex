@@ -1,0 +1,195 @@
+\NeedsTeXFormat{LaTeX2e}[1994/02/01]
+\documentclass[12pt]{article}
+\usepackage{graphicx,rotating,epsfig}
+\addtolength{\textheight}{2.8cm}\addtolength{\textwidth}{1.5cm}
+\addtolength{\hoffset}{-1.cm}\addtolength{\voffset}{-1.6cm} 
+\newlength{\digitwidth} \settowidth{\digitwidth}{\rm 0}
+\newcommand{\cinst}[2]{$^{\mathrm{#1)}}$~#2\par}
+\newcommand{\crefi}[1]{$^{\mathrm{#1)}}$}
+\newcommand{\HRule}{\rule{0.4\linewidth}{0.3mm}}
+\newcommand{\mlab}[1]%
+    {\mbox{}\marginpar{\raggedright\hspace{0pt}\footnotesize #1}}
+\newcommand{\mt}{$m_{\mathrm{T}}$}
+\newcommand{\DDbar}{$D\bar{D}$}
+\newcommand{\ccbar}{$c\bar{c}$}
+\newcommand{\qqbar}{$q\bar{q}$}
+\newcommand{\et}{$E_{\rm T}$}
+\newcommand{\jpsi}{J/$\psi$}
+\newcommand{\psip}{$\psi^\prime$}
+\newcommand{\cost}{$|\cos \theta|$}
+\usepackage{epsfig}
+\newcommand{\pT}{p_\mathrm{T}}
+\newcommand{\Jpsi}{\mathrm{J}/\psi}
+\newcommand{\abseta}{\left |  \eta \right |}
+\newcommand{\absy}{\left |  y \right |}
+\newcommand{\costh}{\cos\vartheta}
+\newcommand{\inpb}{pb^{-1}}
+\newcommand{\infb}{fb^{-1}}
+\newcommand{\TM}{\mu^{{\scriptscriptstyle TM}}}
+\newcommand{\HLTM}{\mu^{{\scriptscriptstyle HLT}}}
+
+\newcommand{\pxp}{ p_x^{\mu^{+} } }
+\newcommand{\pyp}{ p_y^{\mu^{+} } }
+\newcommand{\pzp}{ p_z^{\mu^{+} } }
+\newcommand{\pxm}{ p_x^{\mu^{-} } }
+\newcommand{\pym}{ p_y^{\mu^{-} } }
+\newcommand{\pzm}{ p_z^{\mu^{-} } }
+\newcommand{\ppvec}{\vec{p}^{\;\mu^{+} } }
+\newcommand{\pmvec}{\vec{p}^{\;\mu^{-} } }
+\newcommand{\mmumu}{m_{\mu\mu}}
+\newcommand{\ljpsi}{l_{\Jpsi}}
+%lambdas:
+\newcommand{\lamth}{\lambda_\vartheta}
+\newcommand{\lamph}{\lambda_\varphi}
+\newcommand{\lamthph}{\lambda_{\vartheta\varphi}}
+\newcommand{\lamtilde}{\tilde{\lambda}}
+\newcommand{\lamthstar}{\lambda*_\vartheta}
+\newcommand{\lamphstar}{\lambda*_\varphi}
+
+
+
+\newcommand{\lamthCS}{\lambda^{\scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphCS}{\lambda^{\scriptscriptstyle CS}_\varphi}
+\newcommand{\lamthphCS}{\lambda^{\scriptscriptstyle CS}_{\vartheta \varphi}}
+\newcommand{\lamtildeCS}{\tilde{\lambda}^{\scriptscriptstyle CS}}
+\newcommand{\lamthstarCS}{\lambda^{* \scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphstarCS}{\lambda^{* \scriptscriptstyle CS}_\varphi}
+
+\newcommand{\lamthHX}{\lambda^{\scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphHX}{\lambda^{\scriptscriptstyle HX}_\varphi}
+\newcommand{\lamthphHX}{\lambda^{\scriptscriptstyle HX}_{\vartheta \varphi}}
+\newcommand{\lamtildeHX}{\tilde{\lambda}^{\scriptscriptstyle HX}}
+\newcommand{\lamthstarHX}{\lambda^{* \scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphstarHX}{\lambda^{* \scriptscriptstyle HX}_\varphi}
+
+\newcommand{\lamthPX}{\lambda^{\scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphPX}{\lambda^{\scriptscriptstyle PX}_\varphi}
+\newcommand{\lamthphPX}{\lambda^{\scriptscriptstyle PX}_{\vartheta \varphi}}
+\newcommand{\lamtildePX}{\tilde{\lambda}^{\scriptscriptstyle PX}}
+\newcommand{\lamthstarPX}{\lambda^{* \scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphstarPX}{\lambda^{* \scriptscriptstyle PX}_\varphi}
+
+
+%\setlength{\textheight}{675pt}
+\setlength{\textwidth}{510pt}
+\setlength{\hoffset}{-50pt}
+%\setlength{\voffset}{-100pt}
+
+%\providecommand{\rap}[1]{1}% fallback definition
+%\newcommand{\rap}{1}
+%\newcommand{\pt}{7}
+
+\providecommand{\TreeBinID}[1]{TreeBinIDDefault_rap1pt1}% fallback definition
+
+
+\begin{document}
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%% PARAMETER CS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/lph_vs_lth_\TreeBinID .pdf}
+\includegraphics[width=0.475\textwidth]{Figures/ltp_vs_lph_\TreeBinID .pdf}
+\includegraphics[width=0.474\textwidth]{Figures/ltp_vs_lth_\TreeBinID .pdf}
+\includegraphics[width=0.475\textwidth]{Figures/lphstar_vs_lthstar_\TreeBinID.pdf}
+\caption{1$\sigma$ and 2$\sigma$ error contours of the results for $\lamth$
+vs. $\lamph$ (top left), $\lamph$ vs. $\lamthph$ (top right), $\lamth$ vs.
+$\lamthph$ (bottom left), $\lamthstar$ vs. $\lamphstar$ (bottom right), for CS
+(blue), HX (red) and PX (green) frames.}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/fit_CS_costh_\TreeBinID .pdf}
+\includegraphics[width=0.475\textwidth]{Figures/fit_CS_phi_\TreeBinID .pdf}
+\includegraphics[width=0.474\textwidth]{Figures/fit_CS_phith_\TreeBinID .pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/fit_HX_costh_\TreeBinID .pdf}
+\includegraphics[width=0.475\textwidth]{Figures/fit_HX_phi_\TreeBinID .pdf}
+\includegraphics[width=0.474\textwidth]{Figures/fit_HX_phith_\TreeBinID .pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/fit_PX_costh_\TreeBinID .pdf}
+\includegraphics[width=0.475\textwidth]{Figures/fit_PX_phi_\TreeBinID .pdf}
+\includegraphics[width=0.474\textwidth]{Figures/fit_PX_phith_\TreeBinID .pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{Figures/ltilde_\TreeBinID .pdf}
+\includegraphics[width=0.5\textwidth]{Figures/fit_cosalpha_\TreeBinID .pdf}
+\caption{Top: Comparison of the distribution of the $\lamtilde$ candidates in
+the CS (blue), HX (red) and PX (green) frames. Bottom: Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lth_CS_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lph_CS_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltp_CS_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lthstar_CS_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lphstar_CS_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltilde_CS_\TreeBinID.pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lth_HX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lph_HX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltp_HX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lthstar_HX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lphstar_HX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltilde_HX_\TreeBinID.pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lth_PX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lph_PX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltp_PX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lthstar_PX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_lphstar_PX_\TreeBinID.pdf}
+\includegraphics[width=0.475\textwidth]{Figures/PosteriorDist_ltilde_PX_\TreeBinID.pdf}
+\caption{Caption to be added}
+%\label{fig:}
+\end{figure}
+\clearpage
+
+\end{document}

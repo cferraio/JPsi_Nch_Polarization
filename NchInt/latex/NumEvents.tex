@@ -1,0 +1,184 @@
+\documentclass[11pt,slidescentered,red,compress,handout,hyperref={bookmarks=true},mathseriftable]{beamer}
+\input{myStyle}
+
+\newcommand{\pT}{p_\mathrm{T}}
+\newcommand{\Jpsi}{\mathrm{J}/\psi}
+\newcommand{\UpsOne}{\Upsilon(1S)}
+\newcommand{\UpsTwo}{\Upsilon(2S)}
+\newcommand{\UpsThree}{\Upsilon(3S)}
+\newcommand{\UpsN}{\Upsilon(nS)}
+\newcommand{\abseta}{\left |  \eta \right |}
+\newcommand{\absy}{\left |  y \right |}
+\newcommand{\costh}{\cos\vartheta}
+\newcommand{\inpb}{\text{pb}^{-1}}
+\newcommand{\infb}{\text{fb}^{-1}}
+\newcommand{\TM}{\mu^{{\scriptscriptstyle TM}}}
+\newcommand{\HLTM}{\mu^{{\scriptscriptstyle HLT}}}
+\newcommand{\pxp}{ p_x^{\mu^{+} } }
+\newcommand{\pyp}{ p_y^{\mu^{+} } }
+\newcommand{\pzp}{ p_z^{\mu^{+} } }
+\newcommand{\pxm}{ p_x^{\mu^{-} } }
+\newcommand{\pym}{ p_y^{\mu^{-} } }
+\newcommand{\pzm}{ p_z^{\mu^{-} } }
+\newcommand{\ppvec}{\vec{p}^{\;\mu^{+} } }
+\newcommand{\pmvec}{\vec{p}^{\;\mu^{-} } }
+\newcommand{\mmumu}{m_{\mu\mu}}
+\newcommand{\ljpsi}{l_{\Jpsi}}
+\newcommand{\lpsi}{\ell_{\psi}}
+\newcommand{\mpsi}{M_{\psi}}
+%lambdas:
+\newcommand{\lamth}{\lambda_\vartheta}
+\newcommand{\lamph}{\lambda_\varphi}
+\newcommand{\lamthph}{\lambda_{\vartheta\varphi}}
+\newcommand{\lamtilde}{\tilde{\lambda}}
+\newcommand{\lam}{\mbox{\boldmath$\lambda$}}
+\newcommand{\lamthCS}{\lambda^{\scriptscriptstyle CS}_\vartheta}
+\newcommand{\lamphCS}{\lambda^{\scriptscriptstyle CS}_\varphi}
+\newcommand{\lamthphCS}{\lambda^{\scriptscriptstyle CS}_{\vartheta \varphi}}
+\newcommand{\lamtildeCS}{\tilde{\lambda}^{\scriptscriptstyle CS}}
+\newcommand{\lamthHX}{\lambda^{\scriptscriptstyle HX}_\vartheta}
+\newcommand{\lamphHX}{\lambda^{\scriptscriptstyle HX}_\varphi}
+\newcommand{\lamthphHX}{\lambda^{\scriptscriptstyle HX}_{\vartheta \varphi}}
+\newcommand{\lamtildeHX}{\tilde{\lambda}^{\scriptscriptstyle HX}}
+\newcommand{\lamthPX}{\lambda^{\scriptscriptstyle PX}_\vartheta}
+\newcommand{\lamphPX}{\lambda^{\scriptscriptstyle PX}_\varphi}
+\newcommand{\lamthphPX}{\lambda^{\scriptscriptstyle PX}_{\vartheta \varphi}}
+\newcommand{\lamtildePX}{\tilde{\lambda}^{\scriptscriptstyle PX}}
+
+\newcommand{\sigsyst}{\sigma_{syst}}
+\newcommand{\sigstat}{\sigma_{stat}}
+\newcommand{\tnp}{T\&P}
+
+% 'SIX' lambda plot positions
+\newcommand{\SIXplotOneY}{12}
+\newcommand{\SIXplotTwoY}{24}
+\newcommand{\SIXplotOneX}{1}
+\newcommand{\SIXplotTwoX}{17}
+\newcommand{\SIXplotThreeX}{33}
+\newcommand{\SIXplotSize}{16}
+
+% Lambda label positions
+\newcommand{\LabelSIXplotOneY}{14}
+\newcommand{\LabelSIXplotTwoY}{26}
+\newcommand{\LabelSIXplotOneX}{6}
+\newcommand{\LabelSIXplotTwoX}{22}
+\newcommand{\LabelSIXplotThreeX}{38}
+\newcommand{\LabelSIXplotSize}{5}
+\newcommand{\LabelSIXplotScriptSize}{\tiny}
+
+% Lambda label positions in Results plots
+\newcommand{\ResultLabelSIXplotOneY}{13.5}
+\newcommand{\ResultLabelSIXplotTwoY}{25.5}
+\newcommand{\ResultLabelSIXplotOneX}{13.5}
+\newcommand{\ResultLabelSIXplotTwoX}{29.5}
+\newcommand{\ResultLabelSIXplotThreeX}{45.5}
+\newcommand{\ResultLabelSIXplotSize}{5}
+\newcommand{\ResultLabelSIXplotScriptSize}{\tiny}
+
+% Figure directories
+\newcommand{\FittingRltsOneS}{../Psi1S/Fit/parameter/}
+\newcommand{\FittingRltsTwoS}{../Psi2S/Fit/parameter/}
+
+%%%%% Include this definition (Joao) %%%%%%%%%%%%
+\newlength{\eqboxstorage}
+\newcommand{\eqbox}[1]{
+\setlength{\eqboxstorage}{\fboxsep}
+\setlength{\fboxsep}{6pt}
+\boxed{#1}
+\setlength{\fboxsep}{\eqboxstorage}
+}
+
+%%%%%%%%%%%%% 
+%%%Colors%%%%
+%%%%%%%%%%%%%
+%black= body 
+%blue=structure 
+%red=alert 
+%green=example
+
+%%%%%%%%%%%%%%% 
+%%%FontSize%%%%
+%%%%%%%%%%%%%%%
+%\tiny  5pt 
+%\scriptsize 7pt 
+%\footnotesize 8pt 
+%\small  9pt 
+%\normalsize 10pt 
+%\large  12pt 
+%\Large  14.4pt 
+%\LARGE  17.28pt 
+%\huge  20.74pt 
+%\Huge  24.88pt 
+
+\begin{document}
+
+%\begin{frame}[plain]
+%  \titlepage
+%\end{frame}
+%
+%\begin{frame}[t]{\small \bf Outline}{}
+%\tableofcontents
+%\end{frame}
+
+\section{}
+\begin{frame}[t]{\small \bf number of BG events in mass sideband}{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item $J/\psi$ (left) and $\psi$(2S) (right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS mass/evtBkgSB.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS mass/evtBkgSB.pdf}
+\end{textblock}
+\end{frame}
+
+\section{}
+\begin{frame}[t]{\small \bf number of BG events in PR and NP regions}{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item number of events, BG in PR region. $J/\psi$ (left) and $\psi$(2S) (right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS evaluateCtau/PR_2.5sigma/evtBG.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS evaluateCtau/PR_2sigma/evtBG.pdf}
+\end{textblock}
+
+\begin{textblock}{48}(1,20)
+\begin{itemize}
+\scriptsize \item  number of events, BG in NP region. $J/\psi$ (left) and $\psi$(2S) (right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS evaluateCtau/NP_2.5sigma/evtBG.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS evaluateCtau/NP_2sigma/evtBG.pdf}
+\end{textblock}
+
+\end{frame}
+
+\section{}
+\begin{frame}[t]{\small \bf number of events in PR and NP regions}{}
+\begin{textblock}{48}(1,5.25)
+\begin{itemize}
+\scriptsize \item  number of events, P in PR region. $J/\psi$ (left) and $\psi$(2S) (right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,6)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS evaluateCtau/PR_2.5sigma/evtP.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS evaluateCtau/PR_2sigma/evtP.pdf}
+\end{textblock}
+
+\begin{textblock}{48}(1,20)
+\begin{itemize}
+\scriptsize \item  number of events, NP in NP region. $J/\psi$ (left) and $\psi$(2S) (right)
+\end{itemize}
+\end{textblock}
+\begin{textblock}{48}(1,21)
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsOneS evaluateCtau/NP_2.5sigma/evtNP.pdf}
+\hspace*{10pt} \includegraphics[width=0.45\textwidth]{\FittingRltsTwoS evaluateCtau/NP_2sigma/evtNP.pdf}
+\end{textblock}
+
+\end{frame}
+
+\end{document}
