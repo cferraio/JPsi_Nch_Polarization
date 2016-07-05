@@ -63,18 +63,18 @@ void lifetimeFit(const std::string &infilename, int rapBin, int ptBin, int nStat
 
 	RooAbsData* dataSR, *dataSBL, *dataSBR; 
 	int events=0;
-	if(nState==4 && ((rapBin==1 && ptBin<5)||(rapBin==2 && ptBin<5))){
+//	if(nState==4 && ((rapBin==1 && ptBin<5)||(rapBin==2 && ptBin<5))){
 		// for 1S, rap1,pt 1 2 3 4; rap2,pt 1 2 3 4, not use the full statistics
 		//1S, [1,4], SR:231029, SBL:16500, SBR:5521
 		//1S, [2,5]: SR:144617, SBL:7672,  SBR:2483
-		events = data->numEntries()/(6-ptBin);
-		dataSR	= data->reduce(Cut(cutSR.str().c_str()),
-				EventRange(0,events));
-		dataSBL = data->reduce(Cut(cutSBL.str().c_str()),
-				EventRange(0,events));
-		dataSBR = data->reduce(Cut(cutSBR.str().c_str()),
-				EventRange(0,events));
-	}
+//		events = data->numEntries()/(6-ptBin);
+//		dataSR	= data->reduce(Cut(cutSR.str().c_str()),
+//				EventRange(0,events));
+//		dataSBL = data->reduce(Cut(cutSBL.str().c_str()),
+//				EventRange(0,events));
+//		dataSBR = data->reduce(Cut(cutSBR.str().c_str()),
+//				EventRange(0,events));
+//	}
 	//else if(nState==5 && rapBin==2 && ptBin==1){
 	//	events = data->numEntries()/5;
 	//	dataSR  = data->reduce(Cut(cutSR.str().c_str()),
@@ -84,16 +84,17 @@ void lifetimeFit(const std::string &infilename, int rapBin, int ptBin, int nStat
 	//	dataSBR = data->reduce(Cut(cutSBR.str().c_str()),
 	//			    EventRange(0,events));
 	//}
-	else{
-		dataSR	= data->reduce(Cut(cutSR.str().c_str()));
-		dataSBL = data->reduce(Cut(cutSBL.str().c_str()));
-		dataSBR = data->reduce(Cut(cutSBR.str().c_str()));
-	}
+//	else{
+//		dataSR	= data->reduce(Cut(cutSR.str().c_str()));
+//		dataSBL = data->reduce(Cut(cutSBL.str().c_str()));
+//		dataSBR = data->reduce(Cut(cutSBR.str().c_str()));
+//	}
 	//***
-	if(nState==4 && rapBin==2 && (ptBin==1 || ptBin==2 || ptBin==5 || ptBin==6)){
+//	if(nState==4 && rapBin==2 && (ptBin==1 || ptBin==2 || ptBin==5 || ptBin==6)){
+	if(nState == 4){
 		cout<<"**** Using less statisticals for lifetime fit"<<endl;
-		events = data->numEntries()/(8-ptBin);
-		if(ptBin==1) events = data->numEntries()/(11-ptBin);
+		events = data->numEntries()/(20-ptBin);
+//		if(ptBin==1) events = data->numEntries()/(11-ptBin);
 		dataSR  = data->reduce(Cut(cutSR.str().c_str()),
 				EventRange(0,events));
 		dataSBL = data->reduce(Cut(cutSBL.str().c_str()),
@@ -101,6 +102,20 @@ void lifetimeFit(const std::string &infilename, int rapBin, int ptBin, int nStat
 		dataSBR = data->reduce(Cut(cutSBR.str().c_str()),
 				EventRange(0,events));
 	}
+	
+	if(nState == 5){
+		cout<<"**** Using less statisticals for lifetime fit"<<endl;
+//		events = data->numEntries()/(10-ptBin);
+		events = data->numEntries()/3;
+//		if(ptBin==1) events = data->numEntries()/(11-ptBin);
+		dataSR  = data->reduce(Cut(cutSR.str().c_str()),
+				EventRange(0,events));
+		dataSBL = data->reduce(Cut(cutSBL.str().c_str()),
+				EventRange(0,events));
+		dataSBR = data->reduce(Cut(cutSBR.str().c_str()),
+				EventRange(0,events));
+	}
+//	}
 	//***
 
 	dataSR->SetNameTitle(binNameSR.str().c_str(), "data in signal region");
@@ -285,13 +300,27 @@ void doFit(RooWorkspace *ws, int nState, double BkgRatio3Sig, double fracBkgInSB
 		ws->var("fBkgDSD_SBL")->setVal(.2);
 		ws->var("fBkgDSD_SBR")->setVal(.2);
 		
-		if(ptBin==2 && rapBin==1){
-			ws->var("fBkgSSDR_SBL")->setVal(.1); //0.4
-			ws->var("fBkgSSDR_SBR")->setVal(.1);
-			ws->var("fBkgDSD_SBL")->setMax(.215);
-			ws->var("fBkgDSD_SBR")->setMax(.215);
+		if(ptBin==1 && rapBin==1){
+			ws->var("fBkgSSDR_SBL")->setVal(.6);
+		ws->var("fBkgSSDR_SBR")->setVal(.3);
+		ws->var("fBkgDSD_SBL")->setVal(.4);
+		ws->var("fBkgDSD_SBR")->setVal(.6);
+
+//		ws->var("bkgTauSSD_SBL")->setVal(.4);
+//		ws->var("bkgTauSSD_SBR")->setVal(.4);
+//		ws->var("bkgTauFD")->setVal(.1);
+//		ws->var("bkgTauDSD")->setVal(.01);
 		
 		}
+		
+		if((ptBin==3 || ptBin==4) && rapBin==1){
+			ws->var("fBkgSSDR_SBL")->setVal(.4); //0.4
+			ws->var("fBkgSSDR_SBR")->setVal(.4);
+			ws->var("fBkgDSD_SBL")->setMax(.2);
+			ws->var("fBkgDSD_SBR")->setMax(.2);
+		
+		}
+		
 		if(ptBin>7){
 			//// old
 			//ws->var("fBkgSSDR_SBL")->setVal(.77);
@@ -348,11 +377,23 @@ void doFit(RooWorkspace *ws, int nState, double BkgRatio3Sig, double fracBkgInSB
 		ws->var("fracGauss2")->setVal(0.2);
 		ws->var("fracGauss2")->setMin(0.04);
 	}
+	
 	else if(nState==5){
+	
+	
 		ws->var("fBkgSSDR_SBL")->setVal(.6);
 		ws->var("fBkgSSDR_SBR")->setVal(.3);
 		ws->var("fBkgDSD_SBL")->setVal(.4);
 		ws->var("fBkgDSD_SBR")->setVal(.6);
+		
+ //if 2011
+if(ptBin==3  && rapBin==1){
+			ws->var("fBkgSSDR_SBL")->setVal(.5); //0.4
+			ws->var("fBkgSSDR_SBR")->setVal(.3);
+			ws->var("fBkgDSD_SBL")->setMax(.4);
+			ws->var("fBkgDSD_SBR")->setMax(.6);
+		
+		}
 
 		ws->var("bkgTauSSD_SBL")->setVal(.4);
 		ws->var("bkgTauSSD_SBR")->setVal(.4);
