@@ -78,6 +78,7 @@ double EvaluateRhoFactor( double& costh, double& phi, int nEff, TFile* fInRhoFac
 void FindMPV(TH1* PosteriorDist , double& MPV , double& MPVerrorLow, double& MPVerrorHigh, int MPValgo, int nSigma);
 double DenominatorAmapEfficiency( double& pT, double& eta, int nDenominatorAmap, TFile *fInEff_nDenominatorAmap, TH2D* hEvalEff_nDenominatorAmap, bool MCeff, TEfficiency* TEff_nDenominatorAmap);
 double EvaluateAmap( double& costh_Amap, double& phi_Amap, int nAmap, TFile* fInAmap, double rap, double pT);
+double evalParametrizedEff( double& pT, double& eta, TF1 *func);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Function randomly sampling the lambda values of the "next iteration"
@@ -257,6 +258,15 @@ void polFit(int n_sampledPoints=1,
   TFile *fInEff = new TFile(EffFile);
   TH1* hEff=(TH1*) fInEff->Get(EffType);
 
+  TF1 *func[bins];
+   if(nEff > 100000){
+       for(int ieta = 0; ieta < bins; ieta++){
+           char graphName[100];
+           sprintf(graphName,"fitTotEff_DATA_pt_etaBin%i",ieta);
+           func[ieta] = (TF1*)fInEff->Get(graphName);
+       }
+   }
+
 //Get DiLepton Efficiency File name
 
   EvaluateEffFileName(nDileptonEff,EffFileName,false);
@@ -268,7 +278,7 @@ void polFit(int n_sampledPoints=1,
   EvaluateEffFileName(nRhoFactor,EffFileName,false);
   sprintf(EffFile,"%s/%s",effDir,EffFileName);
   TFile *fInRhoFactor = new TFile(EffFile);
-	//cout<<"EffFile: "<<EffFile<<endl;
+	cout<<"Rho factor EffFile: "<<EffFile<<endl;
 
 
   cout<<"Filling Efficiency Evaluation Histogram"<<endl;
@@ -415,11 +425,11 @@ void polFit(int n_sampledPoints=1,
 
 	if(nEff!=105 && nEff!=106 && nEff!=1)
 		hEvalEff = (TH2D*)hEvalEff1D->Clone("hEvalEff");
+
 	if(nEff > 10000) hEvalEff = (TH2D*)hEvalEff2D->Clone("hEvalEff");
 
 	sprintf(hEvalEffName,"%s/EvalHisto.root",dirstruct);
 	//hEvalEff->SaveAs(hEvalEffName);
-
 
 
 
@@ -880,8 +890,22 @@ void polFit(int n_sampledPoints=1,
 		//}
 
 
-    double epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
-                   * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+	double epsilon = 0;
+       if(nEff > 100000){
+           int etaBin = 0.;
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepN_eta) > etaRange[i] && TMath::Abs(lepN_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_N = evalParametrizedEff(lepN_pT, lepN_eta, func[etaBin]);
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepP_eta) > etaRange[i] && TMath::Abs(lepP_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_P = evalParametrizedEff(lepP_pT, lepP_eta, func[etaBin]);
+           epsilon = eff_N*eff_P;
+       } else {
+           epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
+               * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+       }
 
     double costh_DILEff;
   //const double beta = 3.7;  // Psi(2S)
@@ -1110,8 +1134,22 @@ void polFit(int n_sampledPoints=1,
 
     // efficiency:
 
-    double epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
-                   * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+   double epsilon = 0;
+       if(nEff > 100000){
+           int etaBin = 0.;
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepN_eta) > etaRange[i] && TMath::Abs(lepN_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_N = evalParametrizedEff(lepN_pT, lepN_eta, func[etaBin]);
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepP_eta) > etaRange[i] && TMath::Abs(lepP_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_P = evalParametrizedEff(lepP_pT, lepP_eta, func[etaBin]);
+           epsilon = eff_N*eff_P;
+       } else {
+           epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
+               * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+       }
 
     double costh_DILEff;
     double phi_DILEff;
@@ -1497,8 +1535,22 @@ void polFit(int n_sampledPoints=1,
 
     // efficiency:
 
-    epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
-            * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+    double epsilon = 0;
+       if(nEff > 100000){
+           int etaBin = 0.;
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepN_eta) > etaRange[i] && TMath::Abs(lepN_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_N = evalParametrizedEff(lepN_pT, lepN_eta, func[etaBin]);
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepP_eta) > etaRange[i] && TMath::Abs(lepP_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_P = evalParametrizedEff(lepP_pT, lepP_eta, func[etaBin]);
+           epsilon = eff_N*eff_P;
+       } else {
+           epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
+               * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+       }
 
     double costh_DILEff;
     double phi_DILEff;
@@ -1941,8 +1993,22 @@ void polFit(int n_sampledPoints=1,
 		//	cout<<"isEventAccepted: "<<isEventAccepted<<endl;
 		//}
 
-    double epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
-                   * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+    double epsilon = 0;
+       if(nEff > 100000){
+           int etaBin = 0.;
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepN_eta) > etaRange[i-1] && TMath::Abs(lepN_eta) < etaRange[i]) {etaBin=i; break; }
+           }
+           double eff_N = evalParametrizedEff(lepN_pT, lepN_eta, func[etaBin]);
+           for(int i=1;i<bins;i++){
+               if(TMath::Abs(lepP_eta) > etaRange[i] && TMath::Abs(lepP_eta) < etaRange[i+1]) {etaBin=i; break; }
+           }
+           double eff_P = evalParametrizedEff(lepP_pT, lepP_eta, func[etaBin]);
+           epsilon = eff_N*eff_P;
+       } else {
+           epsilon = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff, hEvalEff, MCeff, TEff)
+               * singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff, hEvalEff, MCeff, TEff);
+       }
 
     double costh_DILEff;
     double phi_DILEff;

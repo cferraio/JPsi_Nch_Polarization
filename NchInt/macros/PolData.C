@@ -113,8 +113,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					HLT_Dimuon8_Jpsi_v7 == 1  ||
 					HLT_Dimuon10_Jpsi_v3 == 1 ||
 					HLT_Dimuon10_Jpsi_v4 == 1 ||
-					HLT_Dimuon10_Jpsi_v6 == 1 ||
-					HLT_Mu15_tkMu5_Onia_v1 == 1)  
+					HLT_Dimuon10_Jpsi_v6 == 1 )
 					//5E33
 				//HLT_Dimuon13_Jpsi_Barrel_v1 == 1 || //3E33 (L1_DoubleMu0_HighQ; becomes inactive for Linst >= 5E33)
 				//HLT_Dimuon13_Jpsi_Barrel_v4 == 1) //5E33
@@ -136,8 +135,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					(HLT_Dimuon8_Jpsi_v7 == 1 && onia->Pt() < 10) ||
 					(HLT_Dimuon10_Jpsi_v3 == 1 && onia->Pt() < 10) ||
 					(HLT_Dimuon10_Jpsi_v4 == 1 && onia->Pt() < 10) ||
-					(HLT_Dimuon10_Jpsi_v6 == 1 && onia->Pt() < 10) ||
-					(HLT_Mu15_tkMu5_Onia_v1 == 1 && onia->Pt() < 10) 
+					(HLT_Dimuon10_Jpsi_v6 == 1 && onia->Pt() < 10) 
 					) 
 				//(HLT_Dimuon13_Jpsi_Barrel_v1 == 1 && onia->Pt() < 13) ||
 				//(HLT_Dimuon13_Jpsi_Barrel_v4 == 1 && onia->Pt() < 13))
@@ -158,10 +156,11 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					HLT_Dimuon5_PsiPrime_v4 == 1 ||
 					HLT_Dimuon5_PsiPrime_v5 == 1 ||
 					HLT_Dimuon5_PsiPrime_v6 == 1 ||
-					HLT_Dimuon9_PsiPrime_v9 == 1 ||
-					HLT_Mu15_tkMu5_Onia_v1 == 1)  //5E33
+					HLT_Dimuon9_PsiPrime_v9 == 1 
+			//		HLT_Mu15_tkMu5_Onia_v1 == 1  //5E33
 				//HLT_Dimuon11_PsiPrime_v1 == 1 || //3E33 (L1_DoubleMu0_HighQ; becomes inactive for Linst >= 5E33)
 				//HLT_Dimuon11_PsiPrime_v4 == 1) //5E33
+				)
 				trigDecision = 1;
 
 			if(trigDecision != 1 && RequestTrigger) continue;
@@ -173,13 +172,12 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					(HLT_Dimuon7_PsiPrime_v5 == 1 && onia->Pt() < 7) ||
 					(HLT_Dimuon9_PsiPrime_v1 == 1 && onia->Pt() < 9) ||
 					(HLT_Dimuon9_PsiPrime_v4 == 1 && onia->Pt() < 9) ||
-					(HLT_Dimuon9_PsiPrime_v9 == 1 && onia->Pt() < 9) ||
+					(HLT_Dimuon9_PsiPrime_v9 == 1 && onia->Pt() < 7) ||
 					(HLT_Dimuon11_PsiPrime_v1 == 1 && onia->Pt() < 11) ||
-					(HLT_Dimuon5_PsiPrime_v3 == 1 && onia->Pt() < 9) ||
-					(HLT_Dimuon5_PsiPrime_v4 == 1 && onia->Pt() < 9) ||
-					(HLT_Dimuon5_PsiPrime_v5 == 1 && onia->Pt() < 9) ||
-					(HLT_Dimuon5_PsiPrime_v6 == 1 && onia->Pt() < 9) ||
-					(HLT_Mu15_tkMu5_Onia_v1 == 1 && onia->Pt() < 9) ||
+					(HLT_Dimuon5_PsiPrime_v3 == 1 && onia->Pt() < 7) ||
+					(HLT_Dimuon5_PsiPrime_v4 == 1 && onia->Pt() < 7) ||
+					(HLT_Dimuon5_PsiPrime_v5 == 1 && onia->Pt() < 7) ||
+					(HLT_Dimuon5_PsiPrime_v6 == 1 && onia->Pt() < 7) ||
 					(HLT_Dimuon11_PsiPrime_v4 == 1 && onia->Pt() < 11))
 				continue;
 

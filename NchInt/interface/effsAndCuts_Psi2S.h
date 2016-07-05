@@ -180,7 +180,8 @@ void EvaluateEffFileName(int nEff, char EffFileName [200], bool singleLeptonEff)
 
 		if(nEff==1101) sprintf(EffFileName,"MCTruthEfficiency_coarsePT_18July2012.root");// reco pT (our default for the MC closures)
 		if(nEff==1102) sprintf(EffFileName,"MCTruthEfficiency_coarse-genPT_13Sept2012.root");// gen pT
-
+		
+		if(nEff==1067) sprintf(EffFileName,"ParametrizedFactDataEff_2016_01_14_Central.root"); //2012 eff
 
 	}
 
@@ -203,6 +204,16 @@ void EvaluateEffFileName(int nEff, char EffFileName [200], bool singleLeptonEff)
 		if(nEff==307 || nEff==317 || nEff==329) sprintf(EffFileName,"rhoFactor_Psi2S_RhoCalc_May21_ErrCorr_NewEff_NewCutMCAddCutMC_Valentin_full.root");
 	}
 
+if(nEff==100001) sprintf(EffFileName,"singleMuonEff_noTracking_L3ptg2_final.root");
+}
+
+double evalParametrizedEff(double &pT, double &eta, TF1 *func){
+
+   if(TMath::Abs(eta) > 1.8) return 0;
+   double eff = func->Eval(pT);
+   if(eff > 1.) eff = 1;
+   else if(eff < 0) eff = 0;
+   return eff;
 
 }
 

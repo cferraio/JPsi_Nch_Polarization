@@ -20,6 +20,7 @@ int binPhi  [nRapBins][nPtBins]={{16, 16, 16, 16, 16},{16, 16, 16, 16, 16},{16, 
 
 //// ToyBackground
 double fracBackground[nRapBins][nPtBins]={{0.01,0.01,0.01,0.01,0.01},{0.01,0.01,0.01,0.01,0.01},{0.01,0.01,0.01,0.01,0.01}};
+double fracBackgrounderr[nRapBins][nPtBins]={{0.01,0.01,0.01,0.01,0.01},{0.01,0.01,0.01,0.01,0.01},{0.01,0.01,0.01,0.01,0.01}};
 //// from real data
 //double fracBackground[nRapBins][nPtBins]={{0.183, 0.190, 0.222, 0.274, 0.370},{0.258, 0.263, 0.285, 0.357, 0.445},{0.303, 0.327, 0.362, 0.420, 0.524}};
 

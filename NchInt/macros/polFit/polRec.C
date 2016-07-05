@@ -27,6 +27,9 @@ double DiLeptonEfficiency( double& Dilepton_pT, double& Dilepton_rap, int nDilep
 double EvaluateRhoFactor( double& costh, double& phi, int nEff, TFile* fInRhoFactor, double rap, double pT, bool StatVarRho);
 double DenominatorAmapEfficiency( double& pT, double& eta, int nDenominatorAmap, TFile *fInEff_nDenominatorAmap, TH2D* hEvalEff_nDenominatorAmap, bool MCeff, TEfficiency* TEff_nDenominatorAmap);
 double EvaluateAmap( double& costh_Amap, double& phi_Amap, int nAmap, TFile* fInAmap, double rap, double pT);
+//eta ranges for parametrized eff 
+double etaRange[] = {0., 0.2, 0.3, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0};
+const int bins = 10;
 
 void polRec(double rapdilepton_min = 1,
 		double rapdilepton_max = 1,
@@ -73,6 +76,14 @@ void polRec(double rapdilepton_min = 1,
 
 	TFile *fInEff = new TFile(EffFile);
 	TH1* hEff=(TH1*) fInEff->Get(EffType);
+	TF1 *func[bins];
+	if(nEff > 100000){
+            for(int ieta = 0; ieta < bins; ieta++){
+                char graphName[100];
+                sprintf(graphName,"fitTotEff_DATA_pt_etaBin%i",ieta);
+                func[ieta] = (TF1*)fInEff->Get(graphName);
+            }
+        }
 
 	//Get DiLepton Efficiency File name
 
@@ -442,8 +453,22 @@ void polRec(double rapdilepton_min = 1,
 
 		if ( !isEventAccepted ) {rejected++; continue;}
 
-		double effP = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff , hEvalEff , MCeff , TEff);
-		double effN = singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff , hEvalEff , MCeff , TEff);
+		double effP = 0, effN = 0;
+            if(nEff > 100000){
+			int etaBin = -1.;
+                for(int i=0;i<bins;i++){
+                    if(TMath::Abs(lepN_eta) > etaRange[i] && TMath::Abs(lepN_eta) < etaRange[i+1]) {etaBin=i; break; }
+                }
+                effN = evalParametrizedEff(lepN_pT, lepN_eta, func[etaBin]);
+                for(int i=0;i<bins;i++){
+                    if(TMath::Abs(lepP_eta) > etaRange[i] && TMath::Abs(lepP_eta) < etaRange[i+1]) {etaBin=i; break; }
+                }
+                effP = evalParametrizedEff(lepP_pT, lepP_eta, func[etaBin]);
+            }
+            else{
+                effP = singleLeptonEfficiency( lepP_pT, lepP_eta, nEff, fInEff , hEvalEff , MCeff , TEff);
+                effN = singleLeptonEfficiency( lepN_pT, lepN_eta, nEff, fInEff , hEvalEff , MCeff , TEff);
+            }
 
 		double costh_DILEff;
 		double phi_DILEff;
