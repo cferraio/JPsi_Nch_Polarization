@@ -43,6 +43,11 @@ TGraphAsymmErrors* graph_lamthstar[onia::kNbFrames][onia::kNbRapForPTBins+1];
 TGraphAsymmErrors* graph_lamphstar[onia::kNbFrames][onia::kNbRapForPTBins+1];
 TGraphAsymmErrors* graph_lamtilde[onia::kNbFrames][onia::kNbRapForPTBins+1];
 
+char costhpx[200];
+char phipx[200];
+TH1D *signal_costhPX;
+TH1D *signal_phiPX;
+
 void LoadHistos(int iRapBin, int iPTBin, int nState, Char_t *DataPath);
 void PlotHistos(int iRapBin, int iPTBin, int iFrame, int nState, Char_t *DataPath);
 
@@ -239,6 +244,21 @@ void PlotHistos(int iRapBin, int iPTBin, int iFrame,int nState, Char_t *DataPath
 	CosThPhDist[iFrame][iRapBin][iPTBin]->Draw("colz");
 	sprintf(name, "%s/Figures/cosThetaPhi_%s_rap%d_pT%d.pdf", DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
 	cout<<name<<endl;
+	
+	bool oneDproj = true;
+	if(oneDproj && iFrame==2) //2 for px
+	{
+	signal_costhPX = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionX();
+	signal_phiPX   = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionY();
+	sprintf(costhpx,"%s/Figures/costh%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
+	sprintf(phipx,"%s/Figures/phi%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
+	
+	signal_costhPX->Draw();
+	c1->SaveAs(costhpx);
+
+	signal_phiPX->Draw();
+	c1->SaveAs(phipx);
+	}
 
 	if(iRapBin==0)
 		latex->DrawLatex(left,top,Form("|y| < %.1f, %.1f < p_{T} < %.1f GeV",
