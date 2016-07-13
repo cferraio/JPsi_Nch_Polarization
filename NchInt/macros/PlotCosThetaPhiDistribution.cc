@@ -245,20 +245,7 @@ void PlotHistos(int iRapBin, int iPTBin, int iFrame,int nState, Char_t *DataPath
 	sprintf(name, "%s/Figures/cosThetaPhi_%s_rap%d_pT%d.pdf", DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
 	cout<<name<<endl;
 	
-	bool oneDproj = true;
-	if(oneDproj && iFrame==2) //2 for px
-	{
-	signal_costhPX = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionX();
-	signal_phiPX   = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionY();
-	sprintf(costhpx,"%s/Figures/costh%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
-	sprintf(phipx,"%s/Figures/phi%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
 	
-	signal_costhPX->Draw();
-	c1->SaveAs(costhpx);
-
-	signal_phiPX->Draw();
-	c1->SaveAs(phipx);
-	}
 
 	if(iRapBin==0)
 		latex->DrawLatex(left,top,Form("|y| < %.1f, %.1f < p_{T} < %.1f GeV",
@@ -269,6 +256,37 @@ void PlotHistos(int iRapBin, int iPTBin, int iFrame,int nState, Char_t *DataPath
 					onia::rapForPTRange[iRapBin],onia::rapForPTRange[iRapBin+1],
 					onia::pTRange[iRapBin+1][iPTBin],onia::pTRange[iRapBin+1][iPTBin+1]));
 	c1->Print(name);
+	
+	bool oneDproj = true;
+	if(oneDproj && iFrame==2) //2 for px
+	{
+	signal_costhPX = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionX();
+	signal_phiPX   = CosThPhDist[iFrame][iRapBin][iPTBin]->ProjectionY();
+	sprintf(costhpx,"%s/Figures/costh%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
+	sprintf(phipx,"%s/Figures/phi%s_rap%d_pT%d.pdf",DataPath,onia::frameLabel[iFrame], iRapBin+1, iPTBin+1);
+	
+	signal_costhPX->Draw();
+	if(iRapBin==0)
+		latex->DrawLatex(left,top,Form("|y| < %.1f, %.1f < p_{T} < %.1f GeV",
+					onia::rapForPTRange[iRapBin+1],
+					onia::pTRange[iRapBin+1][iPTBin],onia::pTRange[iRapBin+1][iPTBin+1]));
+	else
+		latex->DrawLatex(left,top,Form("%.1f < |y| < %.1f, %.1f < p_{T} < %.1f GeV",
+					onia::rapForPTRange[iRapBin],onia::rapForPTRange[iRapBin+1],
+					onia::pTRange[iRapBin+1][iPTBin],onia::pTRange[iRapBin+1][iPTBin+1]));
+	c1->SaveAs(costhpx);
+
+	signal_phiPX->Draw();
+	if(iRapBin==0)
+		latex->DrawLatex(left,top,Form("|y| < %.1f, %.1f < p_{T} < %.1f GeV",
+					onia::rapForPTRange[iRapBin+1],
+					onia::pTRange[iRapBin+1][iPTBin],onia::pTRange[iRapBin+1][iPTBin+1]));
+	else
+		latex->DrawLatex(left,top,Form("%.1f < |y| < %.1f, %.1f < p_{T} < %.1f GeV",
+					onia::rapForPTRange[iRapBin],onia::rapForPTRange[iRapBin+1],
+					onia::pTRange[iRapBin+1][iPTBin],onia::pTRange[iRapBin+1][iPTBin+1]));
+	c1->SaveAs(phipx);
+	}
 }
 
 //===========================
