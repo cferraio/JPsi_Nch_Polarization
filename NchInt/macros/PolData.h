@@ -17,6 +17,11 @@ public :
    int runNb;
    int lumiBlock;
    int nPriVtx;
+   int muPosP_id;
+   int muNegP_id;
+   int muPosP_qual;
+   int muNegP_qual;
+   
    
    double Jpsict;
    double JpsictErr;
@@ -55,6 +60,11 @@ public :
    int HLT_Dimuon10_Jpsi_v6;
    int HLT_Dimuon10_Jpsi_Barrel_v4;
    int HLT_Mu15_tkMu5_Onia_v1;
+   int HLT_Dimuon10_Jpsi_v5;
+   int HLT_Dimuon0_Jpsi_v14;
+   int HLT_Dimuon0_Jpsi_v15;
+   int HLT_Dimuon0_Jpsi_v16;
+   int HLT_Dimuon0_Jpsi_v17;
 //   int HLT_Dimuon7_PsiPrime_v1;
    
    //PsiPrime
@@ -94,7 +104,7 @@ public :
    virtual int GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void Init(TTree *tree);
-   virtual void Loop(int selDimuType, bool rejectCowboys, int FidCuts, bool MC, bool RequestTrigger, bool removeEta0p2_0p3, bool cutDeltaREllDpt);
+   virtual void Loop(int selDimuType, bool rejectCowboys, int FidCuts, bool MC, bool RequestTrigger, bool removeEta0p2_0p3, bool cutDeltaREllDpt, bool officialMC);
    virtual bool Notify();
    virtual void Show(Long64_t entry = -1);
 };
@@ -175,6 +185,11 @@ void PolData::Init(TTree *tree)
    fChain->SetBranchAddress("lumiBlock", &lumiBlock);
    fChain->SetBranchAddress("nPriVtx", &nPriVtx);
    
+   fChain->SetBranchAddress("muPosP_id", &muPosP_id);
+   fChain->SetBranchAddress("muNegP_id", &muNegP_id);
+   fChain->SetBranchAddress("muPosP_qual", &muPosP_qual);
+   fChain->SetBranchAddress("muNegP_qual", &muNegP_qual);
+   
    fChain->SetBranchAddress("Jpsict", &Jpsict);
    fChain->SetBranchAddress("JpsictErr", &JpsictErr);
    fChain->SetBranchAddress("JpsiMassErr", &JpsiMassErr);
@@ -218,6 +233,11 @@ void PolData::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_Dimuon10_Jpsi_Barrel_v9", &HLT_Dimuon10_Jpsi_Barrel_v9);
    fChain->SetBranchAddress("HLT_Dimuon13_Jpsi_Barrel_v1", &HLT_Dimuon13_Jpsi_Barrel_v1);
    fChain->SetBranchAddress("HLT_Dimuon13_Jpsi_Barrel_v4", &HLT_Dimuon13_Jpsi_Barrel_v4);
+   fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v14", &HLT_Dimuon0_Jpsi_v14);
+   fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v15", &HLT_Dimuon0_Jpsi_v15);
+   fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v16", &HLT_Dimuon0_Jpsi_v16);
+   fChain->SetBranchAddress("HLT_Dimuon0_Jpsi_v17", &HLT_Dimuon0_Jpsi_v17);
+   fChain->SetBranchAddress("HLT_Dimuon10_Jpsi_v5", &HLT_Dimuon10_Jpsi_v5);
 
    fChain->SetBranchAddress("HLT_Dimuon6p5_Barrel_PsiPrime_v1", &HLT_Dimuon6p5_Barrel_PsiPrime_v1);
 //   fChain->SetBranchAddress("HLT_Dimuon7_PsiPrime_v1", &HLT_Dimuon7_PsiPrime_v1);

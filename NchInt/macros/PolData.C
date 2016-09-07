@@ -21,7 +21,7 @@ TTree *treeOut;
 TLorentzVector *lepP, *lepN, *jpsi;
 
 
-void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool RequestTrigger, bool removeEta0p2_0p3, bool cutDeltaREllDpt) {
+void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool RequestTrigger, bool removeEta0p2_0p3, bool cutDeltaREllDpt, bool officialMC) {
 
 	if (fChain == 0) return;
 
@@ -34,6 +34,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 
 	// create branches for certain output variables
 	double jpsict = 0;
+	double runnb = 0;
 	double jpsictErr = 0;
 	double jpsiMassErr = 0;
 	double jpsiVprob = 0;
@@ -42,12 +43,14 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 	treeOut->Branch("JpsictErr", &jpsictErr, "JpsictErr/D");
 	treeOut->Branch("JpsiMassErr", &jpsiMassErr, "JpsiMassErr/D");
 	treeOut->Branch("JpsiVprob", &jpsiVprob, "JpsiVprob/D");
+	treeOut->Branch("runNb", &runnb, "runNb/D");
 
   //double rndNumber;
   //ifstream rndFile; rndFile.open("/afs/ihep.ac.cn/users/z/zhangll/fs/work/polarization/PsiPol2011/macros/random.txt");
 
 
 //	nentries = 2500000;
+//nentries = 161108638;
 	//loop over the events
 	for (Long64_t jentry=0; jentry<nentries; jentry++) {
 
@@ -92,6 +95,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 
 		// different trigger for different particles
 		// Jpsi trigger paths:
+		if(!officialMC) {
 		if(nState == 4){
 			if(
 					//HLT_Dimuon0_Jpsi_v1 == 1 || //  1e33: 165088 - 166967 (prescale of 20) and 1.4E33: 167039 - 167043 (prescale of 60)
@@ -110,13 +114,15 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 					HLT_Dimuon8_Jpsi_v4 == 1  ||
 					HLT_Dimuon8_Jpsi_v5 == 1  ||
 					HLT_Dimuon8_Jpsi_v6 == 1  ||
-					HLT_Dimuon8_Jpsi_v7 == 1  ||
-					HLT_Dimuon10_Jpsi_v3 == 1 ||
-					HLT_Dimuon10_Jpsi_v4 == 1 ||
-					HLT_Dimuon10_Jpsi_v6 == 1 )
+					HLT_Dimuon8_Jpsi_v7 == 1  //||
+//					HLT_Dimuon10_Jpsi_v3 == 1 ||
+//					HLT_Dimuon10_Jpsi_v4 == 1 ||
+//					HLT_Dimuon10_Jpsi_v5 == 1 ||
+//					HLT_Dimuon10_Jpsi_v6 == 1 
 					//5E33
 				//HLT_Dimuon13_Jpsi_Barrel_v1 == 1 || //3E33 (L1_DoubleMu0_HighQ; becomes inactive for Linst >= 5E33)
 				//HLT_Dimuon13_Jpsi_Barrel_v4 == 1) //5E33
+				)
 				trigDecision = 1;
 
 			if(trigDecision != 1 && RequestTrigger) continue;
@@ -142,6 +148,53 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 				continue;
 
 		} // if Jpsi
+		}
+		
+		
+		if(officialMC) {
+		if(nState == 4){
+			if(
+			
+					HLT_Dimuon0_Jpsi_v14  == 1 ||
+					HLT_Dimuon0_Jpsi_v15 == 1 ||
+					HLT_Dimuon0_Jpsi_v16 == 1 ||
+					HLT_Dimuon0_Jpsi_v17 == 1 ||
+					HLT_Dimuon8_Jpsi_v3 == 1 ||
+					HLT_Dimuon8_Jpsi_v4 == 1 ||
+					HLT_Dimuon8_Jpsi_v5 == 1 ||
+					HLT_Dimuon8_Jpsi_v6 == 1 ||
+					HLT_Dimuon8_Jpsi_v7 == 1 //||
+//					HLT_Dimuon10_Jpsi_v3 == 1 ||
+//					HLT_Dimuon10_Jpsi_v4 == 1 ||
+//					HLT_Dimuon10_Jpsi_v5 == 1 ||
+//					HLT_Dimuon10_Jpsi_v6 == 1 
+				)
+				trigDecision = 1;
+
+			if(trigDecision != 1 && RequestTrigger) continue;
+
+		/*	if(
+					(HLT_Dimuon10_Jpsi_Barrel_v1 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_Barrel_v2 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_Barrel_v3 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_Barrel_v5 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_Barrel_v6 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_Barrel_v9 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v3 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v4 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v5 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v6 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon8_Jpsi_v7 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_v3 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_v4 == 1 && onia->Pt() < 10) ||
+					(HLT_Dimuon10_Jpsi_v6 == 1 && onia->Pt() < 10) 
+					) 
+				//(HLT_Dimuon13_Jpsi_Barrel_v1 == 1 && onia->Pt() < 13) ||
+				//(HLT_Dimuon13_Jpsi_Barrel_v4 == 1 && onia->Pt() < 13))
+				continue; */
+
+		} // if Jpsi
+		}
 
 		// PsiPrime trigger paths
 		if(nState == 5){
@@ -211,6 +264,13 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 
 		} // if Upsilon
 
+		// if 2012 MC
+		if(muPosP_id != 1) continue;
+		if(muNegP_id != 1) continue;
+		if(muPosP_qual != 1) continue;
+		if(muNegP_qual != 1) continue;
+		
+		
 		// count events after trigger
 		Reco_StatEv->Fill(1.5); 
 
@@ -320,6 +380,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 		lepP = muPos;
 		lepN = muNeg;
 		jpsi = onia;
+		runnb = runNb;
 		jpsict = Jpsict;
 		jpsictErr = JpsictErr;
 		jpsiMassErr = JpsiMassErr;

@@ -1,7 +1,10 @@
 #!/bin/sh
 
-source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
-source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
+#source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc6-gcc46-opt/root/bin/thisroot.sh                                     
+#source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc6-gcc46-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc6-gcc46-opt/
+
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.34/x86_64-slc6-gcc48-opt/root/bin/thisroot.sh                                     
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.34/x86_64-slc6-gcc48-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
 
 #homedir=HOMEDIR
 #cd ${homedir}
@@ -23,10 +26,11 @@ ptMin=1      #takes bins, not acutal values
 ptMax=12      #if you only want to process 1 pt bin, ptMax = ptMin
 Plotting=2   #plotting macro: 1 = plot all, 2 = plot mass, 3 = plot lifetime sidebands, 4 = plot lifetime singal region, 
 	           # 5 = sidebands, separate pull and distribution, 6 = signal region, separate pull and distribution
-
+# 23
 rejectCowboys=true
 RequestTrigger=true
-MC=false
+MC=false #for unofficial MC
+officialMC=true
 correctCtau=false   #correct pseudo-proper lifetime to l_new = l * MpsiPDG / Mpsi, with l = Lxy * Mpsi / pT
 drawRapPt2D=false  #draw Rap-Pt 2D map of Psi
 
@@ -43,38 +47,39 @@ scaleFracBg=false
 fitMassPR=false
 fitMassNP=false
 
-DataID=Psi$[nState-3]S_ctauScen0_FracLSB-1_16Mar2013
+DataID=Psi$[nState-3]S_ctauScen0_FracLSB-1_MCClosure_2012file_run2
 polDataPath=${basedir}/Psi/Data/${DataID}
 
 #Define JobID
-JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_2012higherptnoDoubleMu
+JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_MCClosure_2012file_run2
+#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_RapIntegrated
 #JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_2012Run1withCowboys
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_2011Data
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_NP
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_0fracBg
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_4Mar2013_1sigMass
-#JobID=ctauScen${ctauScen}_FracLSB${FracLSB}_newMLfit_correctCtau_11April2013
+
+
 
 # input files
 # In case of more input Files: define inputTreeX and adapt the line starting with inputTrees, at the moment up to 4 files implemented
 if [ ${nState} -eq 4 ] 
 then
 #inputTree1=/data/users/ferraioc/TTree_Onia2MuMu_v30_PromptRecoAB_10May2012_Jpsi.root #2011 file
-#inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/2012ABCDMuOnia_ADoubMu_MuPk_jpsi_v8.root
-#inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/2012ABCDMuOnia_ADoubMu_jpsi_v8.root
-#inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012D_MuPk_jpsi_v8_1.root
-#inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012A_MuOnia_jpsi_v8.root
-#inputTree2=/data/users/ferraioc/Polarization/2012ppOniaData/r2012B_MuOnia_jpsi_v8.root
-#inputTree3=/data/users/ferraioc/Polarization/2012ppOniaData/r2012C_MuOnia_jpsi_v8v2.root
-#inputTree4=/data/users/ferraioc/Polarization/2012ppOniaData/r2012D_MuOnia_jpsi_v8v2.root
 inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012A_DoubMu_jpsi_v8.root
 inputTree2=/data/users/ferraioc/Polarization/2012ppOniaData/r2012C_MuPk_jpsi_v8_1.root
 inputTree3=/data/users/ferraioc/Polarization/2012ppOniaData/r2012D_MuPk_jpsi_v8_1.root
 inputTree4=/data/users/ferraioc/Polarization/2012ppOniaData/r2012B_MuPk_jpsi_v8.root
 if [ ${MC} = 'true' ]
 then
-inputTree1=/scratch/ikratsch/Polarization/Jpsi/InputFiles/TTree_Psi1S_Gun_Pt9p5_70p5_19Dec2012.root
+inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/onia2MuMu_tree_validation.root
+inputTree2=
+inputTree3=
+inputTree4=
+fi
+if [ ${officialMC} = 'true' ]
+then
+inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/onia2MuMu_tree_validation.root
+#inputTree1=/data/users/ferraioc/Polarization/2011ppOniaData/TTree_Psi1S_Gun_Pt9p5_70p5_19Dec2012.root
+inputTree2=
+inputTree3=
+inputTree4=
 fi
 fi
 
@@ -83,7 +88,7 @@ then
 #inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012A_DoubMu_psi2s_v8.root
 #inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012A_MuOnia_psi2s_v8.root
 #inputTree1=/data/users/ferraioc/Polarization/2012ppOniaData/r2012B_MuOnia_psi2s_v8.root
-inputTree1=/data/users/ferraioc/TTree_Onia2MuMu_v30_PromptRecoAB_10May2012_Psi.root
+#inputTree1=/data/users/ferraioc/TTree_Onia2MuMu_v30_PromptRecoAB_10May2012_Psi.root
 if [ ${MC} = 'true' ]
 then
 inputTree1=/scratch/ikratsch/Polarization/Jpsi/InputFiles/TTree_Psi2S_Gun_Pt6p5_50p5_19Dec2012.root
@@ -147,6 +152,7 @@ cp PlotFitPar.cc ${WorkDir}/PlotFitPar.cc
 
 cp runBkgHistos.cc ${WorkDir}/runBkgHistos.cc
 cp bkgHistos.C ${WorkDir}/bkgHistos.C
+cp bkgHistos_MCclosure.C ${WorkDir}/bkgHistos_MCclosure.C
 cp calcPol.C ${WorkDir}/calcPol.C
 
 cp PlotCosThetaPhiBG.cc ${WorkDir}/PlotCosThetaPhiBG.cc
@@ -172,7 +178,7 @@ make
 inputTrees="inputTree=${inputTree1} inputTree=${inputTree2} inputTree=${inputTree3} inputTree=${inputTree4} inputTree=${inputTree5} inputTree=${inputTree6} inputTree=${inputTree7} inputTree=${inputTree8}"
 if [ ${execute_runData} -eq 1 ]
 then
-./runData ${inputTrees} rejectCowboys=${rejectCowboys} FidCuts=${FidCuts} nState=${nState} MC=${MC} RequestTrigger=${RequestTrigger}
+./runData ${inputTrees} rejectCowboys=${rejectCowboys} FidCuts=${FidCuts} nState=${nState} MC=${MC} RequestTrigger=${RequestTrigger} officialMC=${officialMC}
 fi
 
 if [ ${execute_runWorkspace} -eq 1 ]
@@ -185,14 +191,14 @@ then
 rootfile=fit_Psi$[nState-3]S_rap${rapMin}_pt${ptMin}.root
 cp tmpFiles/backupWorkSpace/fit_Psi$[nState-3]S* tmpFiles/
 cp runMassFit runMassFit_$[nState-3]S_rap${rapMin}_pt${ptMin}
-./runMassFit_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState} fitMassPR=${fitMassPR} fitMassNP=${fitMassNP}
+./runMassFit_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState} fitMassPR=${fitMassPR} fitMassNP=${fitMassNP} 
 rm runMassFit_$[nState-3]S_rap${rapMin}_pt${ptMin}
 fi
 
 if [ ${execute_runLifetimeFit} -eq 1 ]
 then
 cp runLifetimeFit runLifetimeFit_$[nState-3]S_rap${rapMin}_pt${ptMin}
-./runLifetimeFit_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState}
+./runLifetimeFit_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState} officialMC=${officialMC}
 rm runLifetimeFit_$[nState-3]S_rap${rapMin}_pt${ptMin}
 fi
 
@@ -223,7 +229,7 @@ fi
 if [ ${execute_runBkgHistos} -eq 1 ]
 then
 cp runBkgHistos runBkgHistos_$[nState-3]S_rap${rapMin}_pt${ptMin}
-./runBkgHistos_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState} MC=${MC} doCtauUncer=${doCtauUncer} PolLSB=${PolLSB} PolRSB=${PolRSB} PolNP=${PolNP} ctauScen=${ctauScen} FracLSB=${FracLSB} forceBinning=${forceBinning} folding=${folding} normApproach=${normApproach} scaleFracBg=${scaleFracBg} ${polDataPath}=polDataPath
+./runBkgHistos_$[nState-3]S_rap${rapMin}_pt${ptMin} rapMin=${rapMin} rapMax=${rapMax} ptMin=${ptMin} ptMax=${ptMax} nState=${nState} MC=${MC} doCtauUncer=${doCtauUncer} PolLSB=${PolLSB} PolRSB=${PolRSB} PolNP=${PolNP} ctauScen=${ctauScen} FracLSB=${FracLSB} forceBinning=${forceBinning} folding=${folding} normApproach=${normApproach} scaleFracBg=${scaleFracBg} ${polDataPath}=polDataPath officialMC=${officialMC}
 rm runBkgHistos_$[nState-3]S_rap${rapMin}_pt${ptMin}
 fi
 
