@@ -192,8 +192,16 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 				//(HLT_Dimuon13_Jpsi_Barrel_v1 == 1 && onia->Pt() < 13) ||
 				//(HLT_Dimuon13_Jpsi_Barrel_v4 == 1 && onia->Pt() < 13))
 				continue; */
+				
 
 		} // if Jpsi
+		
+				// if 2012 MC
+		if(muPosP_id != 1) continue;
+		if(muNegP_id != 1) continue;
+		if(muPosP_qual != 1) continue;
+		if(muNegP_qual != 1) continue;
+		
 		}
 
 		// PsiPrime trigger paths
@@ -264,11 +272,7 @@ void PolData::Loop(int nState, bool rejectCowboys, int FidCuts, bool MC, bool Re
 
 		} // if Upsilon
 
-		// if 2012 MC
-		if(muPosP_id != 1) continue;
-		if(muNegP_id != 1) continue;
-		if(muPosP_qual != 1) continue;
-		if(muNegP_qual != 1) continue;
+
 		
 		
 		// count events after trigger
