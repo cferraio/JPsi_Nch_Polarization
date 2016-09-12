@@ -59,7 +59,7 @@ void polRec(double rapdilepton_min = 1,
 	cout<<"running polRec.C ........////////"<<endl;
 	cout<<"/////////////////////////////////"<<endl;
 
-	gROOT->Reset();
+//	gROOT->Reset();
 
 	bool ForceEpsSmallerOne=false;
 
