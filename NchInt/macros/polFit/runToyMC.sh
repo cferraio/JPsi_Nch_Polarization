@@ -1,10 +1,12 @@
 #!/bin/sh
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/thisroot.sh                                     
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/5.34.05/x86_64-slc5-gcc43-opt/root/bin/setxrd.sh /cvmfs/sft.cern.ch/lcg/external/xrootd/3.2.4/x86_64-slc5-gcc46-opt/
 
 ########## INPUTS ##########
 
 nState=4
 
-JobID=ToyMC_Psi$[nState-3]S_13Dec2012
+JobID=ToyMC_Psi$[nState-3]S_14July2016
 
 #nGenerations=50
 nGenerations=1
@@ -19,7 +21,7 @@ polScenBkg=3
 frameSig=1
 frameBkg=1
 
-nEff=105 #MC-truth
+nEff=1101 #MC-truth
 UseMCeff=true
 nDileptonEff=1
 UseMCDileptoneff=true
@@ -27,7 +29,7 @@ nRhoFactor=1
 
 useAmapApproach=false       #if false, the next two lines do not matter
 nAmap=32104                 #frame/state/sigma/ID ( ID= 2 digits )
-nDenominatorAmap=105 		    #the number here corresponds to the same notation as nEff
+nDenominatorAmap=1101 		    #the number here corresponds to the same notation as nEff
  
 FidCuts=11
 
@@ -35,8 +37,8 @@ nSample=10000
 nSkipGen=0
 
 #GENERATION SETTINGS
-ConstEvents=50000
-UseConstEv=false #if false, the number of events is taken from ToyMC.h
+ConstEvents=200000
+UseConstEv=true #if false, the number of events is taken from ToyMC.h
 
 UseDifferingEff=false #if false, the next five lines do not matter
 nEffRec=1060 #1101
@@ -64,8 +66,8 @@ cd ..
 cd ..
 basedir=$PWD
 cd macros/polFit
-#storagedir=`more storagedir`/ToyMC #please define the directory storagedir in the file macros/polFit/storagedir
-storagedir=${basedir}/Psi/ToyMC
+storagedir=`more storagedir`/ToyMC #please define the directory storagedir in the file macros/polFit/storagedir
+#storagedir=${basedir}/Psi/ToyMC
 
 ScenDir=Sig_frame${frameSig}scen${polScenSig}_Bkg_frame${frameBkg}scen${polScenBkg}
 

@@ -2,8 +2,8 @@ universe = vanilla
 Executable = runDataFitsJob.sh
 should_transfer_files = NO
 notification = never
-Output = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/macros/polFit/logs/simple_$(cluster)_$(process).stdout
-Error  = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/macros/polFit/logs/simple_$(cluster)_$(process).stderr
-Log    = /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/macros/polFit/logs/simple_$(cluster)_$(process).condor
+Output = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchInt/macros/polFit/logs/simple_$(cluster)_$(process).stdout
+Error  = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchInt/macros/polFit/logs/simple_$(cluster)_$(process).stderr
+Log    = /home/ferraioc/PolNew/CMSSW_5_3_20/src/JPsi_Nch_Polarization/NchInt/macros/polFit/logs/simple_$(cluster)_$(process).condor
 
-Arguments = simple_$(cluster) $(process) /data/users/ferraioc/Polarization/JPsi/Data /home/ferraioc/Polarization/CMSSW_4_4_2/src/JPsi/macros/polFit
+Arguments = 
